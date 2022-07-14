@@ -19,11 +19,13 @@ function MyApp({ Component, pageProps }) {
          // oauth access_token from pf server
          setAccessToken(resJson.access_token);
       };
-      fetchToken();
+      // fetchToken();
       // Run on mount
    }, []);
+
    return (
       <div>
+         {/* Oauth token global, any component can make API request. */}
          <PetFinderAuthContext.Provider value={accessToken}>
             <Layout>
                <Component {...pageProps} />

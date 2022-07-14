@@ -19,3 +19,9 @@
 .nav ul li a {
    margin: 5px 15px;
 }
+
+.logo{
+   height: 3.5em;
+   width: fit-content;
+   bottom: 10em;
+}

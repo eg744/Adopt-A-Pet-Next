@@ -1,6 +1,7 @@
 import { petFinderAPIKey, petFinderSecretKey } from '../../api-keys';
 
 // Recieve oauth token
+// Structure "grant_type=client_credentials&client_id={CLIENT-ID}&client_secret={CLIENT-SECRET}" https://api.petfinder.com/v2/oauth2/token
 export default async (req, res) => {
    const params = new URLSearchParams();
    params.append('grant_type', 'client_credentials');
