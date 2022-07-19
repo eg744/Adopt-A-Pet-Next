@@ -12,7 +12,9 @@
   align-items: center;
 }
 
-
+.featured > li{
+  list-style: none;
+}
 
 .title a {
   color: #0070f3;

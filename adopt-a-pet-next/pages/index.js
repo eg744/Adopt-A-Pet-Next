@@ -11,7 +11,7 @@ export default function Home({ articles }) {
 		// <div className={styles.container}>
 		<div className={homeStyles.container}>
 			<Head>
-				<title>Adopt-A-Pet </title>
+				<title>AdoptAPet </title>
 				<meta
 					name="keywords"
 					content="pet adoption, adopt-a-pet, petfinder"
@@ -22,7 +22,7 @@ export default function Home({ articles }) {
 			</Head>
 
 			<h1>Featured Animals</h1>
-			<ul>
+			<ul className={homeStyles.featured}>
 				<li>Dog</li>
 				<li>Cat</li>
 				<li>Other</li>

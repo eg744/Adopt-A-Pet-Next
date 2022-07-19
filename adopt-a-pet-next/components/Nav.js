@@ -22,7 +22,7 @@ const Nav = () => {
 					<Link href="/about">About</Link>
 				</li>
 				<li>
-					<Link href="/animalHome">Animals</Link>
+					<Link href="/animalIndex">Animals</Link>
 				</li>
 				<li>
 					<Link href="/about">Breeds</Link>
