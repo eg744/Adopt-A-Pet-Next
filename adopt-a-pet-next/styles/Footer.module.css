@@ -15,3 +15,8 @@
     align-items: center;
     flex-grow: 1;
 }
+.logo{
+    font-size: 1rem;
+    height: 6em;
+    width: fit-content;
+}

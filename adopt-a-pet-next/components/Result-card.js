@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import cardStyles from '../ResultGrid.module.css';
+import cardStyles from '../styles/ResultGrid.module.css';
 
 const Card = (props) => {
 	// Retrieved data
@@ -9,7 +9,7 @@ const Card = (props) => {
 	return (
 		<div className={cardStyles.card}>
 			<a href={result.url}>
-				<div></div>
+				<div>{result.id}</div>
 			</a>
 		</div>
 	);

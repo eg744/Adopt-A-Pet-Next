@@ -12,6 +12,7 @@ const Nav = () => {
 					<img
 						className={navStyles.logo}
 						src="\assets\adoptapetLogo.png"
+						alt="Adopt A Pet Logo"
 					></img>
 				</a>
 

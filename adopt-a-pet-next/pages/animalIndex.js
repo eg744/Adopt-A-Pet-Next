@@ -8,7 +8,7 @@ const animalIndex = () => {
 	// Temp location (zip)
 	const location = '90210';
 
-	// State for recieved animals
+	// Set, update state for recieved animals
 	const [results, setResults] = useState(null);
 
 	// Current recieved access token
@@ -33,15 +33,13 @@ const animalIndex = () => {
 			setResults(animalDataJson.animals);
 		};
 		fetchAnimals();
+		// Update when token changes
 	}, [token]);
 	if (results === null) return null;
 
 	return (
 		<div>
-			<Head>
-				<title>Animal index page</title>
-			</Head>
-			<h1>animal index page</h1>
+			<Resultpage results={results} />
 		</div>
 	);
 };

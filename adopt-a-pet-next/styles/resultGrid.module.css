@@ -1,8 +1,16 @@
 .resultsGrid {
     display: grid;
-    gap: 1.5rem;
-    
+    gap: 2rem;
+    padding-block: 1rem;
+    width: min(95%, 70rem);
+    margin-inline: auto;
+    /* grid-template-columns: repeat(4, 1fr); */
+}
 
+@media (min-width: 50em){
+    .resultsGrid{
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 .card {

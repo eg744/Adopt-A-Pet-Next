@@ -5,12 +5,16 @@ import ArticleItem from './ArticleItem.js';
 
 // Articles prop from api call in index.js
 const ArticleList = ({ articles }) => {
-   const articleItems = articles.map((article) => (
-      <ArticleItem key={article.id.toString()} article={article} />
-   ));
-   /* Contain with () Not {} when using .map here */
+	const articleItems = articles.map((article) => (
+		<ArticleItem key={article.id.toString()} article={article} />
+	));
+	/* Contain with () Not {} when using .map here */
 
-   return <div className={articleStyles.grid}>{articleItems}</div>;
+	return <div className={articleStyles.grid}>{articleItems}</div>;
 };
 
 export default ArticleList;
+
+// const AnimalList = (props) =>{
+
+// }
