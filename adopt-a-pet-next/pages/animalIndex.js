@@ -29,7 +29,7 @@ const animalIndex = () => {
 				}
 			);
 			const animalDataJson = await animalData.json();
-			console.log(animalDataJson);
+			console.log('animalindex', animalDataJson);
 			setResults(animalDataJson.animals);
 		};
 		fetchAnimals();
