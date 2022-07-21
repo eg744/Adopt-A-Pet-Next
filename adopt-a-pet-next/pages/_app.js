@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
 
 			const resJson = await res.json();
 
-			console.log(resJson);
+			console.log('app_js ', resJson);
 
 			// update oauth access_token from pf server
 			setAccessToken(resJson.access_token);
