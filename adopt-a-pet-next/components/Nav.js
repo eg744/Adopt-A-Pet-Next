@@ -7,7 +7,7 @@ import navStyles from '../styles/Nav.module.css';
 const Nav = () => {
 	return (
 		<nav className={navStyles.nav}>
-			<ul>
+			<ul className={navStyles.nav_items}>
 				<a href="/">
 					<img
 						className={navStyles.logo}
