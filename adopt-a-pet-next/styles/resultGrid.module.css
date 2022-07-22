@@ -42,3 +42,15 @@
     font-size: 1.25rem;
     line-height: 1.5;
 }
+
+.image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(231, 238, 243);
+}
+
+/* .image-none{
+
+} */
