@@ -1,17 +1,16 @@
 import Head from 'next/head';
-// import Image from 'next/image';
+import Image from 'next/image';
 import homeStyles from '../styles/Home.module.css';
 // import ArticleList from '../components/ArticleList';
+import adoptapetHeroBanner from '../public/assets/adoptapetHeroBanner.png';
 
-// Pages are react components. Created components folder for non page components
-
-// Articles passed from api call
-export default function Home({ articles }) {
+// Props passed from api call
+export default function Home({ props }) {
 	return (
 		// <div className={styles.container}>
 		<div className={homeStyles.container}>
 			<Head>
-				<title>AdoptAPet </title>
+				<title>Adopt-A-Pet </title>
 				<meta
 					name="keywords"
 					content="pet adoption, adopt-a-pet, petfinder"
@@ -20,8 +19,10 @@ export default function Home({ articles }) {
 
 				{/* <link rel="icon" href="/assets/adoptapetLogo.png" />  */}
 			</Head>
+			<Image src={adoptapetHeroBanner} />
 
-			<h1>Featured Animals</h1>
+			<h1 className={homeStyles.headline}></h1>
+			<h2>Featured Animals</h2>
 			<ul className={homeStyles.featured}>
 				<li>Dog</li>
 				<li>Cat</li>

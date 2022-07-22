@@ -21,14 +21,14 @@
 
 .nav_items{
    display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-evenly;
-      background: #000;
-      color: #fff;
-      height: 100%;
-      width: 100%;
-      margin: 0 auto;
+   flex-direction: row;
+   align-items: center;      
+   justify-content: space-evenly;
+   background: #000;
+   color: #fff;
+   height: 100%;
+   width: 100%;
+   margin: 0 auto;
 }
 
 /* .nav_items{
@@ -41,14 +41,10 @@
 } */
 
 .nav ul {
-   
-   
-   /* text-align: left; */
-   
    list-style: none;
    padding: 0;
    margin: 0;
-   outline: 1px solid red; 
+   /* outline: 1px solid red;  */
    
 }
 

@@ -10,10 +10,9 @@ const Layout = ({ children }) => {
 		<div>
 			{/* Navbar component */}
 			<Nav />
-			{/* Classname allows for styling */}
 			<div className={layoutStyles.container}>
 				<main className={layoutStyles.main}>
-					<Header />
+					{/* <Header /> unsure about header */}
 					{/* Page content */}
 					{children}
 				</main>
