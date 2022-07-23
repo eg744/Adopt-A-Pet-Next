@@ -19,7 +19,16 @@ export default function Home({ props }) {
 
 				{/* <link rel="icon" href="/assets/adoptapetLogo.png" />  */}
 			</Head>
-			<Image src={adoptapetHeroBanner} />
+			<div className={homeStyles.image_holder}>
+				<Image
+					className={homeStyles.banner_image}
+					src={adoptapetHeroBanner}
+					layout="fill"
+					// Replace with blurred image while loading
+					// placeholder="blur"
+					alt="Dog and Cat lying next to each other."
+				/>
+			</div>
 
 			<h1 className={homeStyles.headline}></h1>
 			<h2>Featured Animals</h2>
