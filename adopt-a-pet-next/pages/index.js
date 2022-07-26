@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import homeStyles from '../styles/Home.module.css';
+import Header from './components/Header';
+
 // import ArticleList from '../components/ArticleList';
 import adoptapetHeroBanner from '../public/assets/adoptapetHeroBanner.png';
 
@@ -19,6 +21,7 @@ export default function Home({ props }) {
 
 				{/* <link rel="icon" href="/assets/adoptapetLogo.png" />  */}
 			</Head>
+			<Header />
 			<div className={homeStyles.image_holder}>
 				<Image
 					className={homeStyles.banner_image}

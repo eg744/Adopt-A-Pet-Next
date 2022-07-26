@@ -1,4 +1,4 @@
-import cardStyles from '../styles/ResultGrid.module.css';
+import cardStyles from '/styles/ResultGrid.module.css';
 import Image from 'next/image';
 
 const AnimalImage = (props) => {
