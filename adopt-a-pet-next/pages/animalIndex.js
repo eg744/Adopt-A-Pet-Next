@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from 'react';
-import Head from 'next/head';
 
 import Resultpage from '/components/Result-page';
 import { PetFinderAuthContext } from './_app';
