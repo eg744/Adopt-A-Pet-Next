@@ -9,7 +9,7 @@ body {
    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
-   background-color: rgb(231, 238, 243);
+   background: linear-gradient( rgb(231, 238, 243), rgb(203, 203, 216)) ;
 }
 
 a {

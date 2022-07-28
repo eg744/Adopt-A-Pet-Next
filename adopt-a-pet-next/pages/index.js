@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import homeStyles from '../styles/Home.module.css';
+import IndexHero from '../components/indexComponents/IndexHero.js';
+
 // import ArticleList from '../components/ArticleList';
-import adoptapetHeroBanner from '../public/assets/adoptapetHeroBanner.png';
 
 // Props passed from api call
 export default function Home({ props }) {
@@ -16,10 +17,8 @@ export default function Home({ props }) {
 					content="pet adoption, adopt-a-pet, petfinder"
 				/>
 				<link rel="icon" href="\assets\aapTitleLogoTransparent.png" />
-
-				{/* <link rel="icon" href="/assets/adoptapetLogo.png" />  */}
 			</Head>
-			<Image src={adoptapetHeroBanner} />
+			<IndexHero />
 
 			<h1 className={homeStyles.headline}></h1>
 			<h2>Featured Animals</h2>

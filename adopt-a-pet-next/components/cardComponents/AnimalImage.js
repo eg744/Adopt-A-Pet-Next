@@ -1,4 +1,4 @@
-import cardStyles from '../styles/ResultGrid.module.css';
+import cardStyles from '/styles/ResultGrid.module.css';
 import Image from 'next/image';
 
 const AnimalImage = (props) => {
@@ -8,7 +8,12 @@ const AnimalImage = (props) => {
 	if (result.photos[0] && result.photos[0].full) {
 		return (
 			<div className={cardStyles.image}>
-				<Image src={result.photos[0].full} width="300" height="300" />
+				<Image
+					src={result.photos[0].full}
+					width={300}
+					height={300}
+					alt="A cute animal for adoption"
+				/>
 			</div>
 		);
 	} else {
