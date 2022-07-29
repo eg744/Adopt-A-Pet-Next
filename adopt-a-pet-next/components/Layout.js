@@ -1,5 +1,5 @@
 import layoutStyles from '../styles/Layout.module.css';
-import Nav from './Nav';
+import Nav from './Navbar/Nav.js';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
