@@ -35,8 +35,6 @@ const BGImage = () => {
 	}, []);
 
 	if (width && height) {
-		console.log(width);
-
 		return (
 			<Image
 				className={homeStyles.banner_image}
@@ -45,8 +43,6 @@ const BGImage = () => {
 				objectFit="cover"
 				objectPosition="center"
 				sizes="50vw"
-				// width={width}
-				// height={height}
 				quality={100}
 				// Replace with blurred image while loading
 				// placeholder="blur"

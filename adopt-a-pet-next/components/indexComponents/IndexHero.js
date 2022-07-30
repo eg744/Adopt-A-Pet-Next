@@ -11,7 +11,7 @@ const IndexHero = () => {
 		setScrollOffSetY(window.pageYOffset);
 	};
 
-	useState(() => {
+	useEffect(() => {
 		window.addEventListener('scroll', setScrollOffSetY);
 
 		// Clean up listener
@@ -19,9 +19,9 @@ const IndexHero = () => {
 	}, []);
 	return (
 		<div>
-			<section className={homeStyles.home_hero}>
-				<Header />
+			<Header />
 
+			<section className={homeStyles.home_hero}>
 				<h1 className={homeStyles.landing_text}>
 					Search for an animal
 				</h1>
