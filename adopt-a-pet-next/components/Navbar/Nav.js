@@ -15,7 +15,6 @@ const Nav = () => {
 				alt="Adopt A Pet Logo"
 			></img>
 			<HamburgerMenu />
-			<NavItems />
 
 			{/* <ul className={navStyles.nav_items}>
 				<a href="/">

@@ -55,14 +55,16 @@
 
 .home_hero {
   z-index: 1;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 85%;
   position: absolute;
   background-attachment: local;
   justify-content:center;
   align-items: center;
    background-size: cover;
    background-position: center;
+  outline: 1px solid red;
+  overflow: hidden;
 
 }
 

@@ -78,29 +78,6 @@
    padding: 18px;
 }
 
-.hamburger{
-   width: 2rem;
-   height: 2rem;
-   position: fixed;
-   top: 15px;
-   right: 20px;
-
-   display: flex;
-   justify-content: space-around;
-   flex-flow: column nowrap;
-
-   list-style: none;
-   cursor: pointer;
-
-}
-.hamburger div{
-   width: 2rem;
-   height: .25rem;
-   background-color: #333;
-   border-radius: 10px;   
-   
-}
-
 
 @media(max-width: 768px) {
    .nav ul{
