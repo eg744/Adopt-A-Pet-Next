@@ -22,11 +22,15 @@ const IndexHero = () => {
 			<Header />
 
 			<section className={homeStyles.home_hero}>
-				<h1 className={homeStyles.landing_text}>
-					Search for an animal
-				</h1>
+				<input
+					className={homeStyles.home_input_field}
+					type="text"
+					placeholder="Search for an animal"
+					autoComplete="off"
+					spellCheck="false"
+				></input>
+				<BGImage />
 			</section>
-			<BGImage />
 		</div>
 	);
 };
