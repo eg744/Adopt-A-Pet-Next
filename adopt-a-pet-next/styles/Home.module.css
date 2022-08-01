@@ -56,15 +56,15 @@
 .home_hero {
   z-index: 1;
   width: 90%;
-  height: 85%;
-  position: absolute;
+  height: 80%;
+  position: relative;
   background-attachment: local;
   justify-content:center;
   align-items: center;
-   background-size: cover;
+   /* background-size: cover; */
    background-position: center;
   outline: 1px solid red;
-  overflow: hidden;
+  /* overflow: hidden; */
 
 }
 
@@ -103,8 +103,18 @@
   flex-wrap: wrap;
   max-width: 800px;
 }
-.landing_text{
-  z-index: 1;
+
+.home_input_field{
+  background-color: rgba(41, 17, 85, 0.75);
+  border: 1px solid #000;
+  border-radius: 0.5em;
+  box-shadow: inset 3px #000;
+  height: 60px;
+  width: inherit;
+  position: absolute;
+
+  
+  z-index: 2;
 }
 
 

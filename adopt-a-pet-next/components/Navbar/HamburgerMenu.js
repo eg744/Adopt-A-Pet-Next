@@ -62,7 +62,9 @@ import NavItems from './NavItems.js';
 // 		</HamburgerBarStyled>
 // 	);
 // };
-const StyledBurger = styled.div`
+
+// styled-components
+const StyledBurgerMenu = styled.div`
 	width: 2rem;
 	height: 2rem;
 	position: fixed;
@@ -70,6 +72,7 @@ const StyledBurger = styled.div`
 	right: 20px;
 	z-index: 99;
 	display: none;
+	cursor: pointer;
 	@media (max-width: 768px) {
 		display: flex;
 		justify-content: space-around;
@@ -77,9 +80,10 @@ const StyledBurger = styled.div`
 	}
 	div {
 		width: 2rem;
-		height: 0.25rem;
-		background-color: ${({ open }) => (open ? '#ccc' : '#333')};
+		height: 0.35rem;
+		background-color: ${({ open }) => (open ? '#C16C68' : '#777')};
 		border-radius: 10px;
+		border: 1px solid black;
 		transform-origin: 1px;
 		transition: all 0.3s linear;
 		&:nth-child(1) {
@@ -96,20 +100,19 @@ const StyledBurger = styled.div`
 	}
 `;
 
-const Burger = () => {
+const HamburgerMenu = () => {
 	const [open, setOpen] = useState(false);
 
 	return (
 		<>
-			<StyledBurger open={open} onClick={() => setOpen(!open)}>
+			<StyledBurgerMenu open={open} onClick={() => setOpen(!open)}>
 				<div />
 				<div />
 				<div />
-			</StyledBurger>
+			</StyledBurgerMenu>
 			<NavItems open={open} />
 		</>
 	);
 };
 
-export default Burger;
-// export default HamburgerMenu;
+export default HamburgerMenu;
