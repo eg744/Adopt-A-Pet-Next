@@ -4,7 +4,7 @@ import BGImage from '../imgComponents/BGImage.js';
 import Header from '../Header.js';
 import InputField from '../InputField.js';
 
-const IndexHero = () => {
+const IndexHero = ({ animals }) => {
 	const [scrollOffsetY, setScrollOffSetY] = useState(0);
 
 	// Function in declaration here to be able to remove on unmount

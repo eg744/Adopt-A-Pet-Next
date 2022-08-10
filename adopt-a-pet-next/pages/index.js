@@ -3,41 +3,51 @@ import Image from 'next/image';
 import homeStyles from '../styles/Home.module.css';
 import IndexHero from '../components/indexComponents/IndexHero.js';
 import { PetFinderAuthContext } from './_app';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, createContext, useEffect } from 'react';
 
 export default function Home() {
 	// Set, update state for recieved animals
 	const [results, setResults] = useState(null);
 
+	const [isLoading, setIsLoading] = useState(true);
+
 	// Current recieved access token
 	const token = useContext(PetFinderAuthContext);
 
-	const pfurls = {
-		default: 'https://api.petfinder.com/v2/animals',
+	const pfUrls = {
+		base: 'https://api.petfinder.com/v2/',
+
+		animals: 'https://api.petfinder.com/v2/animals',
+
 		dogs: 'https://api.petfinder.com/v2/animals?type=dog',
 	};
 
 	useEffect(() => {
-		// Validate token
 		if (token === null) return;
+		try {
+			const fetchAnimals = async () => {
+				const animalData = await fetch(
+					// request structure: "Authorization: Bearer {YOUR_ACCESS_TOKEN}" GET https://api.petfinder.com/v2/{CATEGORY}/{ACTION}?{parameter_1}={value_1}&{parameter_2}={value_2}
+					// https://www.petfinder.com/developers/v2/docs/#request-structure
 
-		const fetchAnimals = async () => {
-			const animalData = await fetch(
-				// request structure: "Authorization: Bearer {YOUR_ACCESS_TOKEN}" GET https://api.petfinder.com/v2/{CATEGORY}/{ACTION}?{parameter_1}={value_1}&{parameter_2}={value_2}
-				// https://www.petfinder.com/developers/v2/docs/#request-structure
+					`${pfUrls.animals}`,
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+				const animalDataJson = await animalData.json();
+				setResults(animalDataJson.animals);
+			};
 
-				`${pfurls.default}`,
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
-			const animalDataJson = await animalData.json();
-			setResults(animalDataJson.animals);
-		};
+			fetchAnimals();
+		} catch (event) {
+			//
+		} finally {
+			setIsLoading(false);
+		}
 
-		fetchAnimals();
 		// Update when token changes
 	}, [token]);
 

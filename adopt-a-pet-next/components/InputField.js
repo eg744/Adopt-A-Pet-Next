@@ -1,7 +1,10 @@
 import React, { Component, useState } from 'react';
+import Link from 'next/link';
 
 // https://reactjs.org/docs/forms.html
 // https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+
+// https://stackoverflow.com/questions/43862600/how-can-i-get-query-string-parameters-from-the-url-in-next-js
 
 class InputField extends Component {
 	constructor(props) {
@@ -32,6 +35,7 @@ class InputField extends Component {
 			location: event.target.value,
 		});
 	};
+	// May link to animalindex, pass props to grid from here. not sure yet
 
 	render() {
 		const { animal, location, attributes } = this.state;
@@ -72,7 +76,16 @@ class InputField extends Component {
 						<option value="male">male</option>
 					</select>
 				</div> */}
-				<button type="submit">Submit</button>
+				<Link
+					type="submit"
+					href={{
+						pathname: '/animals',
+						query: animal, // the data
+					}}
+				>
+					<button>Go to animal Page</button>
+				</Link>
+				{/* using link instead <button type="submit">Submit</button> */}
 			</form>
 		);
 	}

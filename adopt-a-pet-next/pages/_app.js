@@ -45,14 +45,4 @@ const MyApp = ({ Component, pageProps }) => {
 	);
 };
 
-// add if using getInitialProps
-// MyApp.getInitialProps = async (appContext) => {
-// 	let appProps = {};
-// 	if (appContext.Component.getInitialProps) {
-// 		appProps = await appContext.Component.getInitialProps(appContext);
-// 	}
-
-// 	return { ...appProps };
-// };
-
 export default MyApp;

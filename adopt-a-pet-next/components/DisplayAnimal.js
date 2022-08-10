@@ -5,7 +5,7 @@ import { useState, useContext, useEffect } from 'react';
 import Resultpage from '/components/Result-page';
 import { PetFinderAuthContext } from './_app';
 
-// This function allows for api calls using the authcontext, does not use getStatic/getServerside props
+// This function allows for api calls using the authcontext, state, useEffect. Does not use getStatic/getServerside props
 const displayAnimal = () => {
 	// Set, update state for recieved animals
 	const [results, setResults] = useState(null);
