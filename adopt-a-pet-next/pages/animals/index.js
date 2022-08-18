@@ -11,6 +11,7 @@ function AnimalIndex() {
 	// might want to think about this https://stackoverflow.com/questions/64399034/how-can-i-reuse-the-api-data-for-all-the-pages-in-react-js
 
 	// look at this to reuse api call https://stackoverflow.com/questions/70116072/react-js-creating-a-reusable-component-to-get-api-data
+	// https://dev.to/rikurouvila/clean-and-reusable-data-fetching-in-react-components-165
 	const petParams = new URLSearchParams();
 	petParams.append('type', 'dog');
 	petParams.append('breed', 'pug');
@@ -68,8 +69,6 @@ function AnimalIndex() {
 		} finally {
 			setIsloading(false);
 		}
-
-		// Update when token changes
 	}, [token]);
 
 	if (results === null) return null;

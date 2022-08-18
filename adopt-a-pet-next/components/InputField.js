@@ -1,5 +1,6 @@
 import React, { Component, useState } from 'react';
 import Link from 'next/link';
+import Select from 'react-select';
 
 // https://reactjs.org/docs/forms.html
 // https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
@@ -42,6 +43,7 @@ class InputField extends Component {
 
 		return (
 			<form onSubmit={this.handleSubmit}>
+				{/* <Select options={petTypeArray} />; */}
 				<div>
 					<label htmlFor="animal" name="animal">
 						Search for an animal

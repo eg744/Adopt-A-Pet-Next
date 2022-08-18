@@ -1,9 +1,11 @@
 
 
 .card {
+  display: flex;
+  flex-direction: column;
     margin: 1rem;
     padding: 1.5rem;
-    text-align: left;
+    text-align:center;
     color: inherit;
     text-decoration: none;
     border: 1px solid #eaeaea;
@@ -31,4 +33,13 @@
     font-size: 1.25rem;
     line-height: 1.5;
   }
-  
+
+  .name{
+    display: flex;
+    align-items: flex-end;
+    align-self: center;
+      text-align: center;
+      bottom: 0;
+      width: auto;
+    
+  }

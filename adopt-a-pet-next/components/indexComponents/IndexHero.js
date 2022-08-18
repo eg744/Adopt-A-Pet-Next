@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import homeStyles from '../../styles/Home.module.css';
 import BGImage from '../imgComponents/BGImage.js';
 import Header from '../Header.js';
-import InputField from '../InputField.js';
 
 const IndexHero = ({ animals }) => {
 	const [scrollOffsetY, setScrollOffSetY] = useState(0);
@@ -23,7 +22,6 @@ const IndexHero = ({ animals }) => {
 			<Header />
 
 			<section className={homeStyles.home_hero}>
-				<InputField className={homeStyles.home_input_field} />
 				<BGImage />
 			</section>
 		</div>
