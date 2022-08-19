@@ -55,7 +55,7 @@ const NavItems = ({ open }) => {
 				<Link href="/about">About</Link>
 			</li>
 			<li>
-				<Link href="/animalIndex">Animals</Link>
+				<Link href="/animals">Animals</Link>
 			</li>
 			<li>
 				<Link href="/about">Breeds</Link>

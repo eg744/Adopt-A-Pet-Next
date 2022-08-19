@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import homeStyles from '../../styles/Home.module.css';
 import BGImage from '../imgComponents/BGImage.js';
 import Header from '../Header.js';
-import InputField from '../InputField.js';
 
-const IndexHero = () => {
+const IndexHero = ({ animals }) => {
 	const [scrollOffsetY, setScrollOffSetY] = useState(0);
 
 	// Function in declaration here to be able to remove on unmount
@@ -23,7 +22,6 @@ const IndexHero = () => {
 			<Header />
 
 			<section className={homeStyles.home_hero}>
-				<InputField className={homeStyles.home_input_field} />
 				<BGImage />
 			</section>
 		</div>

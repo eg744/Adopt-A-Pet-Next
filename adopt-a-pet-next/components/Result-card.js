@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 
-import cardStyles from '../styles/ResultGrid.module.css';
+import cardStyles from '../styles/Card.module.css';
 
-import htmlDecode from './cardComponents/htmlDecoder.js';
+import htmlDecode from './cardComponents/HtmlDecoder.js';
 
 import AnimalImage from './cardComponents/AnimalImage.js';
+
+import Link from 'next/link';
 
 const Card = (props) => {
 	// Retrieved data
@@ -12,7 +14,7 @@ const Card = (props) => {
 
 	return (
 		<div className={cardStyles.card}>
-			<a href={result.url}>{/* <div>{result.id}</div> */}</a>
+			<a href={result.url}></a>
 			<AnimalImage result={result} />
 			<p>{result.name}</p>
 			<div

@@ -4,11 +4,9 @@ import Image from 'next/image';
 
 import navStyles from '../../styles/Nav.module.css';
 import React, { useState } from 'react';
-import NavItems from './NavItems';
 import HamburgerMenu from './HamburgerMenu';
 
 const Nav = () => {
-	const [mobileMenuToggle, setMobileMenuToggle] = useState(false);
 	return (
 		<nav className={navStyles.nav}>
 			<Link href="/">
@@ -23,23 +21,8 @@ const Nav = () => {
 					/>
 				</a>
 			</Link>
-			{/* <img
-				className={navStyles.logo}
-				src="\assets\adoptapetLogo.png"
-				alt="Adopt A Pet Logo"
-			></img> */}
 
 			<HamburgerMenu />
-
-			{/* <ul className={navStyles.nav_items}>
-			<a href="/">
-					<img
-						className={navStyles.logo}
-						src="\assets\adoptapetLogo.png"
-						alt="Adopt A Pet Logo"
-					></img>
-				</a>
-			</ul> */}
 		</nav>
 	);
 };
