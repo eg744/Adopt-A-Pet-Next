@@ -34,20 +34,19 @@ const FeaturedPets = (props) => {
 	// Retrieved data
 	const { result } = props;
 	console.log('card', result);
-	if (result.photos[0] && result.photos[0].full && result.name) {
-		return (
-			<div className={cardStyles.card}>
-				<a href={result.url}></a>
-				<AnimalImage result={result} />
-				<p className={cardStyles.name}>{result.name}</p>
-				{/* <div
+
+	return (
+		<div className={cardStyles.card}>
+			<a href={result.url}></a>
+			<AnimalImage result={result} />
+			<p className={cardStyles.name}>{result.name}</p>
+			{/* <div
 				dangerouslySetInnerHTML={{
 					__html: htmlDecode(result.description),
 				}}
 			></div> */}
-			</div>
-		);
-	}
+		</div>
+	);
 };
 
 export default FeaturedPets;

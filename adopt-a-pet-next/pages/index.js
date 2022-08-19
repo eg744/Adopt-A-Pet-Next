@@ -8,6 +8,8 @@ import InputField from '../components/InputField';
 import { Pet } from '../helperClasses/petClass';
 import FeaturedPets from '../components/FeaturedPets';
 import Select from 'react-select';
+import Carousel from '../components/carouselComponents/Carousel';
+
 import ResultCard from '../components/Result-card';
 
 import { petfinderUrls } from '../URLs/petfinderurls';
@@ -109,18 +111,13 @@ export default function Home() {
 			<InputField className={homeStyles.home_input_field} />
 			<h1 className={homeStyles.headline}></h1>
 			<h2>Featured Animals</h2>
-			{results.map((result) => {
-				// console.log(result);
+			{/*  */}
+			<Carousel results={results} />
+			{/* {results.map((result) => {
 
-				return <FeaturedPets key={result.id} result={result} />;
-			})}
-
+				// return <FeaturedPets key={result.id} result={result} />;
+			})} */}
 			<ul className={homeStyles.featured}>
-				{/* {results.map((result) => {
-					// console.log(result);
-					return <li>{result.name}</li>;
-				})} */}
-
 				<li>Dog</li>
 				<li>Cat</li>
 				<li>Other</li>

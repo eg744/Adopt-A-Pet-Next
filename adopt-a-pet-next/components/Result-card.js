@@ -11,7 +11,6 @@ import Link from 'next/link';
 const Card = (props) => {
 	// Retrieved data
 	const { result } = props;
-	console.log('card', result);
 
 	return (
 		<div className={cardStyles.card}>
