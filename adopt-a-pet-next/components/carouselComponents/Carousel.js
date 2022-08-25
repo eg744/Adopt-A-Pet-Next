@@ -7,7 +7,12 @@ const Carousel = ({ results }) => {
 
 	let myAnimals = [];
 	results.map((result) => {
-		if (result.photos[0] && result.photos[0].full && result.name) {
+		if (
+			result.photos[0] &&
+			result.photos[0].full &&
+			result.name &&
+			result.url
+		) {
 			myAnimals.push(result);
 		}
 	});
@@ -58,7 +63,6 @@ const Carousel = ({ results }) => {
 					</div>
 					{/* Passing/rendering single animal in validated array */}
 					<FeaturedPets result={myAnimals[currentIndex]} />
-					<FeaturedPets result={myAnimals[currentIndex + 1]} />
 				</div>
 			</div>
 		</div>

@@ -4,10 +4,10 @@ import homeStyles from '../styles/Home.module.css';
 import IndexHero from '../components/indexComponents/IndexHero';
 import { PetFinderAuthContext } from './_app';
 import React, { useState, useContext, useEffect } from 'react';
-import InputField from '../components/InputField';
+
+import InputField from '../components/userInputs/AnimalInputField';
 import { Pet } from '../helperClasses/petClass';
-import FeaturedPets from '../components/FeaturedPets';
-import Select from 'react-select';
+// import FeaturedPets from '../components/FeaturedPets';
 import Carousel from '../components/carouselComponents/Carousel';
 
 import ResultCard from '../components/Result-card';
@@ -70,7 +70,7 @@ export default function Home() {
 		petTypeArray.push(pet);
 	});
 
-	// if (results && petTypesAvailable === null) return null;
+	// react select not updating correctly check this https://www.youtube.com/watch?v=KCC_Gspa7Oc
 	console.log('index results', results);
 	console.log('index types', petTypesAvailable);
 
@@ -104,11 +104,14 @@ export default function Home() {
 				<link rel="icon" href="\assets\aapTitleLogoTransparent.png" />
 			</Head>
 			<IndexHero />
-			<Select
+			{/* <Select
 				options={petTypeArray}
 				placeholder="Select animal type..."
+			/> */}
+			<InputField
+				className={homeStyles.home_input_field}
+				petTypeArray={petTypeArray}
 			/>
-			<InputField className={homeStyles.home_input_field} />
 			<h1 className={homeStyles.headline}></h1>
 			<h2>Featured Animals</h2>
 			{/*  */}
