@@ -70,7 +70,6 @@ export default function Home() {
 		petTypeArray.push(pet);
 	});
 
-	// react select not updating correctly check this https://www.youtube.com/watch?v=KCC_Gspa7Oc
 	console.log('index results', results);
 	console.log('index types', petTypesAvailable);
 
@@ -116,10 +115,6 @@ export default function Home() {
 			<h2>Featured Animals</h2>
 			{/*  */}
 			<Carousel results={results} />
-			{/* {results.map((result) => {
-
-				// return <FeaturedPets key={result.id} result={result} />;
-			})} */}
 			<ul className={homeStyles.featured}>
 				<li>Dog</li>
 				<li>Cat</li>

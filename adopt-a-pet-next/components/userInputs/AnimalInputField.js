@@ -1,52 +1,18 @@
 import React, { Component, useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
 import Select from 'react-select';
+import Async, { useAsync } from 'react-select/async';
 import { PetFinderAuthContext } from '../../pages/_app';
 import { petfinderUrls } from '../../URLs/petfinderurls';
 
 import { Pet } from '../../helperClasses/petClass';
 
-// https://reactjs.org/docs/forms.html
-// https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
-
-// https://stackoverflow.com/questions/43862600/how-can-i-get-query-string-parameters-from-the-url-in-next-js
-
-// https://www.digitalocean.com/community/tutorials/react-react-autocomplete
-
-// This is functional component now
-// class InputField extends Component {
-// constructor(props) {
-// 	super(props);
-// 	this.state = {
-// 		animal: '',
-// 		location: '',
-// 		attributes: '',
-// 	};
-// }
-
-const InputField = ({ petTypeArray }) => {
-	const initialLocationState = { state: '' };
-	const intialAnimalState = { animal: '' };
-
+const AnimalInputField = ({ petTypeArray }) => {
 	const token = useContext(PetFinderAuthContext);
 
-	const USZipcodeRegex = new RegExp(/(^\d{5}$)|(^\d{5}-\d{4}$)/);
-
-	// Possible custom error strings
-	const inputErrors = {
-		state: '',
-		zipcode: '',
-		animal: '',
-	};
-
-	const [locationState, setLocationState] = useState(initialLocationState);
-
-	const [zipcode, setZipcodeState] = useState('');
-
-	const [selectedAnimalState, setSelectedAnimalState] =
-		useState(intialAnimalState);
-
-	const [animalBreedState, setAnimalBreedState] = useState();
+	const [currentURL, setCurrentURL] = useState(
+		`${petfinderUrls.types}dog/breeds`
+	);
 
 	const [availableAnimalBreeds, setAvailableAnimalBreeds] = useState([]);
 
@@ -106,9 +72,8 @@ const InputField = ({ petTypeArray }) => {
 		setZipcodeState({ errors, [name]: value });
 	};
 
-	function getPetOptions(url) {
+	function getPetOption(url) {
 		if (token === null) return;
-
 		const fetchAnimals = async () => {
 			const animalBreeds = await fetch(url, {
 				headers: {
@@ -116,41 +81,36 @@ const InputField = ({ petTypeArray }) => {
 				},
 			});
 			const animalBreedsJson = await animalBreeds.json();
-			setAnimalBreedState(animalBreedsJson.breeds);
+			const breedsArray = [];
+			animalBreedsJson.breeds.map((breed) => {
+				breedsArray.push({
+					label: `${breed.name}`,
+					value: `${breed.name.toLowerCase()}`,
+				});
+			});
+			setAvailableAnimalBreeds(breedsArray);
 		};
 		fetchAnimals();
 	}
-	// Call once on load
-	useEffect(() => {
-		getPetOptions(`${petfinderUrls.types}dog/breeds`);
-	}, []);
 
-	const handleSelectChange = (event) => {
-		const breeds = [];
-		const breedURL = `${
-			petfinderUrls.types
-		}${event.value.toLowerCase()}/breeds`;
-		getPetOptions(breedURL);
+	function getURL(e) {
+		return `${petfinderUrls.types}${e.value.toLowerCase()}/breeds`;
+	}
+
+	const handleTypeSelectChange = (event) => {
+		// https://stackoverflow.com/questions/59226253/update-a-component-with-onchange-react-hooks
+		const breedsArray = [];
+
+		const breedURL = getURL(event);
+
+		getPetOption(breedURL);
 
 		console.log('input', event.value.toLowerCase());
-		console.log('breedstate before', animalBreedState);
 
 		// Occasionally animalbreedstate is undefined, I'm not sure why. Page reload fixes but it's not consistent.
-		if (animalBreedState) {
-			animalBreedState.map((breed) => {
-				const pet = new Pet(breed.name, breed.name);
 
-				breeds.push(pet);
-			});
-		}
-
-		setAvailableAnimalBreeds(breeds);
 		setIsSelected(true);
 	};
-	useEffect(() => {
-		console.log('breedstate after', animalBreedState);
-		console.log('finally breed', availableAnimalBreeds);
-	}, [availableAnimalBreeds]);
 
 	// May link to animalindex, pass props to grid from here. not sure yet
 	if (isSelected) {
@@ -160,86 +120,23 @@ const InputField = ({ petTypeArray }) => {
 					<Select
 						options={petTypeArray}
 						placeholder="Select animal type..."
-						onChange={handleSelectChange}
+						onChange={handleTypeSelectChange}
 					/>
 					<Select
 						options={availableAnimalBreeds}
 						placeholder="Select or type animal breed..."
 						// onChange={handleSelectChange}
 					/>
-					<div>
-						<label htmlFor="animal" name="animal">
-							Search for an animal
-						</label>
-						<input
-							type="text"
-							value={selectedAnimalState.animal}
-							onChange={handleChange}
-							id="animal"
-							placeholder="Search for an animal"
-							autoComplete="off"
-							spellCheck="false"
-						></input>
-					</div>
-					{/* <div>
-				<label htmlFor="location" name="location">
-					Location
-				</label>
-				<input
-					type="text"
-					value={locationState.state}
-					onChange={handleLocationChange}
-					placeholder="Search with location or zip"
-				></input>
-			</div> */}
 
-					{/* <div>
-					<label htmlFor="attributes" name="attributes">
-						attributes
-					</label>
-					<select value={attributes}>
-						<option value="young">Young</option>
-						<option value="male">male</option>
-					</select>
-				</div> */}
 					<Link
 						type="submit"
 						href={{
 							pathname: '/animals',
-							query: selectedAnimalState.animal, // the data
+							// query: selectedAnimalState.animal, // the data
 						}}
 					>
 						<button>Go to animal Page</button>
 					</Link>
-					{/* using link instead <button type="submit">Submit</button> */}
-				</form>
-
-				<form className="shelterform">
-					<div className="zipinput">
-						<h1>City/State Lookup Tool</h1>
-
-						<label htmlFor="zip">Type Zip Code Here </label>
-						<input
-							className="zipcode"
-							value={zipcode}
-							onChange={handleChange}
-							placeholder="XXXXX"
-							type="text"
-							name="zipcode"
-							id="zipcode"
-						/>
-
-						<label htmlFor="state">State</label>
-						<input
-							className={`state`}
-							onChange={handleChange}
-							value={locationState.state}
-							type="text"
-							name="state"
-							disabled
-							id="state"
-						/>
-					</div>
 				</form>
 			</div>
 		);
@@ -248,10 +145,10 @@ const InputField = ({ petTypeArray }) => {
 			<Select
 				options={petTypeArray}
 				placeholder="Select animal type..."
-				onChange={handleSelectChange}
+				onChange={handleTypeSelectChange}
 			/>
 		);
 	}
 };
 
-export default InputField;
+export default AnimalInputField;
