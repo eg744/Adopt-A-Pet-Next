@@ -1,7 +1,7 @@
-import React, { Component, useState, useEffect, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import Link from 'next/link';
 import Select from 'react-select';
-import Async, { useAsync } from 'react-select/async';
+import AsyncSelect from 'react-select/async';
 import { PetFinderAuthContext } from '../../pages/_app';
 import { petfinderUrls } from '../../URLs/petfinderurls';
 
@@ -13,10 +13,17 @@ const AnimalInputField = ({ petTypeArray }) => {
 	const [currentURL, setCurrentURL] = useState(
 		`${petfinderUrls.types}dog/breeds`
 	);
+	const [currentAnimalType, setCurrentAnimalType] = useState('');
 
 	const [availableAnimalBreeds, setAvailableAnimalBreeds] = useState([]);
 
 	const [isSelected, setIsSelected] = useState(false);
+
+	//
+	const [isValidSelection, setIsValidSelection] = useState(false);
+	const [queryUrl, setQueryUrl] = useState('');
+
+	const breedArray = useRef([]);
 
 	// Check for any errors, set flag
 	const inputValid = (inputErrors) => {
@@ -33,13 +40,19 @@ const AnimalInputField = ({ petTypeArray }) => {
 		// Do not reload page/submit
 		event.preventDefault();
 
-		if (inputValid(inputErrors)) {
-			console.log('submitting');
-		} else {
-			console.error('form invalid');
-		}
+		// May want these for future form inputs
+		// if (inputValid(inputErrors)) {
+		// 	console.log('submitting');
+		// } else {
+		// 	console.error('form invalid');
+		// }
 	};
 
+	const getAnimalQueryUrl = (breed) => {
+		console.log(currentAnimalType);
+
+		return `${petfinderUrls.animals}type=${currentAnimalType}&breed=${breed}`;
+	};
 	const handleChange = (event) => {
 		// event.preventDefault();
 
@@ -72,7 +85,7 @@ const AnimalInputField = ({ petTypeArray }) => {
 		setZipcodeState({ errors, [name]: value });
 	};
 
-	function getPetOption(url) {
+	const getPetOption = (url) => {
 		if (token === null) return;
 		const fetchAnimals = async () => {
 			const animalBreeds = await fetch(url, {
@@ -81,58 +94,64 @@ const AnimalInputField = ({ petTypeArray }) => {
 				},
 			});
 			const animalBreedsJson = await animalBreeds.json();
-			const breedsArray = [];
+			console.log(animalBreedsJson);
+			// const breedsArray = [];
 			animalBreedsJson.breeds.map((breed) => {
-				breedsArray.push({
+				// Select options for breed types
+				breedArray.push({
 					label: `${breed.name}`,
 					value: `${breed.name.toLowerCase()}`,
 				});
 			});
-			setAvailableAnimalBreeds(breedsArray);
+			setAvailableAnimalBreeds(breedArray);
 		};
 		fetchAnimals();
-	}
+	};
 
-	function getURL(e) {
-		return `${petfinderUrls.types}${e.value.toLowerCase()}/breeds`;
-	}
+	const getPetBreedURL = (event) => {
+		return `${petfinderUrls.types}${event.value.toLowerCase()}/breeds`;
+	};
 
 	const handleTypeSelectChange = (event) => {
-		// https://stackoverflow.com/questions/59226253/update-a-component-with-onchange-react-hooks
-		const breedsArray = [];
+		setAvailableAnimalBreeds([]);
+		setCurrentAnimalType(event.value.toLowerCase());
 
-		const breedURL = getURL(event);
-
+		const breedURL = getPetBreedURL(event);
 		getPetOption(breedURL);
 
-		console.log('input', event.value.toLowerCase());
-
-		// Occasionally animalbreedstate is undefined, I'm not sure why. Page reload fixes but it's not consistent.
+		console.log('input', currentAnimalType);
 
 		setIsSelected(true);
 	};
 
-	// May link to animalindex, pass props to grid from here. not sure yet
+	const handleBreedSelectChange = (event) => {
+		const query = getAnimalQueryUrl(event.value);
+		setQueryUrl(query);
+		console.log('query', query);
+	};
+
 	if (isSelected) {
 		return (
 			<div>
 				<form className="animalform" onSubmit={handleSubmit}>
 					<Select
+						autoFocus
+						Value={`${currentAnimalType}`}
 						options={petTypeArray}
 						placeholder="Select animal type..."
 						onChange={handleTypeSelectChange}
 					/>
 					<Select
 						options={availableAnimalBreeds}
-						placeholder="Select or type animal breed..."
-						// onChange={handleSelectChange}
+						placeholder={`Please select or search for ${currentAnimalType} breeds`}
+						onChange={handleBreedSelectChange}
 					/>
 
 					<Link
 						type="submit"
 						href={{
 							pathname: '/animals',
-							// query: selectedAnimalState.animal, // the data
+							query: { url: queryUrl },
 						}}
 					>
 						<button>Go to animal Page</button>
@@ -142,11 +161,15 @@ const AnimalInputField = ({ petTypeArray }) => {
 		);
 	} else {
 		return (
-			<Select
-				options={petTypeArray}
-				placeholder="Select animal type..."
-				onChange={handleTypeSelectChange}
-			/>
+			<div>
+				<p>What kind of animal are you looking for?</p>
+				<Select
+					defaultValue={`${currentAnimalType}`}
+					options={petTypeArray}
+					placeholder="Select animal type..."
+					onChange={handleTypeSelectChange}
+				/>
+			</div>
 		);
 	}
 };

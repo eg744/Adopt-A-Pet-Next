@@ -3,7 +3,7 @@ import Image from 'next/image';
 import homeStyles from '../styles/Home.module.css';
 import IndexHero from '../components/indexComponents/IndexHero';
 import { PetFinderAuthContext } from './_app';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 
 import InputField from '../components/userInputs/AnimalInputField';
 import { Pet } from '../helperClasses/petClass';
@@ -21,6 +21,8 @@ export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const [petTypesAvailable, setPetTypesAvailable] = useState([]);
+
+	const petTypeArray = useRef([]);
 
 	// Current recieved access token
 	const token = useContext(PetFinderAuthContext);
@@ -63,7 +65,7 @@ export default function Home() {
 
 		// Update when token changes
 	}, [token]);
-	let petTypeArray = [];
+	// let petTypeArray = [];
 	// Pet objects to pass as options in Select
 	petTypesAvailable.map((pettype) => {
 		const pet = new Pet(pettype.name, pettype.name);
@@ -103,23 +105,15 @@ export default function Home() {
 				<link rel="icon" href="\assets\aapTitleLogoTransparent.png" />
 			</Head>
 			<IndexHero />
-			{/* <Select
-				options={petTypeArray}
-				placeholder="Select animal type..."
-			/> */}
+
 			<InputField
 				className={homeStyles.home_input_field}
-				petTypeArray={petTypeArray}
+				petTypeArray={petTypeArray.current}
 			/>
 			<h1 className={homeStyles.headline}></h1>
 			<h2>Featured Animals</h2>
-			{/*  */}
+
 			<Carousel results={results} />
-			<ul className={homeStyles.featured}>
-				<li>Dog</li>
-				<li>Cat</li>
-				<li>Other</li>
-			</ul>
 		</div>
 	);
 }
