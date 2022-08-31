@@ -1,19 +1,20 @@
 import React, { useState, useContext, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Select from 'react-select';
-import AsyncSelect from 'react-select/async';
 import { PetFinderAuthContext } from '../../pages/_app';
 import { petfinderUrls } from '../../URLs/petfinderurls';
 
-import { Pet } from '../../helperClasses/petClass';
-
 const AnimalInputField = ({ petTypeArray }) => {
 	const token = useContext(PetFinderAuthContext);
+
+	// const router = useRouter();
 
 	const [currentURL, setCurrentURL] = useState(
 		`${petfinderUrls.types}dog/breeds`
 	);
 	const [currentAnimalType, setCurrentAnimalType] = useState('');
+	const [currentAnimalBreed, setCurrentAnimalBreed] = useState('');
 
 	const [availableAnimalBreeds, setAvailableAnimalBreeds] = useState([]);
 
@@ -22,8 +23,8 @@ const AnimalInputField = ({ petTypeArray }) => {
 	//
 	const [isValidSelection, setIsValidSelection] = useState(false);
 	const [queryUrl, setQueryUrl] = useState('');
-
-	const breedArray = useRef([]);
+	// unsure about useref
+	// const breedArray = useRef([]);
 
 	// Check for any errors, set flag
 	const inputValid = (inputErrors) => {
@@ -39,6 +40,8 @@ const AnimalInputField = ({ petTypeArray }) => {
 	const handleSubmit = (event) => {
 		// Do not reload page/submit
 		event.preventDefault();
+		console.log('breed', currentAnimalBreed);
+		console.log('type', currentAnimalType);
 
 		// May want these for future form inputs
 		// if (inputValid(inputErrors)) {
@@ -48,11 +51,6 @@ const AnimalInputField = ({ petTypeArray }) => {
 		// }
 	};
 
-	const getAnimalQueryUrl = (breed) => {
-		console.log(currentAnimalType);
-
-		return `${petfinderUrls.animals}type=${currentAnimalType}&breed=${breed}`;
-	};
 	const handleChange = (event) => {
 		// event.preventDefault();
 
@@ -94,16 +92,16 @@ const AnimalInputField = ({ petTypeArray }) => {
 				},
 			});
 			const animalBreedsJson = await animalBreeds.json();
-			console.log(animalBreedsJson);
-			// const breedsArray = [];
+
+			const breedsArray = [];
 			animalBreedsJson.breeds.map((breed) => {
 				// Select options for breed types
-				breedArray.push({
+				breedsArray.push({
 					label: `${breed.name}`,
 					value: `${breed.name.toLowerCase()}`,
 				});
 			});
-			setAvailableAnimalBreeds(breedArray);
+			setAvailableAnimalBreeds(breedsArray);
 		};
 		fetchAnimals();
 	};
@@ -111,23 +109,34 @@ const AnimalInputField = ({ petTypeArray }) => {
 	const getPetBreedURL = (event) => {
 		return `${petfinderUrls.types}${event.value.toLowerCase()}/breeds`;
 	};
+	const getAnimalQueryUrl = (breed) => {
+		// returning without the petfinder url
+		// return `${petfinderUrls.animals}type=${currentAnimalType}&breed=${breed}`;
+		return `type=${currentAnimalType}&breed=${breed}`;
+	};
 
 	const handleTypeSelectChange = (event) => {
 		setAvailableAnimalBreeds([]);
 		setCurrentAnimalType(event.value.toLowerCase());
+		console.log(currentAnimalType);
 
 		const breedURL = getPetBreedURL(event);
 		getPetOption(breedURL);
-
-		console.log('input', currentAnimalType);
 
 		setIsSelected(true);
 	};
 
 	const handleBreedSelectChange = (event) => {
-		const query = getAnimalQueryUrl(event.value);
-		setQueryUrl(query);
-		console.log('query', query);
+		// let breed = getAnimalQueryUrl(event.value);
+		let breed = event.value;
+		// remove spaces
+		breed = breed.replace(/\s/g, '');
+		console.log(breed);
+
+		setCurrentAnimalBreed(breed);
+
+		// setQueryUrl(query);
+		// console.log('query', query);
 	};
 
 	if (isSelected) {
@@ -148,13 +157,15 @@ const AnimalInputField = ({ petTypeArray }) => {
 					/>
 
 					<Link
-						type="submit"
 						href={{
-							pathname: '/animals',
-							query: { url: queryUrl },
+							pathname: '/animals/[animalTypes]/[animalBreeds]',
+							query: {
+								type: currentAnimalType,
+								breed: currentAnimalBreed,
+							},
 						}}
 					>
-						<button>Go to animal Page</button>
+						<button type="submit">Search for animal</button>
 					</Link>
 				</form>
 			</div>

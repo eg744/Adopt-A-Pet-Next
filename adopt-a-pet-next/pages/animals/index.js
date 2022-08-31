@@ -20,6 +20,13 @@ const AnimalIndex = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const router = useRouter();
+	const query = router.query;
+	const queriedAnimal = {
+		type: query.type,
+		breed: query.breed,
+	};
+	console.log('passed url', queriedAnimal);
+
 	const token = useContext(PetFinderAuthContext);
 
 	useEffect(() => {
@@ -43,10 +50,10 @@ const AnimalIndex = () => {
 			};
 
 			fetchAnimals();
+			setIsloading(false);
 		} catch (event) {
 			//
 		} finally {
-			setIsloading(false);
 		}
 	}, [token]);
 
@@ -61,7 +68,7 @@ const AnimalIndex = () => {
 };
 export default AnimalIndex;
 
-// example getstaticprops
+// example getstaticprops (i cannot get it to work while i'm using getcontext for token)
 // function Users({ users }) {
 // 	// console.log(animals);
 

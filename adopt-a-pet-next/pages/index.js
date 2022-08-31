@@ -6,8 +6,7 @@ import { PetFinderAuthContext } from './_app';
 import React, { useState, useContext, useEffect, useRef } from 'react';
 
 import InputField from '../components/userInputs/AnimalInputField';
-import { Pet } from '../helperClasses/petClass';
-// import FeaturedPets from '../components/FeaturedPets';
+
 import Carousel from '../components/carouselComponents/Carousel';
 
 import ResultCard from '../components/Result-card';
@@ -21,8 +20,8 @@ export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const [petTypesAvailable, setPetTypesAvailable] = useState([]);
-
-	const petTypeArray = useRef([]);
+	// play around with useref, see if it can replace pettypes, breeds in animalinput. Might not be the right choice.
+	// const petTypeArray = useRef([]);
 
 	// Current recieved access token
 	const token = useContext(PetFinderAuthContext);
@@ -60,17 +59,19 @@ export default function Home() {
 		} catch (error) {
 			//
 			console.error(error);
-		} finally {
 		}
 
 		// Update when token changes
 	}, [token]);
-	// let petTypeArray = [];
+	let petTypeArray = [];
 	// Pet objects to pass as options in Select
 	petTypesAvailable.map((pettype) => {
-		const pet = new Pet(pettype.name, pettype.name);
-		petTypeArray.push(pet);
+		petTypeArray.push({
+			label: `${pettype.name}`,
+			value: `${pettype.name.toLowerCase()}`,
+		});
 	});
+	console.log(petTypeArray.current);
 
 	console.log('index results', results);
 	console.log('index types', petTypesAvailable);
@@ -108,7 +109,7 @@ export default function Home() {
 
 			<InputField
 				className={homeStyles.home_input_field}
-				petTypeArray={petTypeArray.current}
+				petTypeArray={petTypeArray}
 			/>
 			<h1 className={homeStyles.headline}></h1>
 			<h2>Featured Animals</h2>
