@@ -34,7 +34,7 @@ const AnimalIndex = () => {
 		try {
 			const fetchAnimals = async () => {
 				const animalData = await fetch(
-					`${query}`,
+					``,
 
 					// `https://api.petfinder.com/v2/animals?${petParams}`,
 

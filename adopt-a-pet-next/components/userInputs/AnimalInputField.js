@@ -1,18 +1,16 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Select from 'react-select';
 import { PetFinderAuthContext } from '../../pages/_app';
 import { petfinderUrls } from '../../URLs/petfinderurls';
 
-const AnimalInputField = ({ petTypeArray }) => {
+const AnimalInputField = () => {
 	const token = useContext(PetFinderAuthContext);
 
 	// const router = useRouter();
 
-	const [currentURL, setCurrentURL] = useState(
-		`${petfinderUrls.types}dog/breeds`
-	);
+	const [petTypesAvailable, setPetTypesAvailable] = useState([]);
 	const [currentAnimalType, setCurrentAnimalType] = useState('');
 	const [currentAnimalBreed, setCurrentAnimalBreed] = useState('');
 
@@ -23,8 +21,32 @@ const AnimalInputField = ({ petTypeArray }) => {
 	//
 	const [isValidSelection, setIsValidSelection] = useState(false);
 	const [queryUrl, setQueryUrl] = useState('');
-	// unsure about useref
+	// unsure about useref, potentially store arrays for pet types, breeds
 	// const breedArray = useRef([]);
+
+	useEffect(() => {
+		if (token === null) return;
+		const fetchPetTypeOptions = async () => {
+			const animalTypes = await fetch(`${petfinderUrls.types}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			const animalTypeArray = [];
+			const animalTypesJson = await animalTypes.json();
+			// React-select options for Animal type
+			animalTypesJson.types.map((type, index) => {
+				animalTypeArray.push({
+					label: type.name,
+					value: type.name.toLowerCase(),
+					key: index,
+				});
+			});
+			setPetTypesAvailable(animalTypeArray);
+		};
+
+		fetchPetTypeOptions();
+	}, [token]);
 
 	// Check for any errors, set flag
 	const inputValid = (inputErrors) => {
@@ -94,11 +116,12 @@ const AnimalInputField = ({ petTypeArray }) => {
 			const animalBreedsJson = await animalBreeds.json();
 
 			const breedsArray = [];
-			animalBreedsJson.breeds.map((breed) => {
-				// Select options for breed types
+			animalBreedsJson.breeds.map((breed, index) => {
+				// React-select options for breed types
 				breedsArray.push({
 					label: `${breed.name}`,
 					value: `${breed.name.toLowerCase()}`,
+					key: index,
 				});
 			});
 			setAvailableAnimalBreeds(breedsArray);
@@ -109,15 +132,12 @@ const AnimalInputField = ({ petTypeArray }) => {
 	const getPetBreedURL = (event) => {
 		return `${petfinderUrls.types}${event.value.toLowerCase()}/breeds`;
 	};
-	const getAnimalQueryUrl = (breed) => {
-		// returning without the petfinder url
-		// return `${petfinderUrls.animals}type=${currentAnimalType}&breed=${breed}`;
-		return `type=${currentAnimalType}&breed=${breed}`;
-	};
 
 	const handleTypeSelectChange = (event) => {
-		setAvailableAnimalBreeds([]);
-		setCurrentAnimalType(event.value.toLowerCase());
+		// setAvailableAnimalBreeds([]);
+		setCurrentAnimalType(event.value);
+		// setCurrentAnimalType(event.value.toLowerCase());
+
 		console.log(currentAnimalType);
 
 		const breedURL = getPetBreedURL(event);
@@ -129,14 +149,8 @@ const AnimalInputField = ({ petTypeArray }) => {
 	const handleBreedSelectChange = (event) => {
 		// let breed = getAnimalQueryUrl(event.value);
 		let breed = event.value;
-		// remove spaces
-		breed = breed.replace(/\s/g, '');
-		console.log(breed);
 
 		setCurrentAnimalBreed(breed);
-
-		// setQueryUrl(query);
-		// console.log('query', query);
 	};
 
 	if (isSelected) {
@@ -146,7 +160,7 @@ const AnimalInputField = ({ petTypeArray }) => {
 					<Select
 						autoFocus
 						Value={`${currentAnimalType}`}
-						options={petTypeArray}
+						options={petTypesAvailable}
 						placeholder="Select animal type..."
 						onChange={handleTypeSelectChange}
 					/>
@@ -158,11 +172,14 @@ const AnimalInputField = ({ petTypeArray }) => {
 
 					<Link
 						href={{
-							pathname: '/animals/[animalTypes]/[animalBreeds]',
-							query: {
-								type: currentAnimalType,
-								breed: currentAnimalBreed,
-							},
+							pathname: `/animals/${[
+								currentAnimalType,
+							]}/breeds/${[currentAnimalBreed]}`,
+							// Unsure if I also want to pass values as query, I can access values through path through router as well. Try to see what the difference is?
+							// query: {
+							// 	type: currentAnimalType,
+							// 	breed: currentAnimalBreed,
+							// },
 						}}
 					>
 						<button type="submit">Search for animal</button>
@@ -175,8 +192,8 @@ const AnimalInputField = ({ petTypeArray }) => {
 			<div>
 				<p>What kind of animal are you looking for?</p>
 				<Select
-					defaultValue={`${currentAnimalType}`}
-					options={petTypeArray}
+					Value={`${currentAnimalType}`}
+					options={petTypesAvailable}
 					placeholder="Select animal type..."
 					onChange={handleTypeSelectChange}
 				/>

@@ -5,7 +5,7 @@ import IndexHero from '../components/indexComponents/IndexHero';
 import { PetFinderAuthContext } from './_app';
 import React, { useState, useContext, useEffect, useRef } from 'react';
 
-import InputField from '../components/userInputs/AnimalInputField';
+import AnimalInputField from '../components/userInputs/AnimalInputField';
 
 import Carousel from '../components/carouselComponents/Carousel';
 
@@ -42,16 +42,16 @@ export default function Home() {
 					}
 				);
 
-				const animalTypes = await fetch(`${petfinderUrls.types}`, {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				});
+				// const animalTypes = await fetch(`${petfinderUrls.types}`, {
+				// 	headers: {
+				// 		Authorization: `Bearer ${token}`,
+				// 	},
+				// });
 				const animalDataJson = await animalData.json();
-				const animalTypesJson = await animalTypes.json();
+				// const animalTypesJson = await animalTypes.json();
 
 				setResults(animalDataJson.animals);
-				setPetTypesAvailable(animalTypesJson.types);
+				// setPetTypesAvailable(animalTypesJson.types);
 				setIsLoading(false);
 			};
 
@@ -63,18 +63,6 @@ export default function Home() {
 
 		// Update when token changes
 	}, [token]);
-	let petTypeArray = [];
-	// Pet objects to pass as options in Select
-	petTypesAvailable.map((pettype) => {
-		petTypeArray.push({
-			label: `${pettype.name}`,
-			value: `${pettype.name.toLowerCase()}`,
-		});
-	});
-	console.log(petTypeArray.current);
-
-	console.log('index results', results);
-	console.log('index types', petTypesAvailable);
 
 	if (isLoading) {
 		return (
@@ -107,12 +95,9 @@ export default function Home() {
 			</Head>
 			<IndexHero />
 
-			<InputField
-				className={homeStyles.home_input_field}
-				petTypeArray={petTypeArray}
-			/>
+			<AnimalInputField className={homeStyles.home_input_field} />
 			<h1 className={homeStyles.headline}></h1>
-			<h2>Featured Animals</h2>
+			<h2>New and Featured Animals</h2>
 
 			<Carousel results={results} />
 		</div>

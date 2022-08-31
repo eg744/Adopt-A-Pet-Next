@@ -5,7 +5,7 @@ const Slug = () => {
 	console.log(router);
 	return (
 		<div>
-			<h1>animaldetails: slug page </h1>
+			<h1>animaldetails: dynamic slug page </h1>
 		</div>
 	);
 };
