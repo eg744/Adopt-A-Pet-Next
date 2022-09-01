@@ -20,6 +20,7 @@ export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const [petTypesAvailable, setPetTypesAvailable] = useState([]);
+
 	// play around with useref, see if it can replace pettypes, breeds in animalinput. Might not be the right choice.
 	// const petTypeArray = useRef([]);
 

@@ -8,8 +8,6 @@ import { petfinderUrls } from '../../URLs/petfinderurls';
 const AnimalInputField = () => {
 	const token = useContext(PetFinderAuthContext);
 
-	// const router = useRouter();
-
 	const [petTypesAvailable, setPetTypesAvailable] = useState([]);
 	const [currentAnimalType, setCurrentAnimalType] = useState('');
 	const [currentAnimalBreed, setCurrentAnimalBreed] = useState('');
@@ -18,7 +16,6 @@ const AnimalInputField = () => {
 
 	const [isSelected, setIsSelected] = useState(false);
 
-	//
 	const [isValidSelection, setIsValidSelection] = useState(false);
 	const [queryUrl, setQueryUrl] = useState('');
 	// unsure about useref, potentially store arrays for pet types, breeds
@@ -67,10 +64,6 @@ const AnimalInputField = () => {
 
 		// May want these for future form inputs
 		// if (inputValid(inputErrors)) {
-		// 	console.log('submitting');
-		// } else {
-		// 	console.error('form invalid');
-		// }
 	};
 
 	const handleChange = (event) => {
@@ -147,59 +140,59 @@ const AnimalInputField = () => {
 	};
 
 	const handleBreedSelectChange = (event) => {
-		// let breed = getAnimalQueryUrl(event.value);
 		let breed = event.value;
 
 		setCurrentAnimalBreed(breed);
 	};
 
-	if (isSelected) {
-		return (
-			<div>
-				<form className="animalform" onSubmit={handleSubmit}>
-					<Select
-						autoFocus
-						Value={`${currentAnimalType}`}
-						options={petTypesAvailable}
-						placeholder="Select animal type..."
-						onChange={handleTypeSelectChange}
-					/>
-					<Select
-						options={availableAnimalBreeds}
-						placeholder={`Please select or search for ${currentAnimalType} breeds`}
-						onChange={handleBreedSelectChange}
-					/>
-
-					<Link
-						href={{
-							pathname: `/animals/${[
-								currentAnimalType,
-							]}/breeds/${[currentAnimalBreed]}`,
-							// Unsure if I also want to pass values as query, I can access values through path through router as well. Try to see what the difference is?
-							// query: {
-							// 	type: currentAnimalType,
-							// 	breed: currentAnimalBreed,
-							// },
-						}}
-					>
-						<button type="submit">Search for animal</button>
-					</Link>
-				</form>
-			</div>
-		);
-	} else {
-		return (
-			<div>
-				<p>What kind of animal are you looking for?</p>
+	// if (isSelected) {
+	return (
+		<div>
+			<form className="animalform" onSubmit={handleSubmit}>
 				<Select
+					autoFocus
 					Value={`${currentAnimalType}`}
 					options={petTypesAvailable}
 					placeholder="Select animal type..."
 					onChange={handleTypeSelectChange}
 				/>
-			</div>
-		);
-	}
+				<Select
+					options={availableAnimalBreeds}
+					placeholder={`Please select or search for ${currentAnimalType} breeds`}
+					onChange={handleBreedSelectChange}
+				/>
+
+				<Link
+					href={{
+						// inital value here isn't right until both select fields return values. get the pathname dynamically and disable form submit until at least 1 field has value.
+						pathname: `/animals/${[currentAnimalType]}/breeds/${[
+							currentAnimalBreed,
+						]}`,
+						// Unsure if I also want to pass values as query, I can access values through path through router as well. Try to see what the difference is?
+						// query: {
+						// 	type: currentAnimalType,
+						// 	breed: currentAnimalBreed,
+						// },
+					}}
+				>
+					<button type="submit">Search for animal</button>
+				</Link>
+			</form>
+		</div>
+	);
+	// } else {
+	// 	return (
+	// 		<div>
+	// 			<p>What kind of animal are you looking for?</p>
+	// 			<Select
+	// 				Value={`${currentAnimalType}`}
+	// 				options={petTypesAvailable}
+	// 				placeholder="Select animal type..."
+	// 				onChange={handleTypeSelectChange}
+	// 			/>
+	// 		</div>
+	// 	);
+	// }
 };
 
 export default AnimalInputField;

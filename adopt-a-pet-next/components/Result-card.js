@@ -11,10 +11,11 @@ import Link from 'next/link';
 const Card = (props) => {
 	// Retrieved data
 	const { result } = props;
+	// TODO: link for individual animal in /animal/[animalID] based on result.id
 
 	return (
 		<div className={cardStyles.card}>
-			<a href={result.url}></a>
+			<a href={result.url}>View {result.name} on Petfinder</a>
 			<AnimalImage result={result} />
 			<p>{result.name}</p>
 			<div
