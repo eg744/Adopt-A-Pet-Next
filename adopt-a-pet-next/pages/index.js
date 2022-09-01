@@ -3,11 +3,10 @@ import Image from 'next/image';
 import homeStyles from '../styles/Home.module.css';
 import IndexHero from '../components/indexComponents/IndexHero';
 import { PetFinderAuthContext } from './_app';
-import React, { useState, useContext, useEffect } from 'react';
-import InputField from '../components/InputField';
-import { Pet } from '../helperClasses/petClass';
-import FeaturedPets from '../components/FeaturedPets';
-import Select from 'react-select';
+import React, { useState, useContext, useEffect, useRef } from 'react';
+
+import AnimalInputField from '../components/userInputs/AnimalInputField';
+
 import Carousel from '../components/carouselComponents/Carousel';
 
 import ResultCard from '../components/Result-card';
@@ -21,6 +20,9 @@ export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const [petTypesAvailable, setPetTypesAvailable] = useState([]);
+
+	// play around with useref, see if it can replace pettypes, breeds in animalinput. Might not be the right choice.
+	// const petTypeArray = useRef([]);
 
 	// Current recieved access token
 	const token = useContext(PetFinderAuthContext);
@@ -41,16 +43,16 @@ export default function Home() {
 					}
 				);
 
-				const animalTypes = await fetch(`${petfinderUrls.types}`, {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				});
+				// const animalTypes = await fetch(`${petfinderUrls.types}`, {
+				// 	headers: {
+				// 		Authorization: `Bearer ${token}`,
+				// 	},
+				// });
 				const animalDataJson = await animalData.json();
-				const animalTypesJson = await animalTypes.json();
+				// const animalTypesJson = await animalTypes.json();
 
 				setResults(animalDataJson.animals);
-				setPetTypesAvailable(animalTypesJson.types);
+				// setPetTypesAvailable(animalTypesJson.types);
 				setIsLoading(false);
 			};
 
@@ -58,21 +60,10 @@ export default function Home() {
 		} catch (error) {
 			//
 			console.error(error);
-		} finally {
 		}
 
 		// Update when token changes
 	}, [token]);
-	let petTypeArray = [];
-	// Pet objects to pass as options in Select
-	petTypesAvailable.map((pettype) => {
-		const pet = new Pet(pettype.name, pettype.name);
-		petTypeArray.push(pet);
-	});
-
-	// if (results && petTypesAvailable === null) return null;
-	console.log('index results', results);
-	console.log('index types', petTypesAvailable);
 
 	if (isLoading) {
 		return (
@@ -104,24 +95,12 @@ export default function Home() {
 				<link rel="icon" href="\assets\aapTitleLogoTransparent.png" />
 			</Head>
 			<IndexHero />
-			<Select
-				options={petTypeArray}
-				placeholder="Select animal type..."
-			/>
-			<InputField className={homeStyles.home_input_field} />
-			<h1 className={homeStyles.headline}></h1>
-			<h2>Featured Animals</h2>
-			{/*  */}
-			<Carousel results={results} />
-			{/* {results.map((result) => {
 
-				// return <FeaturedPets key={result.id} result={result} />;
-			})} */}
-			<ul className={homeStyles.featured}>
-				<li>Dog</li>
-				<li>Cat</li>
-				<li>Other</li>
-			</ul>
+			<AnimalInputField className={homeStyles.home_input_field} />
+			<h1 className={homeStyles.headline}></h1>
+			<h2>New and Featured Animals</h2>
+
+			<Carousel results={results} />
 		</div>
 	);
 }

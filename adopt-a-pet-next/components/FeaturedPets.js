@@ -30,9 +30,8 @@ import Link from 'next/link';
 // 		}
 // 	}, []);
 
-const FeaturedPets = (props) => {
+const FeaturedPets = ({ result }) => {
 	// Retrieved data
-	const { result } = props;
 	console.log('card', result);
 
 	return (

@@ -1,4 +1,4 @@
-// I want this to be resuable function to fetch
+// I want this to be resuable function to fetch (not used for now)
 
 // think this will be helpful https://medium.com/swlh/creating-react-hook-for-fetching-data-4193d8479138
 export const fetchAnimals = async (token) => {

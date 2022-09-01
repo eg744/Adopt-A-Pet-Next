@@ -1,15 +1,36 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import footerStyles from '../styles/Footer.module.css';
+// import { githubLogo } from '../public/assets';
 
 const Footer = () => {
 	return (
 		<div className={footerStyles.footer}>
-			<img
+			<Image
 				className={footerStyles.logo}
-				src="\assets\adoptapetLogo.png"
+				src="/assets/adoptapetLogo.png"
 				alt="Adopt A Pet Logo"
-			></img>
+				layout="fixed"
+				height="100%"
+				width="140%"
+			/>
+			<div>
+				<p>
+					Created by Elijah Gillit using Next.JS and Petfinder's API
+				</p>
+				<a href="https://github.com/eg744/Adopt-A-Pet-Next">
+					View source code on Github:
+					<Image
+						className="footer.githublogo"
+						src="/assets/githubLogoSmallLight.png"
+						alt="Github logo"
+						layout="fixed"
+						height="30%"
+						width="30%"
+					/>
+				</a>
+			</div>
 			<p>Created logo at LogoMakr.com/app</p>
 		</div>
 	);
