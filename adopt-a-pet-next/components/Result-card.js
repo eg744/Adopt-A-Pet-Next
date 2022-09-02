@@ -16,7 +16,7 @@ const Card = (props) => {
 	return (
 		<div className={cardStyles.card}>
 			<a href={result.url}>View {result.name} on Petfinder</a>
-			<AnimalImage result={result} />
+			<AnimalImage className={cardStyles.image} result={result} />
 			<p>{result.name}</p>
 			<div
 				dangerouslySetInnerHTML={{
