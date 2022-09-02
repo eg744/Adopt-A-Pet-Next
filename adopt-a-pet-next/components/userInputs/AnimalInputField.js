@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Select from 'react-select';
 import { PetFinderAuthContext } from '../../pages/_app';
 import { petfinderUrls } from '../../URLs/petfinderurls';
@@ -127,11 +126,7 @@ const AnimalInputField = () => {
 	};
 
 	const handleTypeSelectChange = (event) => {
-		// setAvailableAnimalBreeds([]);
 		setCurrentAnimalType(event.value);
-		// setCurrentAnimalType(event.value.toLowerCase());
-
-		console.log(currentAnimalType);
 
 		const breedURL = getPetBreedURL(event);
 		getPetOption(breedURL);
@@ -140,15 +135,15 @@ const AnimalInputField = () => {
 	};
 
 	const handleBreedSelectChange = (event) => {
-		let breed = event.value;
+		const breed = event.value;
 
 		setCurrentAnimalBreed(breed);
 	};
 
-	// if (isSelected) {
 	return (
 		<div>
 			<form className="animalform" onSubmit={handleSubmit}>
+				<p>What kind of animal are you looking for?</p>
 				<Select
 					autoFocus
 					Value={`${currentAnimalType}`}
@@ -156,11 +151,16 @@ const AnimalInputField = () => {
 					placeholder="Select animal type..."
 					onChange={handleTypeSelectChange}
 				/>
-				<Select
-					options={availableAnimalBreeds}
-					placeholder={`Please select or search for ${currentAnimalType} breeds`}
-					onChange={handleBreedSelectChange}
-				/>
+				{/* Render breeds after type is selected */}
+				{isSelected ? (
+					<Select
+						options={availableAnimalBreeds}
+						placeholder={`Please select or search for ${currentAnimalType} breeds`}
+						onChange={handleBreedSelectChange}
+					/>
+				) : (
+					<></>
+				)}
 
 				<Link
 					href={{
@@ -175,24 +175,15 @@ const AnimalInputField = () => {
 						// },
 					}}
 				>
-					<button type="submit">Search for animal</button>
+					{isSelected ? (
+						<button type="submit">Search for animals</button>
+					) : (
+						<></>
+					)}
 				</Link>
 			</form>
 		</div>
 	);
-	// } else {
-	// 	return (
-	// 		<div>
-	// 			<p>What kind of animal are you looking for?</p>
-	// 			<Select
-	// 				Value={`${currentAnimalType}`}
-	// 				options={petTypesAvailable}
-	// 				placeholder="Select animal type..."
-	// 				onChange={handleTypeSelectChange}
-	// 			/>
-	// 		</div>
-	// 	);
-	// }
 };
 
 export default AnimalInputField;

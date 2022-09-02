@@ -4,7 +4,7 @@ import ResultPage from '../../components/Result-page';
 import React, { useContext, useEffect, useState } from 'react';
 import { defaultHead } from 'next/head';
 import { PetFinderAuthContext } from '../_app';
-import InputField from '../../components/userInputs/AnimalInputField';
+import AnimalInputField from '../../components/userInputs/AnimalInputField';
 import { petfinderUrls } from '../../URLs/petfinderurls';
 import { useRouter } from 'next/router';
 
@@ -14,55 +14,55 @@ const AnimalIndex = () => {
 	// look at this to reuse api call https://stackoverflow.com/questions/70116072/react-js-creating-a-reusable-component-to-get-api-data
 	// https://dev.to/rikurouvila/clean-and-reusable-data-fetching-in-react-components-165
 
-	const [results, setResults] = useState(null);
-	const [isloading, setIsloading] = useState(true);
-	const [animalTypes, setAnimalTypes] = useState([]);
-	const [currentPage, setCurrentPage] = useState(1);
+	// const [results, setResults] = useState(null);
+	// const [isloading, setIsloading] = useState(true);
+	// const [animalTypes, setAnimalTypes] = useState([]);
+	// const [currentPage, setCurrentPage] = useState(1);
 
-	const router = useRouter();
-	const query = router.query;
-	const queriedAnimal = {
-		type: query.type,
-		breed: query.breed,
-	};
-	console.log('passed url', queriedAnimal);
+	// const router = useRouter();
+	// const query = router.query;
+	// const queriedAnimal = {
+	// 	type: query.type,
+	// 	breed: query.breed,
+	// };
+	// console.log('passed url', queriedAnimal);
 
-	const token = useContext(PetFinderAuthContext);
+	// const token = useContext(PetFinderAuthContext);
 
-	useEffect(() => {
-		if (token === null) return;
-		try {
-			const fetchAnimals = async () => {
-				const animalData = await fetch(
-					``,
+	// useEffect(() => {
+	// 	if (token === null) return;
+	// 	try {
+	// 		const fetchAnimals = async () => {
+	// 			const animalData = await fetch(
+	// 				``,
 
-					// `https://api.petfinder.com/v2/animals?${petParams}`,
+	// 				// `https://api.petfinder.com/v2/animals?${petParams}`,
 
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-				const animalDataJson = await animalData.json();
-				console.log(animalDataJson);
-				setResults(animalDataJson.animals);
-			};
+	// 				{
+	// 					headers: {
+	// 						Authorization: `Bearer ${token}`,
+	// 					},
+	// 				}
+	// 			);
+	// 			const animalDataJson = await animalData.json();
+	// 			console.log(animalDataJson);
+	// 			setResults(animalDataJson.animals);
+	// 		};
 
-			fetchAnimals();
-			setIsloading(false);
-		} catch (event) {
-			//
-		} finally {
-		}
-	}, [token]);
+	// 		fetchAnimals();
+	// 		setIsloading(false);
+	// 	} catch (event) {
+	// 		//
+	// 	} finally {
+	// 	}
+	// }, [token]);
 
-	if (results === null) return null;
+	// if (results === null) return null;
 
 	return (
 		<div>
-			<InputField />
-			<ResultPage results={results}></ResultPage>;
+			<AnimalInputField />
+			{/* <ResultPage results={results}></ResultPage>; */}
 		</div>
 	);
 };

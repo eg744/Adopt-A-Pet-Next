@@ -5,7 +5,6 @@ import { petfinderUrls } from '../../../../URLs/petfinderurls';
 import { PetFinderAuthContext } from '../../../_app';
 import AnimalInputField from '../../../../components/userInputs/AnimalInputField';
 import ResultPage from '../../../../components/Result-page';
-// import { ResultCard } from '../../../../components/Result-card';
 
 const AnimalBreedPage = () => {
 	const router = useRouter();

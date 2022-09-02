@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import footerStyles from '../styles/Footer.module.css';
-// import { githubLogo } from '../public/assets';
 
 const Footer = () => {
 	return (
@@ -20,7 +19,7 @@ const Footer = () => {
 					Created by Elijah Gillit using Next.JS and Petfinder's API
 				</p>
 				<a href="https://github.com/eg744/Adopt-A-Pet-Next">
-					View source code on Github:
+					View code on Github:
 					<Image
 						className="footer.githublogo"
 						src="/assets/githubLogoSmallLight.png"

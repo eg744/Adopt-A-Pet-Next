@@ -1,5 +1,3 @@
-import navStyles from '../../styles/Nav.module.css';
-
 import React, { useState } from 'react';
 
 import styled, { css } from 'styled-components';

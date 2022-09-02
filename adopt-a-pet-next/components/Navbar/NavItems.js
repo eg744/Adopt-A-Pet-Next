@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import navStyles from '../../styles/Nav.module.css';
 
 import styled from 'styled-components';
 
@@ -58,7 +57,7 @@ const NavItems = ({ open }) => {
 				<Link href="/animals">Animals</Link>
 			</li>
 			<li>
-				<Link href="/about">Breeds</Link>
+				<Link href="/organizations">Shelters</Link>
 			</li>
 		</StyledUL>
 	);
