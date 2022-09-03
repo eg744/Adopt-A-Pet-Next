@@ -33,10 +33,16 @@ const AnimalBreedPage = () => {
 				);
 
 				const animalDataJson = await animalData.json();
-				console.log(animalDataJson);
+				console.log(animalDataJson.animals);
+				const filteredAnimals = [];
+				animalDataJson.animals.map((animal) => {
+					if (animal.photos[0].full && animal.description) {
+						filteredAnimals.push(animal);
+					}
+				});
 
-				setResults(animalDataJson.animals);
-				// setPetTypesAvailable(animalTypesJson.types);
+				setResults(filteredAnimals);
+
 				setIsLoading(false);
 			};
 
@@ -50,8 +56,9 @@ const AnimalBreedPage = () => {
 	if (!isLoading) {
 		return (
 			<div>
+				<h1>Available results for {animalBreed}s </h1>
 				<AnimalInputField />
-				<h1>dynamicanimalbreedpage</h1>
+
 				<ResultPage results={results} />
 			</div>
 		);
@@ -59,7 +66,7 @@ const AnimalBreedPage = () => {
 		return (
 			<div>
 				{/* <AnimalInputField /> */}
-				<h1>loading dynamicanimalbreedpage</h1>
+				<h1>loading...</h1>
 			</div>
 		);
 	}
