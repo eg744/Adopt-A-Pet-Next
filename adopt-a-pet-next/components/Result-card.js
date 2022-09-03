@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import cardStyles from '../styles/Card.module.css';
 
-import htmlDecode from './cardComponents/HtmlDecoder.js';
+import htmlDecode from './cardComponents/HtmlDecoder';
 
-import AnimalImage from './cardComponents/AnimalImage.js';
+import AnimalImage from './cardComponents/AnimalImage';
 
 import Link from 'next/link';
 
@@ -16,13 +16,15 @@ const Card = (props) => {
 	return (
 		<div className={cardStyles.card}>
 			<a href={result.url}>View {result.name} on Petfinder</a>
-			<AnimalImage className={cardStyles.image} result={result} />
-			<p>{result.name}</p>
-			<div
-				dangerouslySetInnerHTML={{
-					__html: htmlDecode(result.description),
-				}}
-			></div>
+			<div>
+				<AnimalImage className={cardStyles.image} result={result} />
+				<p>{result.name}</p>
+				<div
+					dangerouslySetInnerHTML={{
+						__html: htmlDecode(result.description),
+					}}
+				></div>
+			</div>
 		</div>
 	);
 };

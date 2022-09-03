@@ -36,7 +36,11 @@ const AnimalBreedPage = () => {
 				console.log(animalDataJson.animals);
 				const filteredAnimals = [];
 				animalDataJson.animals.map((animal) => {
-					if (animal.photos[0].full && animal.description) {
+					if (
+						animal.photos &&
+						animal.photos[0] &&
+						animal.description
+					) {
 						filteredAnimals.push(animal);
 					}
 				});
