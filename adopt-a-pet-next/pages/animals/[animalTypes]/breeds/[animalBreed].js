@@ -45,7 +45,7 @@ const AnimalBreedPage = () => {
 			//
 			console.error(error);
 		}
-	}, []);
+	}, [token, animalType, animalBreed]);
 
 	if (!isLoading) {
 		return (
