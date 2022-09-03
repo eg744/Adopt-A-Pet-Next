@@ -15,9 +15,7 @@ const Footer = () => {
 				width="140%"
 			/>
 			<div>
-				<p>
-					Created by Elijah Gillit using Next.JS and Petfinder's API
-				</p>
+				<p>Created using Next.JS and Petfinder's API</p>
 				<a href="https://github.com/eg744/Adopt-A-Pet-Next">
 					View code on Github:
 					<Image

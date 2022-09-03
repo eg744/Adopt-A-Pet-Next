@@ -94,7 +94,8 @@ const ShelterInputField = () => {
 
 				<Link
 					href={{
-						pathname: `/organizations`,
+						// Add path, look for org structure
+						pathname: `/organizations/`,
 					}}
 				>
 					<button type="submit">Search for shelters</button>
