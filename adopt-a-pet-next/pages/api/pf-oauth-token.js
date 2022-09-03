@@ -1,6 +1,6 @@
 // Oauth token API route
 
-// Structure "grant_type=client_credentials&client_id={CLIENT-ID}&client_secret={CLIENT-SECRET}" https://api.petfinder.com/v2/oauth2/token
+// Structure "grant_type=client_credentials&client_id={CLIENT-ID}&client_secret={CLIENT-SECRET}"
 export default async (req, res) => {
 	const params = new URLSearchParams();
 	params.append('grant_type', 'client_credentials');

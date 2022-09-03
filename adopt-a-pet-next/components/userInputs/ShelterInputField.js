@@ -80,7 +80,6 @@ const ShelterInputField = () => {
 	return (
 		<div>
 			<form className="shelterform" onSubmit={handleSubmit}>
-				<p>Shelters</p>
 				<label htmlFor="zip">Please enter Zip code</label>
 				<input
 					className="zip"
