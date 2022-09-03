@@ -17,7 +17,7 @@ const Footer = () => {
 			<p>Created logo at LogoMakr.com/app</p>
 
 			<div>
-				<p>Created using Next.JS and Petfinder's API</p>
+				<p>Created using Next.JS and Petfinder&apos;s API</p>
 				<a href="https://github.com/eg744/Adopt-A-Pet-Next">
 					View code on Github:
 					<Image

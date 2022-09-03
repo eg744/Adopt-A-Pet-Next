@@ -27,7 +27,7 @@ const Carousel = ({ results }) => {
 		};
 		const animals = getCarousel();
 		setCarouselAnimals(animals);
-	}, []);
+	}, [results]);
 
 	const gotoPrevious = () => {
 		const isFirst = currentIndex === 0;

@@ -13,7 +13,7 @@ const aboutPage = () => {
 			</p>
 			<p>
 				<a href="https://www.petfinder.com/developers/">
-					Content from Petfinder's API
+					Content from Petfinder&apos;s API
 				</a>
 			</p>
 		</div>
