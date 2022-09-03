@@ -1,0 +1,61 @@
+/* Navbar  */
+
+/* .nav is only active selector, using styled-components for the rest of the responsive/ mobile nav menu to easily pass props and conditionally style */
+.nav {
+   width: 100%;
+   height: 6rem;
+   border-bottom: 3px solid #f1f1f1;
+   padding: 0 .5rem;
+   display: flex;
+   /* flex-direction: row; */
+   /* align-items: stretch;  */
+   justify-content:space-between;
+   background: #000;
+   color: #fff;
+   font-size: 1.5rem;
+   /* margin: 0 auto;  */
+
+   /* outline: 1px solid red; */
+}
+.logo {
+   padding: 15px 0;
+
+}
+
+/* ====unused for now====== */
+
+.nav ul li :hover {
+   color: #0070f3;
+   border-color: #0070f3;
+}
+
+.nav ul{
+   list-style: none;
+   display: flex;
+   flex-flow: row nowrap;
+
+
+}
+
+.nav ul li {
+   padding: 18px;
+}
+
+
+@media(max-width: 768px) {
+   .nav ul{
+      /* display: none; */
+      flex-flow: column nowrap;
+      background-color: #000;
+      position: fixed;
+
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 10rem;
+      padding-top: 3.5rem;
+
+      z-index: 50;
+   }
+   
+}
