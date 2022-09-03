@@ -3,14 +3,17 @@ import React from 'react';
 const aboutPage = () => {
 	return (
 		<div>
-			<p>Adopt-A-Pet by Elijah Gillit</p>
 			<p>
-				Created with <a href="https://nextjs.org/">Next.JS</a>
+				<a href="https://github.com/eg744/Adopt-A-Pet-Next">
+					Adopt-A-Pet by Elijah Gillit{' '}
+				</a>
 			</p>
 			<p>
-				Content from{' '}
+				<a href="https://nextjs.org/">Created with Next.JS</a>
+			</p>
+			<p>
 				<a href="https://www.petfinder.com/developers/">
-					Petfinder API
+					Content from Petfinder's API
 				</a>
 			</p>
 		</div>

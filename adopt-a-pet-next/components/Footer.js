@@ -14,6 +14,8 @@ const Footer = () => {
 				height="100%"
 				width="140%"
 			/>
+			<p>Created logo at LogoMakr.com/app</p>
+
 			<div>
 				<p>Created using Next.JS and Petfinder's API</p>
 				<a href="https://github.com/eg744/Adopt-A-Pet-Next">
@@ -28,7 +30,6 @@ const Footer = () => {
 					/>
 				</a>
 			</div>
-			<p>Created logo at LogoMakr.com/app</p>
 		</div>
 	);
 };
