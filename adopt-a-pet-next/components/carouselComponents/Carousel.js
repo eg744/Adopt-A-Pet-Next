@@ -7,57 +7,27 @@ const Carousel = ({ results }) => {
 	const [isloading, setIsloading] = useState(true);
 	const [carouselAnimals, setCarouselAnimals] = useState([]);
 
-	// let carouselAnimals = [];
-	// working
-	// useEffect(() => {
-	// 	try {
-	// 		results.map((result) => {
-	// 			if (
-	// 				result.photos[0] &&
-	// 				result.photos[0].full &&
-	// 				result.name &&
-	// 				result.url
-	// 			) {
-	// 				carouselAnimals.push(result);
-	// 			}
-	// 		});
-	// 		// if (carouselAnimals.length >= 1) {
-	// 		// 	setIsloading(false);
-	// 		// }
-	// 		console.log('caro', carouselAnimals);
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	} finally {
-	// 		setIsloading(false);
-	// 	}
-
-	// }, []);
-	const getCarousel = () => {
-		const animals = [];
-		results.map((result) => {
-			if (
-				result.photos[0] &&
-				result.photos[0].full &&
-				result.name &&
-				result.url
-			) {
-				animals.push(result);
-			}
-		});
-		if (animals.length >= 1) {
-			setIsloading(false);
-		}
-		return animals;
-	};
-
 	useEffect(() => {
-		const carouselAnimals = getCarousel();
-		setCarouselAnimals(carouselAnimals);
-		console.log('caro', carouselAnimals);
+		const getCarousel = () => {
+			const animals = [];
+			results.map((result) => {
+				if (
+					result.photos[0] &&
+					result.photos[0].full &&
+					result.name &&
+					result.url
+				) {
+					animals.push(result);
+				}
+			});
+			if (animals.length >= 1) {
+				setIsloading(false);
+			}
+			return animals;
+		};
+		const animals = getCarousel();
+		setCarouselAnimals(animals);
 	}, []);
-
-	// console.log('caroindex', currentIndex);
-	// console.log('anuimalsindex', currentIndex - 1);
 
 	const gotoPrevious = () => {
 		const isFirst = currentIndex === 0;
@@ -75,18 +45,6 @@ const Carousel = ({ results }) => {
 
 	if (!isloading) {
 		return (
-			// <div>
-			// 	<div className={CarouselStyles.container}>
-			// 		<div className={CarouselStyles.slider}>
-			// 			<div className={CarouselStyles.slide}>
-			// 				{results.map((result) => {
-			// 					<FeaturedPets key={result.id} result={result} />;
-			// 				})}
-			// 			</div>
-			// 		</div>
-			// 	</div>
-			// </div>
-
 			<div>
 				<div className={CarouselStyles.container}>
 					<div className={CarouselStyles.slider}>

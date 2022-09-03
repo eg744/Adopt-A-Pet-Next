@@ -19,7 +19,7 @@ const Footer = () => {
 			<div>
 				<p>Created using Next.JS and Petfinder's API</p>
 				<a href="https://github.com/eg744/Adopt-A-Pet-Next">
-					View code on Github:
+					View code on Github:&#39;
 					<Image
 						className="footer.githublogo"
 						src="/assets/githubLogoSmallLight.png"

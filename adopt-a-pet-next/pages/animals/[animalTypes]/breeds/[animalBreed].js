@@ -11,7 +11,7 @@ const AnimalBreedPage = () => {
 	console.log(router);
 	const animalType = router.query.animalTypes;
 	const animalBreed = router.query.animalBreed;
-	console.log('breedpage', animalType, animalBreed);
+	// console.log('breedpage', animalType, animalBreed);
 
 	const token = useContext(PetFinderAuthContext);
 
@@ -45,7 +45,7 @@ const AnimalBreedPage = () => {
 			//
 			console.error(error);
 		}
-	}, [token]);
+	}, []);
 
 	if (!isLoading) {
 		return (

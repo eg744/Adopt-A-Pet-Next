@@ -125,9 +125,9 @@ const InputField = ({ petTypeArray }) => {
 	}
 
 	// Call once on load
-	useEffect(() => {
-		getPetOption();
-	}, []);
+	// useEffect(() => {
+	// 	getPetOption();
+	// });
 
 	function getURL(e) {
 		return `${petfinderUrls.types}${e.value.toLowerCase()}/breeds`;
@@ -156,10 +156,6 @@ const InputField = ({ petTypeArray }) => {
 		setAvailableAnimalBreeds(breedsArray);
 		setIsSelected(true);
 	};
-	useEffect(() => {
-		console.log('breedstate after', animalBreedState);
-		console.log('finally breed', availableAnimalBreeds);
-	}, [availableAnimalBreeds, animalBreedState]);
 
 	// May link to animalindex, pass props to grid from here. not sure yet
 	if (isSelected) {

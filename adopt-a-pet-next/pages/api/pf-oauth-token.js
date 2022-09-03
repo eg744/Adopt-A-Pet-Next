@@ -1,7 +1,7 @@
 // Oauth token API route
 
 // Structure "grant_type=client_credentials&client_id={CLIENT-ID}&client_secret={CLIENT-SECRET}"
-export default async (req, res) => {
+const oauthToken = async (req, res) => {
 	const params = new URLSearchParams();
 	params.append('grant_type', 'client_credentials');
 	params.append('client_id', process.env.PETFINDER_API_KEY);
@@ -16,3 +16,4 @@ export default async (req, res) => {
 	const petFinderData = await petfinderResponse.json();
 	res.send(petFinderData);
 };
+export default oauthToken;

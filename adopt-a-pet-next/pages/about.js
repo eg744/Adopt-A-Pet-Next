@@ -5,7 +5,7 @@ const aboutPage = () => {
 		<div>
 			<p>
 				<a href="https://github.com/eg744/Adopt-A-Pet-Next">
-					Adopt-A-Pet by Elijah Gillit{' '}
+					Adopt-A-Pet by Elijah Gillit&#39;
 				</a>
 			</p>
 			<p>
