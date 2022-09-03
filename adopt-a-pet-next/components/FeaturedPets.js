@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import cardStyles from '../styles/Card.module.css';
 
-import htmlDecode from './cardComponents/HtmlDecoder.js';
+import htmlDecode from './cardComponents/HtmlDecoder';
 
 import AnimalImage from './cardComponents/AnimalImage.js';
 
