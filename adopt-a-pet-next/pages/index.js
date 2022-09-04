@@ -9,8 +9,6 @@ import AnimalInputField from '../components/userInputs/AnimalInputField';
 
 import Carousel from '../components/carouselComponents/Carousel';
 
-import ResultCard from '../components/Result-card';
-
 import { petfinderUrls } from '../URLs/petfinderurls';
 
 export default function Home() {

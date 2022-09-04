@@ -1,5 +1,5 @@
 import { useEffect, createContext, useState } from 'react';
-import '../styles/globals.css';
+import '../styles/Globals.css';
 import Layout from '../components/Layout';
 import App from 'next/app';
 

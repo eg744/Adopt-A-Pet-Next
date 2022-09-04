@@ -1,6 +1,7 @@
 // Dynamic route for animal with unique id
 
-import { useRouter } from 'next/Router';
+import { useRouter } from 'next/router';
+
 import Link from 'next/link';
 
 // Router can display route parameter(animal id)
