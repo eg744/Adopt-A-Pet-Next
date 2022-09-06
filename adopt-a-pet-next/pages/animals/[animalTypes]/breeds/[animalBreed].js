@@ -11,7 +11,6 @@ const AnimalBreedPage = () => {
 	console.log(router);
 	const animalType = router.query.animalTypes;
 	const animalBreed = router.query.animalBreed;
-	// console.log('breedpage', animalType, animalBreed);
 
 	const token = useContext(PetFinderAuthContext);
 
@@ -57,22 +56,19 @@ const AnimalBreedPage = () => {
 		}
 	}, [token, animalType, animalBreed]);
 
-	if (!isLoading) {
-		return (
-			<div>
-				<h1>Available results for {animalBreed}s </h1>
-				<AnimalInputField />
-
-				<ResultPage results={results} />
-			</div>
-		);
-	} else {
-		return (
-			<div>
-				{/* <AnimalInputField /> */}
+	return (
+		<div>
+			{isLoading ? (
 				<h1>loading...</h1>
-			</div>
-		);
-	}
+			) : (
+				<div>
+					<h1>Available results for {animalBreed}s </h1>
+					<AnimalInputField />
+
+					<ResultPage results={results} />
+				</div>
+			)}
+		</div>
+	);
 };
 export default AnimalBreedPage;

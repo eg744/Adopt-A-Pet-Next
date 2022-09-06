@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Select from 'react-select';
 import { PetFinderAuthContext } from '../../pages/_app';
 import { petfinderUrls } from '../../URLs/petfinderurls';
+import inputStyles from '../../styles/AnimalInput.module.css';
 
 const AnimalInputField = () => {
 	const token = useContext(PetFinderAuthContext);
@@ -14,6 +15,7 @@ const AnimalInputField = () => {
 	const [availableAnimalBreeds, setAvailableAnimalBreeds] = useState([]);
 
 	const [isSelected, setIsSelected] = useState(false);
+	const [linkPathName, setLinkPathName] = useState('/animals');
 
 	const [isValidSelection, setIsValidSelection] = useState(false);
 	const [queryUrl, setQueryUrl] = useState('');
@@ -126,7 +128,11 @@ const AnimalInputField = () => {
 	};
 
 	const handleTypeSelectChange = (event) => {
+		if (isSelected && currentAnimalType !== '') {
+			setLinkPathName(`/animals/${currentAnimalType}`);
+		}
 		setCurrentAnimalType(event.value);
+		setLinkPathName(`/animals/${[event.value]}`);
 
 		const breedURL = getPetBreedURL(event);
 		getPetOption(breedURL);
@@ -138,6 +144,8 @@ const AnimalInputField = () => {
 		const breed = event.value;
 
 		setCurrentAnimalBreed(breed);
+
+		setLinkPathName(`/animals/${[currentAnimalType]}/breeds/${[breed]}`);
 	};
 
 	return (
@@ -145,6 +153,7 @@ const AnimalInputField = () => {
 			<form className="animalform" onSubmit={handleSubmit}>
 				<p>What kind of animal are you looking for?</p>
 				<Select
+					className={inputStyles.inputAnimalType}
 					autoFocus
 					Value={`${currentAnimalType}`}
 					options={petTypesAvailable}
@@ -154,6 +163,7 @@ const AnimalInputField = () => {
 				{/* Render breeds after type is selected */}
 				{isSelected ? (
 					<Select
+						className={inputStyles.inputAnimalBreed}
 						options={availableAnimalBreeds}
 						placeholder={`Please select or search for ${currentAnimalType} breeds`}
 						onChange={handleBreedSelectChange}
@@ -165,9 +175,7 @@ const AnimalInputField = () => {
 				<Link
 					href={{
 						// inital value here isn't right until both select fields return values. get the pathname dynamically and disable form submit until at least 1 field has value.
-						pathname: `/animals/${[currentAnimalType]}/breeds/${[
-							currentAnimalBreed,
-						]}`,
+						pathname: linkPathName,
 						// Unsure if I also want to pass values as query, I can access values through path through router as well. Try to see what the difference is?
 						// query: {
 						// 	type: currentAnimalType,
