@@ -16,9 +16,8 @@ const AnimalInputField = () => {
 
 	const [isSelected, setIsSelected] = useState(false);
 	const [linkPathName, setLinkPathName] = useState('/animals');
+	const [location, setLocation] = useState('');
 
-	const [isValidSelection, setIsValidSelection] = useState(false);
-	const [queryUrl, setQueryUrl] = useState('');
 	// unsure about useref, potentially store arrays for pet types, breeds
 	// const breedArray = useRef([]);
 
@@ -46,57 +45,11 @@ const AnimalInputField = () => {
 		fetchPetTypeOptions();
 	}, [token]);
 
-	// Check for any errors, set flag
-	const inputValid = (inputErrors) => {
-		let valid = true;
-
-		Object.values(inputErrors).map((error) => {
-			if (error.length > 0) valid = false;
-		});
-
-		return valid;
-	};
-
 	const handleSubmit = (event) => {
 		// Do not reload page/submit
 		event.preventDefault();
 		console.log('breed', currentAnimalBreed);
 		console.log('type', currentAnimalType);
-
-		// May want these for future form inputs
-		// if (inputValid(inputErrors)) {
-	};
-
-	const handleChange = (event) => {
-		// event.preventDefault();
-
-		// form's input name, event.target.value = entered value
-		const { name, value } = event.target;
-
-		let errors = { ...inputErrors };
-
-		// Extendable switch to validate and update state
-		switch (name) {
-			case 'animal':
-				errors.animal =
-					value.length < 3
-						? 'Please enter at least 3 characters'
-						: '';
-
-				break;
-
-			case 'zipcode':
-				errors.zipcode = USZipcodeRegex.test(value)
-					? ''
-					: 'Invalid Zipcode';
-
-				break;
-
-			default:
-				break;
-		}
-		setSelectedAnimalState({ errors, [name]: value });
-		setZipcodeState({ errors, [name]: value });
 	};
 
 	const getPetOption = (url) => {
@@ -118,6 +71,7 @@ const AnimalInputField = () => {
 					key: index,
 				});
 			});
+
 			setAvailableAnimalBreeds(breedsArray);
 		};
 		fetchAnimals();
@@ -148,6 +102,12 @@ const AnimalInputField = () => {
 		setLinkPathName(`/animals/${[currentAnimalType]}/breeds/${[breed]}`);
 	};
 
+	const handleLocationChange = (event) => {
+		const location = event.target.value;
+		setLocation(location);
+		console.log(location);
+	};
+
 	return (
 		<div>
 			<form className="animalform" onSubmit={handleSubmit}>
@@ -162,12 +122,23 @@ const AnimalInputField = () => {
 				/>
 				{/* Render breeds after type is selected */}
 				{isSelected ? (
-					<Select
-						className={inputStyles.inputAnimalBreed}
-						options={availableAnimalBreeds}
-						placeholder={`Please select or search for ${currentAnimalType} breeds`}
-						onChange={handleBreedSelectChange}
-					/>
+					<>
+						<Select
+							className={inputStyles.inputAnimalBreed}
+							options={availableAnimalBreeds}
+							placeholder={`Please select or search for ${currentAnimalType} breeds`}
+							onChange={handleBreedSelectChange}
+						/>
+						<input
+							className="search"
+							// value={zipcode}
+							placeholder="search location"
+							type="text"
+							name="search"
+							id="search"
+							onChange={handleLocationChange}
+						/>
+					</>
 				) : (
 					<></>
 				)}
@@ -175,12 +146,11 @@ const AnimalInputField = () => {
 				<Link
 					href={{
 						// inital value here isn't right until both select fields return values. get the pathname dynamically and disable form submit until at least 1 field has value.
-						pathname: linkPathName,
+						pathname: '/animals/[slug]',
 						// Unsure if I also want to pass values as query, I can access values through path through router as well. Try to see what the difference is?
-						// query: {
-						// 	type: currentAnimalType,
-						// 	breed: currentAnimalBreed,
-						// },
+						query: {
+							location,
+						},
 					}}
 				>
 					{isSelected ? (

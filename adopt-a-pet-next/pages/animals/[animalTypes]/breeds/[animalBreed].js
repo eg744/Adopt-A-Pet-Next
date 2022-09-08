@@ -9,8 +9,16 @@ import ResultPage from '../../../../components/Result-page';
 const AnimalBreedPage = () => {
 	const router = useRouter();
 	console.log(router);
+	const currentRoutes = [];
+	// console.log(router.query);
+	router.query.foreach((route) => {
+		// currentRoutes.push(route);
+		console.log(route);
+	});
+	console.log(currentRoutes);
 	const animalType = router.query.animalTypes;
 	const animalBreed = router.query.animalBreed;
+	const location = router.query.location;
 
 	const token = useContext(PetFinderAuthContext);
 
@@ -23,6 +31,7 @@ const AnimalBreedPage = () => {
 		try {
 			const fetchAnimals = async () => {
 				const animalData = await fetch(
+					// `${petfinderUrls.animals}type=${animalType}&breed=${animalBreed}&location=${location}`,
 					`${petfinderUrls.animals}type=${animalType}&breed=${animalBreed}`,
 					{
 						headers: {
@@ -45,6 +54,7 @@ const AnimalBreedPage = () => {
 				});
 
 				setResults(filteredAnimals);
+				console.log(results);
 
 				setIsLoading(false);
 			};
@@ -54,21 +64,54 @@ const AnimalBreedPage = () => {
 			//
 			console.error(error);
 		}
-	}, [token, animalType, animalBreed]);
+	}, [token, animalType, animalBreed, location]);
 
-	return (
-		<div>
-			{isLoading ? (
-				<h1>loading...</h1>
-			) : (
-				<div>
-					<h1>Available results for {animalBreed}s </h1>
-					<AnimalInputField />
+	if (isLoading) {
+		return (
+			<div>
+				<h1>Loading...</h1>
+			</div>
+		);
+	} else if (!isLoading && results.length <= 1) {
+		return (
+			<div>
+				<h1>No results found for your search. Please search again</h1>
+				<AnimalInputField />
+			</div>
+		);
+	} else if (!isLoading) {
+		return (
+			<div>
+				<h1>Available results for {animalBreed}s breedpage</h1>
+				<AnimalInputField />
 
-					<ResultPage results={results} />
-				</div>
-			)}
-		</div>
-	);
+				<ResultPage results={results} />
+			</div>
+		);
+	}
+
+	// if (isLoading) {
+	// 	return (
+	// 		<div>
+	// 			<h1>Available results for {animalBreed}s breedpage</h1>
+	// 			<AnimalInputField />
+
+	// 			<ResultPage results={results} />
+	// 		</div>
+	// 	);
+	// } else if (results.length <= 1) {
+	// 	return (
+	// 		<div>
+	// 			<h1>No results found for your search. Please search again</h1>
+	// 			<AnimalInputField />
+	// 		</div>
+	// 	);
+	// } else {
+	// 	return (
+	// 		<div>
+	// 			<h1>Loading...</h1>
+	// 		</div>
+	// 	);
+	// }
 };
 export default AnimalBreedPage;

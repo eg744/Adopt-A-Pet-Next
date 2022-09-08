@@ -3,10 +3,9 @@ import { useRouter } from 'next/router';
 import { petfinderUrls } from '../../URLs/petfinderurls';
 import { PetFinderAuthContext } from '../_app';
 import ResultPage from '../../components/Result-page';
-
 import ShelterInputField from '../../components/userInputs/ShelterInputField';
 
-const OrganizationID = () => {
+const OrganizationIndex = () => {
 	const token = useContext(PetFinderAuthContext);
 
 	const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +16,7 @@ const OrganizationID = () => {
 		if (token === null) return;
 		try {
 			const fetchShelters = async () => {
-				const animalData = await fetch(
+				const shelterData = await fetch(
 					`${petfinderUrls.organizations}`,
 					{
 						headers: {
@@ -26,20 +25,9 @@ const OrganizationID = () => {
 					}
 				);
 
-				const shelterDataJson = await animalData.json();
+				const shelterDataJson = await shelterData.json();
 				console.log(shelterDataJson);
-				const filteredAnimals = [];
-				// animalDataJson.animals.map((animal) => {
-				// 	if (
-				// 		animal.photos &&
-				// 		animal.photos[0] &&
-				// 		animal.description
-				// 	) {
-				// 		filteredAnimals.push(animal);
-				// 	}
-				// });
-
-				setResults(filteredAnimals);
+				console.log(shelterDataJson.pagination._links.next);
 
 				setIsLoading(false);
 			};
@@ -50,11 +38,12 @@ const OrganizationID = () => {
 			console.error(error);
 		}
 	}, [token]);
+
 	return (
 		<div>
+			<h1>Search for animal shelters in your area</h1>
 			<ShelterInputField />
-			dynamic Organization id page{' '}
 		</div>
 	);
 };
-export default OrganizationID;
+export default OrganizationIndex;
