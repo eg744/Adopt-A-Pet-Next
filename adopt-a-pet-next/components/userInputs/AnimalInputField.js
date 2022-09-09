@@ -62,7 +62,7 @@ const AnimalInputField = () => {
 			});
 			const animalBreedsJson = await animalBreeds.json();
 
-			const breedsArray = [];
+			const breedsArray = [{ label: `Any Breed`, value: 'any' }];
 			animalBreedsJson.breeds.map((breed, index) => {
 				// React-select options for breed types
 				breedsArray.push({
@@ -82,11 +82,7 @@ const AnimalInputField = () => {
 	};
 
 	const handleTypeSelectChange = (event) => {
-		if (isSelected && currentAnimalType !== '') {
-			setLinkPathName(`/animals/${currentAnimalType}`);
-		}
 		setCurrentAnimalType(event.value);
-		setLinkPathName(`/animals/${[event.value]}`);
 
 		const breedURL = getPetBreedURL(event);
 		getPetOption(breedURL);
@@ -98,8 +94,6 @@ const AnimalInputField = () => {
 		const breed = event.value;
 
 		setCurrentAnimalBreed(breed);
-
-		setLinkPathName(`/animals/${[currentAnimalType]}/breeds/${[breed]}`);
 	};
 
 	const handleLocationChange = (event) => {
@@ -132,7 +126,7 @@ const AnimalInputField = () => {
 						<input
 							className="search"
 							// value={zipcode}
-							placeholder="search location"
+							placeholder="Enter location (city, state, or ZIP)..."
 							type="text"
 							name="search"
 							id="search"
@@ -145,11 +139,12 @@ const AnimalInputField = () => {
 
 				<Link
 					href={{
-						// inital value here isn't right until both select fields return values. get the pathname dynamically and disable form submit until at least 1 field has value.
 						pathname: '/animals/[slug]',
-						// Unsure if I also want to pass values as query, I can access values through path through router as well. Try to see what the difference is?
+
 						query: {
-							location,
+							type: currentAnimalType,
+							breed: currentAnimalBreed,
+							location: location,
 						},
 					}}
 				>

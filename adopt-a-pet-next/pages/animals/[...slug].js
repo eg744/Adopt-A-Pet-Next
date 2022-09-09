@@ -8,45 +8,71 @@ import ResultPage from '../../components/Result-page';
 
 const Slug = () => {
 	const router = useRouter();
-	console.log(router);
-	const currentRoutes = [];
-	// console.log(router.query);
-	router.query.foreach((route) => {
-		// currentRoutes.push(route);
-		console.log(route);
-	});
-	console.log(currentRoutes);
+	const token = useContext(PetFinderAuthContext);
+
 	const animalType = router.query.animalTypes;
 	const animalBreed = router.query.animalBreed;
 	const location = router.query.location;
 
-	const token = useContext(PetFinderAuthContext);
-
 	const [isLoading, setIsLoading] = useState(true);
 	const [results, setResults] = useState([]);
+	// const [currentQuery, setCurrentQuery] = useState([]);
 	const [page, setPage] = useState(1);
 
+	console.log('slugroute', router);
+	const getValidQueries = () => {
+		const currentRoutes = [];
+
+		for (let key in router.query) {
+			// No empty/undefined params. Can accept many valid query params
+			if (router.query.hasOwnProperty(key)) {
+				if (
+					typeof router.query[key] === 'string' &&
+					router.query[key] !== '' &&
+					router.query[key] !== 'any'
+				) {
+					currentRoutes.push({
+						key: key,
+						value: router.query[key],
+					});
+				}
+			}
+		}
+
+		return currentRoutes;
+	};
+
 	useEffect(() => {
+		const queryUrl = () => {
+			let pfUrl = petfinderUrls.animals;
+			const queries = getValidQueries();
+			queries.map((query) => {
+				pfUrl += `${query.key}` + '=' + `${query.value}` + '&';
+			});
+
+			return pfUrl;
+		};
+		const myQuery = queryUrl();
+		console.log(myQuery);
+
 		if (token === null) return;
 		try {
 			const fetchAnimals = async () => {
-				const animalData = await fetch(
-					// `${petfinderUrls.animals}type=${animalType}&breed=${animalBreed}&location=${location}`,
-					`${petfinderUrls.animals}type=${animalType}&breed=${animalBreed}`,
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
+				// const animalData = await fetch(myQuery, {
+				const animalData = await fetch(myQuery, {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				});
 
 				const animalDataJson = await animalData.json();
-				console.log(animalDataJson.animals);
+				console.log(animalDataJson);
 				const filteredAnimals = [];
 				animalDataJson.animals.map((animal) => {
 					if (
-						animal.photos &&
-						animal.photos[0] &&
+						// No images sometimes filter too much. Not sure if I want to have a placeholder. Description required.
+						// animal.photos &&
+						// animal.photos[0] &&
 						animal.description
 					) {
 						filteredAnimals.push(animal);
@@ -64,7 +90,7 @@ const Slug = () => {
 			//
 			console.error(error);
 		}
-	}, [token, animalType, animalBreed, location]);
+	}, [token, router.query]);
 
 	if (isLoading) {
 		return (
@@ -72,7 +98,7 @@ const Slug = () => {
 				<h1>Loading...</h1>
 			</div>
 		);
-	} else if (!isLoading && results.length <= 1) {
+	} else if (!isLoading && results.length < 1) {
 		return (
 			<div>
 				<h1>No results found for your search. Please search again</h1>
@@ -82,8 +108,9 @@ const Slug = () => {
 	} else if (!isLoading) {
 		return (
 			<div>
-				<h1>Available results for {animalBreed}s breedpage</h1>
 				<AnimalInputField />
+
+				<h1>Animals matching your search</h1>
 
 				<ResultPage results={results} />
 			</div>
