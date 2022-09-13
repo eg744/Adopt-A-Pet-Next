@@ -39,8 +39,12 @@ const BGImage = () => {
 			<Image
 				className={homeStyles.banner_image}
 				src={adoptapetHeroBanner}
-				layout="responsive"
+				layout="fill"
 				objectFit="cover"
+				width="6240"
+				height="4160"
+				// width="100vw"
+				// height="100vh"
 				objectPosition="center"
 				sizes="50vw"
 				quality={100}

@@ -92,12 +92,10 @@ export default function Home() {
 				/>
 				<link rel="icon" href="\assets\aapTitleLogoTransparent.png" />
 			</Head>
-			<IndexHero />
-
-			<AnimalInputField className={homeStyles.home_input_field} />
+			<IndexHero></IndexHero>
+			{/* <AnimalInputField className={homeStyles.home_input_field} /> */}
 			<h1 className={homeStyles.headline}></h1>
 			<h2>New and Featured Animals</h2>
-
 			<Carousel results={results} />
 		</div>
 	);

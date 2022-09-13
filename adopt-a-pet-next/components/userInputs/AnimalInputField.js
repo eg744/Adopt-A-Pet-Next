@@ -99,12 +99,11 @@ const AnimalInputField = () => {
 	const handleLocationChange = (event) => {
 		const location = event.target.value;
 		setLocation(location);
-		console.log(location);
 	};
 
 	return (
 		<div>
-			<form className="animalform" onSubmit={handleSubmit}>
+			<form className={inputStyles.animalInput} onSubmit={handleSubmit}>
 				<p>What kind of animal are you looking for?</p>
 				<Select
 					className={inputStyles.inputAnimalType}
@@ -124,8 +123,7 @@ const AnimalInputField = () => {
 							onChange={handleBreedSelectChange}
 						/>
 						<input
-							className="search"
-							// value={zipcode}
+							className={inputStyles.inputLocation}
 							placeholder="Enter location (city, state, or ZIP)..."
 							type="text"
 							name="search"
@@ -139,7 +137,7 @@ const AnimalInputField = () => {
 
 				<Link
 					href={{
-						pathname: '/animals/[slug]',
+						pathname: '/animals/[animalParams]',
 
 						query: {
 							type: currentAnimalType,
@@ -149,7 +147,12 @@ const AnimalInputField = () => {
 					}}
 				>
 					{isSelected ? (
-						<button type="submit">Search for animals</button>
+						<button
+							className={inputStyles.inputLocation}
+							type="submit"
+						>
+							Search for animals
+						</button>
 					) : (
 						<></>
 					)}

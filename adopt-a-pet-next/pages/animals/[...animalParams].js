@@ -5,6 +5,7 @@ import { petfinderUrls } from '../../URLs/petfinderurls';
 import { PetFinderAuthContext } from '../_app';
 import AnimalInputField from '../../components/userInputs/AnimalInputField';
 import ResultPage from '../../components/Result-page';
+import loadingAnimalPage from '../../components/pageComponents/animalPageComponents/loadingAnimalPage';
 
 const Slug = () => {
 	const router = useRouter();
@@ -17,6 +18,7 @@ const Slug = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [results, setResults] = useState([]);
 	// const [currentQuery, setCurrentQuery] = useState([]);
+	const [isValidRequest, setIsValidRequest] = useState(false);
 	const [page, setPage] = useState(1);
 
 	console.log('slugroute', router);
@@ -53,7 +55,6 @@ const Slug = () => {
 			return pfUrl;
 		};
 		const myQuery = queryUrl();
-		console.log(myQuery);
 
 		if (token === null) return;
 		try {
@@ -64,9 +65,15 @@ const Slug = () => {
 						Authorization: `Bearer ${token}`,
 					},
 				});
+				if (animalData.status !== 200) {
+					setIsValidRequest(false);
+
+					return;
+				}
+				console.log(animalData);
 
 				const animalDataJson = await animalData.json();
-				console.log(animalDataJson);
+				// console.log(animalDataJson);
 				const filteredAnimals = [];
 				animalDataJson.animals.map((animal) => {
 					if (
@@ -78,9 +85,8 @@ const Slug = () => {
 						filteredAnimals.push(animal);
 					}
 				});
-
+				setIsValidRequest(true);
 				setResults(filteredAnimals);
-				console.log(results);
 
 				setIsLoading(false);
 			};
@@ -90,9 +96,27 @@ const Slug = () => {
 			//
 			console.error(error);
 		}
-	}, [token, router.query]);
+	}, [token, router.query, isValidRequest]);
 
-	if (isLoading) {
+	// Might want something like this to clean up jsx
+	// const PageText = (text) => {
+	// 	return (
+	// 		<div className="animalPageConditionText">
+	// 			<h1>{text}</h1>
+	// 			<AnimalInputField />
+	// 		</div>
+	// 	);
+	// };
+
+	// Look at different ways of conditionally rendering. This if/else chain is functional but ugly.
+	if (!isValidRequest) {
+		return (
+			<div>
+				<h1>Not a valid request. Please search for something else</h1>
+				<AnimalInputField />
+			</div>
+		);
+	} else if (isLoading) {
 		return (
 			<div>
 				<h1>Loading...</h1>

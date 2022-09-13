@@ -54,19 +54,26 @@
 } */
 
 .home_hero {
+  /* display: flex; */
+  margin: 1;
+  padding: 10rem;
+
+  grid-template-areas: 'overlay';
+  display: block;
   z-index: 1;
-  width: 90%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   position: relative;
   background-attachment: local;
   justify-content:center;
   align-items: center;
    /* background-size: cover; */
    background-position: center;
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
   /* overflow: hidden; */
 
 }
+
 
 /* .image_holder {
   position: absolute;
@@ -79,7 +86,8 @@
   width: 5em;
   height: 50%;
   z-index: 0;
-  height: 100px;
+  height: 100%;
+  width: 100%;
   object-fit: cover;
   background-size: cover;
 }
