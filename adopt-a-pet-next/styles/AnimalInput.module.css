@@ -8,17 +8,35 @@
     justify-content: center;
     /* align-items: center; */
     /* font-size: 1; */
-    background: #f2f2f2;
+    background: #f2f2f275;
     padding: 12px;
     border-radius: 3px;
+    /* outline: 10px solid red; */
+    
+}
+.inputAnimalType + .inputAnimalBreed + .inputLocation{
+    height: 2rem;
+    padding: 1rem;
+    
+}
+.inputHeader{
+    font-size: 1.25rem;
+    /* margin: 1rem; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    background: #f2f2f275;
+    width: inherit;
 }
    
-.inputAnimalType{
+.inputAnimalType {
     z-index: 99;
 }
 .inputAnimalBreed {
     z-index: 98;
 }
 .inputLocation{
-    z-index: 98;
+    z-index: 97;
+    padding: 0.5em;
 }

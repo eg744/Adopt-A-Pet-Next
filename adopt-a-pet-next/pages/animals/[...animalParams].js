@@ -19,6 +19,7 @@ const Slug = () => {
 	const [results, setResults] = useState([]);
 	// const [currentQuery, setCurrentQuery] = useState([]);
 	const [isValidRequest, setIsValidRequest] = useState(false);
+	const [error, setError] = useState(null);
 	const [page, setPage] = useState(1);
 
 	console.log('slugroute', router);
@@ -59,7 +60,6 @@ const Slug = () => {
 		if (token === null) return;
 		try {
 			const fetchAnimals = async () => {
-				// const animalData = await fetch(myQuery, {
 				const animalData = await fetch(myQuery, {
 					headers: {
 						Authorization: `Bearer ${token}`,
@@ -67,7 +67,6 @@ const Slug = () => {
 				});
 				if (animalData.status !== 200) {
 					setIsValidRequest(false);
-
 					return;
 				}
 				console.log(animalData);
@@ -93,7 +92,7 @@ const Slug = () => {
 
 			fetchAnimals();
 		} catch (error) {
-			//
+			setError(error);
 			console.error(error);
 		}
 	}, [token, router.query, isValidRequest]);

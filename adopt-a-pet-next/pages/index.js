@@ -41,16 +41,10 @@ export default function Home() {
 					}
 				);
 
-				// const animalTypes = await fetch(`${petfinderUrls.types}`, {
-				// 	headers: {
-				// 		Authorization: `Bearer ${token}`,
-				// 	},
-				// });
 				const animalDataJson = await animalData.json();
-				// const animalTypesJson = await animalTypes.json();
 
 				setResults(animalDataJson.animals);
-				// setPetTypesAvailable(animalTypesJson.types);
+
 				setIsLoading(false);
 			};
 
@@ -92,11 +86,13 @@ export default function Home() {
 				/>
 				<link rel="icon" href="\assets\aapTitleLogoTransparent.png" />
 			</Head>
-			<IndexHero></IndexHero>
+			<IndexHero />
 			{/* <AnimalInputField className={homeStyles.home_input_field} /> */}
 			<h1 className={homeStyles.headline}></h1>
-			<h2>New and Featured Animals</h2>
-			<Carousel results={results} />
+			<h2 className={homeStyles.subheadline}>New and Featured Animals</h2>
+			<div className={homeStyles.carousel_container}>
+				<Carousel results={results} />
+			</div>
 		</div>
 	);
 }

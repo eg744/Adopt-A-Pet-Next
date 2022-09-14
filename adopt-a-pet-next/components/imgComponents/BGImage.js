@@ -39,6 +39,7 @@ const BGImage = () => {
 			<Image
 				className={homeStyles.banner_image}
 				src={adoptapetHeroBanner}
+				priority="true"
 				layout="fill"
 				objectFit="cover"
 				width="6240"
@@ -46,7 +47,7 @@ const BGImage = () => {
 				// width="100vw"
 				// height="100vh"
 				objectPosition="center"
-				sizes="50vw"
+				sizes="100vw"
 				quality={100}
 				// Replace with blurred image while loading
 				// placeholder="blur"

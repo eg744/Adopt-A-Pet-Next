@@ -104,7 +104,9 @@ const AnimalInputField = () => {
 	return (
 		<div>
 			<form className={inputStyles.animalInput} onSubmit={handleSubmit}>
-				<p>What kind of animal are you looking for?</p>
+				<p className={inputStyles.inputHeader}>
+					What kind of animal are you looking for?
+				</p>
 				<Select
 					className={inputStyles.inputAnimalType}
 					autoFocus
