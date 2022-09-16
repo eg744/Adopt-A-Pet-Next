@@ -14,9 +14,18 @@ const FeaturedPets = ({ result }) => {
 		<div className={featuredStyles.card}>
 			<a href={result.url}>View {result.name} on Petfinder</a>
 			<div>
-				<AnimalImage className={featuredStyles.image} result={result} />
-				<p className={featuredStyles.name}>{result.name}</p>
-				{/* <div
+				<Link href={`/animals/${[result.id]}`}>
+					<div>
+						<AnimalImage
+							className={featuredStyles.image}
+							result={result}
+						/>
+						<p className={featuredStyles.name}>{result.name}</p>
+					</div>
+				</Link>
+				{/* <p>{result.name}</p> */}
+
+				{/* if i want description <div
 				dangerouslySetInnerHTML={{
 					__html: htmlDecode(result.description),
 				}}

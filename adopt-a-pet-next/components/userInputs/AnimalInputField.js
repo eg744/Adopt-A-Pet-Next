@@ -81,6 +81,7 @@ const AnimalInputField = () => {
 		return `${petfinderUrls.types}${event.value.toLowerCase()}/breeds`;
 	};
 
+	// I should try to consolidate into single HandleEvent, I'm ok with separate functions for now.
 	const handleTypeSelectChange = (event) => {
 		setCurrentAnimalType(event.value);
 

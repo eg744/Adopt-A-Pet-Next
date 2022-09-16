@@ -25,6 +25,9 @@ export default function Home() {
 	// Current recieved access token
 	const token = useContext(PetFinderAuthContext);
 
+	// save multiple returned pages of results in useref?
+	const retrievedPets = useRef([]);
+
 	useEffect(() => {
 		if (token === null) return;
 		try {
@@ -40,8 +43,17 @@ export default function Home() {
 						},
 					}
 				);
-
 				const animalDataJson = await animalData.json();
+
+				// get more animals to populate carousel array in case too many are filtered
+				// const secondPageAnimalData = await fetch(
+				// 	`${petfinderUrls.default}${animalDataJson.pagination._links.next.href}`,
+				// 	{
+				// 		headers: {
+				// 			Authorization: `Bearer ${token}`,
+				// 		},
+				// 	}
+				// );
 
 				setResults(animalDataJson.animals);
 
@@ -49,6 +61,8 @@ export default function Home() {
 			};
 
 			fetchAnimals();
+			console.log('index results', results);
+			console.log('useref', retrievedPets);
 		} catch (error) {
 			//
 			console.error(error);

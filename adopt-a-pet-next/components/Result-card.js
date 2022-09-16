@@ -23,8 +23,11 @@ const Card = (props) => {
 		<div className={cardStyles.card}>
 			<a href={result.url}>View {result.name} on Petfinder</a>
 			<div>
-				<AnimalImage className={cardStyles.image} result={result} />
-				<p>{result.name}</p>
+				<Link href="/animals/animal/[animalID]">
+					<AnimalImage className={cardStyles.image} result={result} />
+					<p>{result.name}</p>
+				</Link>
+
 				<div
 					dangerouslySetInnerHTML={{
 						__html: htmlDecode(result.description),
