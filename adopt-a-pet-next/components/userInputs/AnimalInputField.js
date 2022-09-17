@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Select from 'react-select';
 import { PetFinderAuthContext } from '../../pages/_app';
 import { petfinderUrls } from '../../URLs/petfinderurls';
@@ -8,6 +9,8 @@ import inputStyles from '../../styles/AnimalInput.module.css';
 const AnimalInputField = () => {
 	const token = useContext(PetFinderAuthContext);
 
+	const router = useRouter();
+
 	const [petTypesAvailable, setPetTypesAvailable] = useState([]);
 	const [currentAnimalType, setCurrentAnimalType] = useState('');
 	const [currentAnimalBreed, setCurrentAnimalBreed] = useState('');
@@ -15,6 +18,8 @@ const AnimalInputField = () => {
 	const [availableAnimalBreeds, setAvailableAnimalBreeds] = useState([]);
 
 	const [isSelected, setIsSelected] = useState(false);
+
+	const [requestRedirect, setRequestRedirect] = useState(false);
 	const [linkPathName, setLinkPathName] = useState('/animals');
 	const [location, setLocation] = useState('');
 
@@ -102,9 +107,39 @@ const AnimalInputField = () => {
 		setLocation(location);
 	};
 
+	const animalPageRedirect = (event) => {
+		event.preventDefault();
+		router.push({
+			pathname: `/animals/[animalParams]`,
+
+			query: {
+				type: currentAnimalType,
+				breed: currentAnimalBreed,
+				location: location,
+			},
+		});
+	};
+
+	// if(requestRedirect){
+	// 	return <AnimalPageRedirect to={{
+
+	// 					pathname: `/animals/[animalParams]`,
+
+	// 					query: {
+	// 						type: currentAnimalType,
+	// 						breed: currentAnimalBreed,
+	// 						location: location,
+	// 					}
+
+	// 	}
+	// }
+
 	return (
 		<div>
-			<form className={inputStyles.animalInput} onSubmit={handleSubmit}>
+			<form
+				className={inputStyles.animalInput}
+				onSubmit={animalPageRedirect}
+			>
 				<p className={inputStyles.inputHeader}>
 					What kind of animal are you looking for?
 				</p>
@@ -127,7 +162,7 @@ const AnimalInputField = () => {
 						/>
 						<input
 							className={inputStyles.inputLocation}
-							placeholder="Enter location (city, state, or ZIP)..."
+							placeholder="(Optional): Enter location (city, state, or ZIP)..."
 							type="text"
 							name="search"
 							id="search"
@@ -138,28 +173,29 @@ const AnimalInputField = () => {
 					<></>
 				)}
 
-				<Link
-					href={{
-						pathname: '/animals/[animalParams]',
+				{isSelected ? (
+					<Link
+						href={{
+							pathname: `/animals/[animalParams]`,
 
-						query: {
-							type: currentAnimalType,
-							breed: currentAnimalBreed,
-							location: location,
-						},
-					}}
-				>
-					{isSelected ? (
+							query: {
+								type: currentAnimalType,
+								breed: currentAnimalBreed,
+								location: location,
+							},
+						}}
+					>
 						<button
+							// onClick={animalPageRedirect}
 							className={inputStyles.inputLocation}
 							type="submit"
 						>
 							Search for animals
 						</button>
-					) : (
-						<></>
-					)}
-				</Link>
+					</Link>
+				) : (
+					<></>
+				)}
 			</form>
 		</div>
 	);

@@ -31,14 +31,18 @@
 }
 
 .card p {
+    
     margin: 0;
     font-size: 1.25rem;
     line-height: 1.5;
 }
-
+.card p:hover{
+    color: #2d1038;
+}
 .name {
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
+    justify-content: center;
     align-self: center;
     text-align: center;
     bottom: 0;

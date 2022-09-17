@@ -11,9 +11,10 @@ const Slug = () => {
 	const router = useRouter();
 	const token = useContext(PetFinderAuthContext);
 
-	const animalType = router.query.animalTypes;
-	const animalBreed = router.query.animalBreed;
-	const location = router.query.location;
+	// const animalType = router.query.animalTypes;
+	// const animalBreed = router.query.animalBreed;
+	// const location = router.query.location;
+	const { animalType, animalBreed, location } = router.query;
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [results, setResults] = useState([]);
