@@ -14,7 +14,7 @@ const AnimalImage = (props) => {
 					src={result.photos[0].full}
 					width={500}
 					height={500}
-					alt={`A cute animal for adoption named ${result.name}`}
+					alt={`A cute animal for adoption named ${result.name}. View at ${result.url}`}
 				/>
 			</div>
 		);

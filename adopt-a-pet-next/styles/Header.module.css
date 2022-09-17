@@ -21,6 +21,15 @@
 .description {
    text-align: center;
 }
+.header{
+   
+   width: 100vw;
+   height: 100vh;
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   border: 0;
+}
 
 .description {
    margin: 4rem 0;

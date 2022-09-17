@@ -6,7 +6,6 @@ const OrganizationIndex = () => {
 		<div>
 			<h1>Search for animal shelters in your area</h1>
 			<ShelterInputField />
-			OrganizationIndex
 		</div>
 	);
 };

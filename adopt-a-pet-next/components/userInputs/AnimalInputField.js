@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Select from 'react-select';
 import { PetFinderAuthContext } from '../../pages/_app';
 import { petfinderUrls } from '../../URLs/petfinderurls';
@@ -8,6 +9,8 @@ import inputStyles from '../../styles/AnimalInput.module.css';
 const AnimalInputField = () => {
 	const token = useContext(PetFinderAuthContext);
 
+	const router = useRouter();
+
 	const [petTypesAvailable, setPetTypesAvailable] = useState([]);
 	const [currentAnimalType, setCurrentAnimalType] = useState('');
 	const [currentAnimalBreed, setCurrentAnimalBreed] = useState('');
@@ -15,10 +18,11 @@ const AnimalInputField = () => {
 	const [availableAnimalBreeds, setAvailableAnimalBreeds] = useState([]);
 
 	const [isSelected, setIsSelected] = useState(false);
-	const [linkPathName, setLinkPathName] = useState('/animals');
 
-	const [isValidSelection, setIsValidSelection] = useState(false);
-	const [queryUrl, setQueryUrl] = useState('');
+	const [requestRedirect, setRequestRedirect] = useState(false);
+	const [linkPathName, setLinkPathName] = useState('/animals');
+	const [location, setLocation] = useState('');
+
 	// unsure about useref, potentially store arrays for pet types, breeds
 	// const breedArray = useRef([]);
 
@@ -46,57 +50,11 @@ const AnimalInputField = () => {
 		fetchPetTypeOptions();
 	}, [token]);
 
-	// Check for any errors, set flag
-	const inputValid = (inputErrors) => {
-		let valid = true;
-
-		Object.values(inputErrors).map((error) => {
-			if (error.length > 0) valid = false;
-		});
-
-		return valid;
-	};
-
 	const handleSubmit = (event) => {
 		// Do not reload page/submit
 		event.preventDefault();
 		console.log('breed', currentAnimalBreed);
 		console.log('type', currentAnimalType);
-
-		// May want these for future form inputs
-		// if (inputValid(inputErrors)) {
-	};
-
-	const handleChange = (event) => {
-		// event.preventDefault();
-
-		// form's input name, event.target.value = entered value
-		const { name, value } = event.target;
-
-		let errors = { ...inputErrors };
-
-		// Extendable switch to validate and update state
-		switch (name) {
-			case 'animal':
-				errors.animal =
-					value.length < 3
-						? 'Please enter at least 3 characters'
-						: '';
-
-				break;
-
-			case 'zipcode':
-				errors.zipcode = USZipcodeRegex.test(value)
-					? ''
-					: 'Invalid Zipcode';
-
-				break;
-
-			default:
-				break;
-		}
-		setSelectedAnimalState({ errors, [name]: value });
-		setZipcodeState({ errors, [name]: value });
 	};
 
 	const getPetOption = (url) => {
@@ -109,7 +67,7 @@ const AnimalInputField = () => {
 			});
 			const animalBreedsJson = await animalBreeds.json();
 
-			const breedsArray = [];
+			const breedsArray = [{ label: `Any Breed`, value: 'any' }];
 			animalBreedsJson.breeds.map((breed, index) => {
 				// React-select options for breed types
 				breedsArray.push({
@@ -118,6 +76,7 @@ const AnimalInputField = () => {
 					key: index,
 				});
 			});
+
 			setAvailableAnimalBreeds(breedsArray);
 		};
 		fetchAnimals();
@@ -127,12 +86,9 @@ const AnimalInputField = () => {
 		return `${petfinderUrls.types}${event.value.toLowerCase()}/breeds`;
 	};
 
+	// I should try to consolidate into single HandleEvent, I'm ok with separate functions for now.
 	const handleTypeSelectChange = (event) => {
-		if (isSelected && currentAnimalType !== '') {
-			setLinkPathName(`/animals/${currentAnimalType}`);
-		}
 		setCurrentAnimalType(event.value);
-		setLinkPathName(`/animals/${[event.value]}`);
 
 		const breedURL = getPetBreedURL(event);
 		getPetOption(breedURL);
@@ -144,14 +100,49 @@ const AnimalInputField = () => {
 		const breed = event.value;
 
 		setCurrentAnimalBreed(breed);
-
-		setLinkPathName(`/animals/${[currentAnimalType]}/breeds/${[breed]}`);
 	};
+
+	const handleLocationChange = (event) => {
+		const location = event.target.value;
+		setLocation(location);
+	};
+
+	const animalPageRedirect = (event) => {
+		event.preventDefault();
+		router.push({
+			pathname: `/animals/[animalParams]`,
+
+			query: {
+				type: currentAnimalType,
+				breed: currentAnimalBreed,
+				location: location,
+			},
+		});
+	};
+
+	// if(requestRedirect){
+	// 	return <AnimalPageRedirect to={{
+
+	// 					pathname: `/animals/[animalParams]`,
+
+	// 					query: {
+	// 						type: currentAnimalType,
+	// 						breed: currentAnimalBreed,
+	// 						location: location,
+	// 					}
+
+	// 	}
+	// }
 
 	return (
 		<div>
-			<form className="animalform" onSubmit={handleSubmit}>
-				<p>What kind of animal are you looking for?</p>
+			<form
+				className={inputStyles.animalInput}
+				onSubmit={animalPageRedirect}
+			>
+				<p className={inputStyles.inputHeader}>
+					What kind of animal are you looking for?
+				</p>
 				<Select
 					className={inputStyles.inputAnimalType}
 					autoFocus
@@ -162,33 +153,49 @@ const AnimalInputField = () => {
 				/>
 				{/* Render breeds after type is selected */}
 				{isSelected ? (
-					<Select
-						className={inputStyles.inputAnimalBreed}
-						options={availableAnimalBreeds}
-						placeholder={`Please select or search for ${currentAnimalType} breeds`}
-						onChange={handleBreedSelectChange}
-					/>
+					<>
+						<Select
+							className={inputStyles.inputAnimalBreed}
+							options={availableAnimalBreeds}
+							placeholder={`Please select or search for ${currentAnimalType} breeds`}
+							onChange={handleBreedSelectChange}
+						/>
+						<input
+							className={inputStyles.inputLocation}
+							placeholder="(Optional): Enter location (city, state, or ZIP)..."
+							type="text"
+							name="search"
+							id="search"
+							onChange={handleLocationChange}
+						/>
+					</>
 				) : (
 					<></>
 				)}
 
-				<Link
-					href={{
-						// inital value here isn't right until both select fields return values. get the pathname dynamically and disable form submit until at least 1 field has value.
-						pathname: linkPathName,
-						// Unsure if I also want to pass values as query, I can access values through path through router as well. Try to see what the difference is?
-						// query: {
-						// 	type: currentAnimalType,
-						// 	breed: currentAnimalBreed,
-						// },
-					}}
-				>
-					{isSelected ? (
-						<button type="submit">Search for animals</button>
-					) : (
-						<></>
-					)}
-				</Link>
+				{isSelected ? (
+					<Link
+						href={{
+							pathname: `/animals/[animalParams]`,
+
+							query: {
+								type: currentAnimalType,
+								breed: currentAnimalBreed,
+								location: location,
+							},
+						}}
+					>
+						<button
+							// onClick={animalPageRedirect}
+							className={inputStyles.inputLocation}
+							type="submit"
+						>
+							Search for animals
+						</button>
+					</Link>
+				) : (
+					<></>
+				)}
 			</form>
 		</div>
 	);

@@ -1,6 +1,42 @@
-.inputAnimalType{
+.animalInput{
+    box-sizing: border-box;
+    
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    /* font-size: 1; */
+    background: #f2f2f275;
+    padding: 12px;
+    border-radius: 3px;
+    /* outline: 10px solid red; */
+    
+}
+.inputAnimalType + .inputAnimalBreed + .inputLocation{
+    height: 2rem;
+    padding: 1rem;
+    
+}
+.inputHeader{
+    font-size: 1.25rem;
+    /* margin: 1rem; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    background: #f2f2f275;
+    width: inherit;
+}
+   
+.inputAnimalType {
     z-index: 99;
 }
 .inputAnimalBreed {
     z-index: 98;
+}
+.inputLocation{
+    z-index: 97;
+    padding: 0.5em;
 }

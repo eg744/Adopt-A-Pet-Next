@@ -90,6 +90,15 @@ const ShelterInputField = () => {
 					id="zip"
 					// onChange={handleChange}
 				/>
+				<input
+					className="search"
+					// value={zipcode}
+					placeholder="search"
+					type="text"
+					name="search"
+					id="search"
+					// onChange={handleChange}
+				/>
 
 				<Link
 					href={{

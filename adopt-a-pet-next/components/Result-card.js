@@ -7,9 +7,11 @@ import cardStyles from '../styles/Card.module.css';
 import AnimalImage from './cardComponents/AnimalImage';
 
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Card = (props) => {
 	// Retrieved data
+	const router = useRouter();
 	const { result } = props;
 	// TODO: link for individual animal in /animal/[animalID] based on result.id
 
@@ -19,12 +21,34 @@ const Card = (props) => {
 		return div.childNodes.length === 0 ? '' : div.childNodes[0].nodeValue;
 	}
 
+	const individualAnimalRedirect = () => {
+		router.push({
+			pathName: '/animals/[animalID]',
+			query: { ...router.query, animalID: `${result.id}` },
+		});
+	};
+
 	return (
 		<div className={cardStyles.card}>
 			<a href={result.url}>View {result.name} on Petfinder</a>
 			<div>
-				<AnimalImage className={cardStyles.image} result={result} />
-				<p>{result.name}</p>
+				<Link
+					href={{
+						pathname: `/animals/animal/[animalID]`,
+
+						query: { animalID: `${result.id}` },
+					}}
+				>
+					{/* <a onClick={individualAnimalRedirect}> */}
+					<a>
+						<AnimalImage
+							className={cardStyles.image}
+							result={result}
+						/>
+						<p>View {result.name}</p>
+					</a>
+				</Link>
+
 				<div
 					dangerouslySetInnerHTML={{
 						__html: htmlDecode(result.description),
