@@ -1,5 +1,7 @@
 .resultsGrid {
     display: grid;
+    align-items: center;
+    justify-content: center;
     gap: 2rem;
     padding-block: 1rem;
     width: min(95%, 70rem);

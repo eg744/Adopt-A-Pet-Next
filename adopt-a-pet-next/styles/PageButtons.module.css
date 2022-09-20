@@ -1,0 +1,22 @@
+.paginationButtons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-content:flex-start;
+    padding: 1rem;
+    margin: 2rem;
+    font-size: 1.25rem;
+
+    
+}
+.nextButton{
+    font-size: 1rem;
+    justify-content: flex-end;
+}
+
+.previousButton{
+    font-size: 1rem;
+    justify-content: flex-start;
+}

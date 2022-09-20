@@ -5,6 +5,7 @@ import { petfinderUrls } from '../../URLs/petfinderurls';
 import { PetFinderAuthContext } from '../_app';
 import AnimalInputField from '../../components/userInputs/AnimalInputField';
 import ResultPage from '../../components/Result-page';
+import pageStyles from '../../styles/PageButtons.module.css';
 import loadingAnimalPage from '../../components/pageComponents/animalPageComponents/loadingAnimalPage';
 
 const Slug = () => {
@@ -53,48 +54,142 @@ const Slug = () => {
 
 		return currentRoutes;
 	};
-	const queryUrl = () => {
-		let pfUrl = petfinderUrls.animals;
-		const queries = getValidQueries();
-		queries.map((query) => {
-			pfUrl += `${query.key}` + '=' + `${query.value}` + '&';
-		});
+	useEffect(() => {
+		const queryUrl = () => {
+			let pfUrl = petfinderUrls.animals;
+			const queries = getValidQueries();
+			queries.map((query) => {
+				pfUrl += `${query.key}` + '=' + `${query.value}` + '&';
+			});
 
-		return pfUrl;
-		// Changing state instead of returning for now.
+			// Changing state instead of returning for now.
 
-		// setCurrentValidQuery(pfUrl);
+			setCurrentValidQuery(pfUrl);
+		};
+		queryUrl();
+	}, [router.query]);
+
+	const handleNextPageChange = () => {
+		// setCurrentPage((previousPage) => previousPage + 1);
+		const nextPage = data.pagination._links.next.href;
+
+		const newAnimalPage = petfinderUrls.default + nextPage;
+		console.log('nextpage', newAnimalPage);
+		setCurrentValidQuery(newAnimalPage);
 	};
 
-	const handlePageChange = (page) => {
-		setCurrentPage((previousPage) => previousPage + 1);
-		const newAnimalPage = petfinderUrls.default + '/' + page;
+	const handlePreviousPageChange = () => {
+		// setCurrentPage((previousPage) => previousPage + 1);
+		const previousPage = data.pagination._links.previous.href;
+
+		const newAnimalPage = petfinderUrls.default + previousPage;
 		setCurrentValidQuery(newAnimalPage);
 	};
 
 	const PaginationButtons = () => {
-		const nextPage = data.pagination._links.next.href;
-		// const previousPage = page.pagination._links.previous.href;
+		try {
+			// These links may not exist
+			// const nextPage =
+			// 	typeof nextPage == 'undefined'
+			// 		? ''
+			// 		: data.pagination._links.next.href;
 
-		if (nextPage) {
-			return (
-				<div className="pagination-buttons">
-					<a>
-						<button
-							className="next-button"
-							onClick={handlePageChange}
-						>
-							Next Page
-						</button>
-					</a>
-				</div>
-			);
+			const totalPages = data.pagination.total_pages;
+			const currentPage = data.pagination.current_page;
+
+			// let nextPage;
+			let nextPage = data.pagination._links.next.href;
+
+			if (typeof nextPage !== 'undefined' && currentPage < totalPages) {
+				nextPage = data.pagination._links.next.href;
+			}
+			console.log(nextPage);
+
+			// console.log('previous', previousPage);
+
+			setCurrentPage(currentPage);
+
+			let previousPage;
+			if (currentPage > 1) {
+				previousPage = data.pagination._links.previous.href;
+				// if (typeof previousPage !== 'undefined') {
+				// }
+			}
+			// Ugly if return chain. Not sure what best practice is.
+			if (
+				typeof nextPage !== 'undefined' &&
+				typeof previousPage !== 'undefined'
+			) {
+				return (
+					<div className={pageStyles.paginationButtons}>
+						<a>
+							<button
+								className={pageStyles.previousButton}
+								onClick={handlePreviousPageChange}
+							>
+								Previous Page
+							</button>
+						</a>
+						<div>
+							Page {currentPage} of {totalPages}
+						</div>
+						<a>
+							<button
+								className={pageStyles.nextButton}
+								onClick={handleNextPageChange}
+							>
+								Next Page
+							</button>
+						</a>
+					</div>
+				);
+			} else if (
+				typeof nextPage !== 'undefined' &&
+				typeof previousPage == 'undefined'
+			) {
+				return (
+					<div className={pageStyles.paginationButtons}>
+						<a>
+							<div>
+								Page {currentPage} of {totalPages}
+							</div>
+							<button
+								className={pageStyles.nextButton}
+								onClick={handleNextPageChange}
+							>
+								Next Page
+							</button>
+						</a>
+					</div>
+				);
+			} else if (
+				typeof previousPage !== 'undefined' &&
+				typeof nextPage == 'undefined'
+			) {
+				return (
+					<div className={pageStyles.paginationButtons}>
+						<a>
+							<button
+								className={pageStyles.previousButton}
+								onClick={handlePreviousPageChange}
+							>
+								Previous Page
+							</button>
+						</a>
+						<div>
+							Page {currentPage} of {totalPages}
+						</div>
+					</div>
+				);
+			} else {
+				return <></>;
+			}
+		} catch (error) {
+			console.error(error);
 		}
 	};
 
 	useEffect(() => {
-		const myquery = queryUrl();
-		// const myQuery = queryUrl();
 		if (token === null) return;
 		try {
 			const fetchAnimals = async () => {
@@ -135,7 +230,8 @@ const Slug = () => {
 			setError(error);
 			console.error(error);
 		}
-	}, [token, router.query, currentValidQuery]);
+	}, [token, currentValidQuery]);
+	// }, [token, router.query, currentValidQuery]);
 
 	// Might want something like this to clean up jsx
 	// const PageText = (text) => {
