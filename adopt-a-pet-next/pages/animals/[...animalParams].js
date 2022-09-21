@@ -61,7 +61,7 @@ const Slug = () => {
 			setCurrentValidQuery(pfUrl);
 		};
 		queryUrl();
-	}, [router.query, getValidQueries]);
+	}, []);
 	// }, [router.query]);
 
 	const handleNextPageChange = () => {
