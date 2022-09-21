@@ -27,42 +27,51 @@ const Slug = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 
 	console.log('slugroute', router);
-	const getValidQueries = () => {
-		const currentRoutes = [];
 
-		for (let key in router.query) {
-			// No empty/undefined params. Can accept many valid query params
-			if (router.query.hasOwnProperty(key)) {
-				if (
-					typeof router.query[key] === 'string' &&
-					router.query[key] !== '' &&
-					router.query[key] !== 'any'
-				) {
-					currentRoutes.push({
-						key: key,
-						value: router.query[key],
-					});
+	useEffect(() => {
+		const getValidQueries = () => {
+			const currentRoutes = [];
+
+			for (let key in router.query) {
+				// No empty/undefined params. Can accept many valid query params
+				if (router.query.hasOwnProperty(key)) {
+					if (
+						typeof router.query[key] === 'string' &&
+						router.query[key] !== '' &&
+						router.query[key] !== 'any'
+					) {
+						currentRoutes.push({
+							key: key,
+							value: router.query[key],
+						});
+					}
 				}
 			}
-		}
 
-		return currentRoutes;
-	};
-	useEffect(() => {
-		const queryUrl = () => {
+			// return currentRoutes;
+
 			let pfUrl = petfinderUrls.animals;
-			const queries = getValidQueries();
-			queries.map((query) => {
+
+			currentRoutes.map((query) => {
 				pfUrl += `${query.key}` + '=' + `${query.value}` + '&';
 			});
 
-			// Changing state instead of returning for now.
-
 			setCurrentValidQuery(pfUrl);
 		};
-		queryUrl();
-	}, []);
-	// }, [router.query]);
+		getValidQueries();
+		// const queryUrl = () => {
+		// 	let pfUrl = petfinderUrls.animals;
+		// 	const queries = getValidQueries();
+		// queries.map((query) => {
+		// 	pfUrl += `${query.key}` + '=' + `${query.value}` + '&';
+		// });
+
+		// 	// Changing state instead of returning for now.
+
+		// 	setCurrentValidQuery(pfUrl);
+		// };
+		// queryUrl();
+	}, [router.query]);
 
 	const handleNextPageChange = () => {
 		// setCurrentPage((previousPage) => previousPage + 1);
