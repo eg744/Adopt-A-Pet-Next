@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import cardStyles from '../styles/Card.module.css';
 
-import { htmlDecode } from './cardComponents/htmldecoder';
+// import htmlDecode from './cardComponents/htmldecoder';
 
 import AnimalImage from './cardComponents/AnimalImage';
 
@@ -15,11 +15,11 @@ const Card = (props) => {
 	const { result } = props;
 	// TODO: link for individual animal in /animal/[animalID] based on result.id
 
-	// function htmlDecode(content) {
-	// 	let div = document.createElement('div');
-	// 	div.innerHTML = content;
-	// 	return div.childNodes.length === 0 ? '' : div.childNodes[0].nodeValue;
-	// }
+	function htmlDecode(content) {
+		let div = document.createElement('div');
+		div.innerHTML = content;
+		return div.childNodes.length === 0 ? '' : div.childNodes[0].nodeValue;
+	}
 
 	const individualAnimalRedirect = () => {
 		router.push({
