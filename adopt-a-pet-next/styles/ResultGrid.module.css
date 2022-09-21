@@ -1,12 +1,15 @@
 .resultsGrid {
-    display: grid;
+    /* messy change: flex is looking much better at the moment. */
+    /* display: grid; */
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
-    padding-block: 1rem;
-    width: min(95%, 70rem);
+    /* gap: 2rem; */
+    /* padding-block: 1rem; */
+    width: min(95%);
     margin-inline: auto;
-    /* grid-template-columns: repeat(4, 1fr); */
+    grid-template-columns: repeat(4, 1fr);
 }
 
 @media (min-width: 50em){

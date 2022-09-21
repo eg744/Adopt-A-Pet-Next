@@ -27,10 +27,10 @@ const Carousel = ({ results }) => {
 		};
 		const animals = getCarousel();
 		setCarouselAnimals(animals);
-		console.log('carousel', carouselAnimals);
+		// console.log('carousel', carouselAnimals);
 	}, [results]);
 
-	// show groups of 4:
+	// show groups of 4?
 
 	const gotoPrevious = () => {
 		const isFirst = currentIndex === 0;

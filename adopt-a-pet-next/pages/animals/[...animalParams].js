@@ -6,15 +6,12 @@ import { PetFinderAuthContext } from '../_app';
 import AnimalInputField from '../../components/userInputs/AnimalInputField';
 import ResultPage from '../../components/Result-page';
 import pageStyles from '../../styles/PageButtons.module.css';
-import loadingAnimalPage from '../../components/pageComponents/animalPageComponents/loadingAnimalPage';
+// import loadingAnimalPage from '../../components/pageComponents/animalPageComponents/loadingAnimalPage';
 
 const Slug = () => {
 	const router = useRouter();
 	const token = useContext(PetFinderAuthContext);
 
-	// const animalType = router.query.animalTypes;
-	// const animalBreed = router.query.animalBreed;
-	// const location = router.query.location;
 	const { animalType, animalBreed, location } = router.query;
 
 	const [isLoading, setIsLoading] = useState(true);
@@ -26,9 +23,6 @@ const Slug = () => {
 	const [error, setError] = useState(null);
 
 	const [currentValidQuery, setCurrentValidQuery] = useState(null);
-
-	const [isNextPage, setIsNextPage] = useState(true);
-	const [isPreviousPage, setIsPreviousPage] = useState(false);
 
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -67,7 +61,8 @@ const Slug = () => {
 			setCurrentValidQuery(pfUrl);
 		};
 		queryUrl();
-	}, [router.query]);
+	}, [router.query, getValidQueries]);
+	// }, [router.query]);
 
 	const handleNextPageChange = () => {
 		// setCurrentPage((previousPage) => previousPage + 1);
@@ -97,10 +92,9 @@ const Slug = () => {
 			const totalPages = data.pagination.total_pages;
 			const currentPage = data.pagination.current_page;
 
-			// let nextPage;
-			let nextPage = data.pagination._links.next.href;
+			let nextPage;
 
-			if (typeof nextPage !== 'undefined' && currentPage < totalPages) {
+			if (typeof nextPage == 'undefined' && totalPages > 1) {
 				nextPage = data.pagination._links.next.href;
 			}
 			console.log(nextPage);
@@ -112,8 +106,6 @@ const Slug = () => {
 			let previousPage;
 			if (currentPage > 1) {
 				previousPage = data.pagination._links.previous.href;
-				// if (typeof previousPage !== 'undefined') {
-				// }
 			}
 			// Ugly if return chain. Not sure what best practice is.
 			if (
@@ -182,7 +174,13 @@ const Slug = () => {
 					</div>
 				);
 			} else {
-				return <></>;
+				return (
+					<div className={pageStyles.paginationButtons}>
+						<div>
+							Page {currentPage} of {totalPages}
+						</div>
+					</div>
+				);
 			}
 		} catch (error) {
 			console.error(error);
@@ -207,7 +205,7 @@ const Slug = () => {
 				const animalDataJson = await animalData.json();
 				setData(animalDataJson);
 
-				console.log(animalDataJson);
+				// console.log(animalDataJson);
 				const filteredAnimals = [];
 				animalDataJson.animals.map((animal) => {
 					if (
@@ -269,7 +267,9 @@ const Slug = () => {
 			<div>
 				<AnimalInputField />
 
-				<h1>Animals matching your search:</h1>
+				<h1 className={pageStyles.searchResultHeader}>
+					Animals matching your search:
+				</h1>
 
 				<ResultPage results={results} />
 				<PaginationButtons />

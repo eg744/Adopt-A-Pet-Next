@@ -69,7 +69,7 @@ export default function Home() {
 		}
 
 		// Update when token changes
-	}, [token]);
+	}, [token, results]);
 
 	if (isLoading) {
 		return (

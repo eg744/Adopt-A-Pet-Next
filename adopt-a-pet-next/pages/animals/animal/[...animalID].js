@@ -58,7 +58,7 @@ const AnimalDetails = () => {
 			}
 			getPetById();
 		};
-	}, [token]);
+	}, [token, animalId]);
 
 	return (
 		<div>
