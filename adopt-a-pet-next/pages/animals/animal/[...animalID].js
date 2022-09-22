@@ -12,7 +12,7 @@ import { petfinderUrls } from '../../../URLs/petfinderurls';
 const AnimalDetails = () => {
 	const token = useContext(PetFinderAuthContext);
 	const router = useRouter();
-	const { animalID } = router.query;
+	const animalID = router.query;
 
 	const [error, setError] = useState(null);
 	const [results, setResults] = useState(null);
@@ -20,16 +20,19 @@ const AnimalDetails = () => {
 	const [isValidRequest, setIsValidRequest] = useState(false);
 
 	// Route animalID specified by filename [animalID]
-	const animalId = router.query.animalID[0];
-	// console.log(animalId);
 
 	// return obj, empty during pre-rendering if does not use server side rendering
 
 	useEffect(() => {
-		const getPetById = async () => {
-			try {
-				if (token === null) return;
+		const animalId = router.query.animalID;
+		console.log(animalId);
+		if (token === null) return;
 
+		try {
+			const getPetById = async () => {
+				// const fetchAnimal = async () => {
+
+				// };
 				const animalData = await fetch(
 					`${petfinderUrls.animal}${animalId}`,
 					{
@@ -50,19 +53,18 @@ const AnimalDetails = () => {
 				setResults(animalDataJson);
 
 				setIsLoading(false);
-
-				fetchAnimals();
-			} catch (error) {
-				setError(error);
-				console.error(error);
-			}
+			};
 			getPetById();
-		};
-	}, [token, animalId]);
+		} catch (error) {
+			setError(error);
+			console.error(error);
+		}
+	}, [token, router.query]);
+	console.log(results);
 
 	return (
 		<div>
-			unique animal ID: {animalId}
+			unique animal ID: {results.animal.id}
 			<div>
 				<Link href="/">Go Home</Link>
 			</div>
