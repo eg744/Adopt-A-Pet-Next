@@ -5,15 +5,13 @@ import { petfinderUrls } from '../../URLs/petfinderurls';
 import { PetFinderAuthContext } from '../_app';
 import AnimalInputField from '../../components/userInputs/AnimalInputField';
 import ResultPage from '../../components/Result-page';
-import PaginationButtons from '../../components/pageComponents/paginationButtons';
+import PaginationButtons from '../../components/pageComponents/PaginationButtons';
 import pageStyles from '../../styles/AnimalResultPage.module.css';
 // import loadingAnimalPage from '../../components/pageComponents/animalPageComponents/loadingAnimalPage';
 
 const Slug = () => {
 	const router = useRouter();
 	const token = useContext(PetFinderAuthContext);
-
-	const { animalType, animalBreed, location } = router.query;
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [data, setData] = useState(null);
@@ -114,7 +112,6 @@ const Slug = () => {
 			console.error(error);
 		}
 	}, [token, currentValidQuery]);
-	// }, [token, router.query, currentValidQuery]);
 
 	// Might want something like this to clean up jsx
 	// const PageText = (text) => {
