@@ -62,13 +62,15 @@ const AnimalDetails = () => {
 	}, [token, router.query]);
 	console.log(results);
 
-	return (
-		<div>
-			unique animal ID: {results.animal.id}
+	if (!isLoading) {
+		return (
 			<div>
-				<Link href="/">Go Home</Link>
+				unique animal ID: {results.animal.id}
+				<div>
+					<Link href="/">Go Home</Link>
+				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 };
 export default AnimalDetails;
