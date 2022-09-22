@@ -13,7 +13,6 @@ const AnimalDetails = () => {
 	const token = useContext(PetFinderAuthContext);
 	const router = useRouter();
 	const { animalID } = router.query;
-	console.log(animalID);
 
 	const [error, setError] = useState(null);
 	const [results, setResults] = useState(null);
@@ -21,8 +20,9 @@ const AnimalDetails = () => {
 	const [isValidRequest, setIsValidRequest] = useState(false);
 
 	// Route animalID specified by filename [animalID]
-	const animalId = router.query.animalID;
-	console.log(animalId);
+	const animalId = router.query.animalID[0];
+	// console.log(animalId);
+
 	// return obj, empty during pre-rendering if does not use server side rendering
 
 	useEffect(() => {

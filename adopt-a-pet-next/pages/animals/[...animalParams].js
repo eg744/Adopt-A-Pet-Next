@@ -5,7 +5,8 @@ import { petfinderUrls } from '../../URLs/petfinderurls';
 import { PetFinderAuthContext } from '../_app';
 import AnimalInputField from '../../components/userInputs/AnimalInputField';
 import ResultPage from '../../components/Result-page';
-import pageStyles from '../../styles/PageButtons.module.css';
+import PaginationButtons from '../../components/pageComponents/paginationButtons';
+import pageStyles from '../../styles/AnimalResultPage.module.css';
 // import loadingAnimalPage from '../../components/pageComponents/animalPageComponents/loadingAnimalPage';
 
 const Slug = () => {
@@ -23,10 +24,6 @@ const Slug = () => {
 	const [error, setError] = useState(null);
 
 	const [currentValidQuery, setCurrentValidQuery] = useState(null);
-
-	const [currentPage, setCurrentPage] = useState(1);
-
-	console.log('slugroute', router);
 
 	useEffect(() => {
 		const getValidQueries = () => {
@@ -48,8 +45,7 @@ const Slug = () => {
 				}
 			}
 
-			// return currentRoutes;
-
+			// combined 2 functions here. both necessary in useeffect without unecessary dependencies.
 			let pfUrl = petfinderUrls.animals;
 
 			currentRoutes.map((query) => {
@@ -59,22 +55,9 @@ const Slug = () => {
 			setCurrentValidQuery(pfUrl);
 		};
 		getValidQueries();
-		// const queryUrl = () => {
-		// 	let pfUrl = petfinderUrls.animals;
-		// 	const queries = getValidQueries();
-		// queries.map((query) => {
-		// 	pfUrl += `${query.key}` + '=' + `${query.value}` + '&';
-		// });
-
-		// 	// Changing state instead of returning for now.
-
-		// 	setCurrentValidQuery(pfUrl);
-		// };
-		// queryUrl();
 	}, [router.query]);
 
 	const handleNextPageChange = () => {
-		// setCurrentPage((previousPage) => previousPage + 1);
 		const nextPage = data.pagination._links.next.href;
 
 		const newAnimalPage = petfinderUrls.default + nextPage;
@@ -83,117 +66,10 @@ const Slug = () => {
 	};
 
 	const handlePreviousPageChange = () => {
-		// setCurrentPage((previousPage) => previousPage + 1);
 		const previousPage = data.pagination._links.previous.href;
 
 		const newAnimalPage = petfinderUrls.default + previousPage;
 		setCurrentValidQuery(newAnimalPage);
-	};
-
-	const PaginationButtons = () => {
-		try {
-			// These links may not exist
-			// const nextPage =
-			// 	typeof nextPage == 'undefined'
-			// 		? ''
-			// 		: data.pagination._links.next.href;
-
-			const totalPages = data.pagination.total_pages;
-			const currentPage = data.pagination.current_page;
-
-			let nextPage;
-
-			if (typeof nextPage == 'undefined' && totalPages > 1) {
-				nextPage = data.pagination._links.next.href;
-			}
-			console.log(nextPage);
-
-			// console.log('previous', previousPage);
-
-			setCurrentPage(currentPage);
-
-			let previousPage;
-			if (currentPage > 1) {
-				previousPage = data.pagination._links.previous.href;
-			}
-			// Ugly if return chain. Not sure what best practice is.
-			if (
-				typeof nextPage !== 'undefined' &&
-				typeof previousPage !== 'undefined'
-			) {
-				return (
-					<div className={pageStyles.paginationButtons}>
-						<a>
-							<button
-								className={pageStyles.previousButton}
-								onClick={handlePreviousPageChange}
-							>
-								Previous Page
-							</button>
-						</a>
-						<div>
-							Page {currentPage} of {totalPages}
-						</div>
-						<a>
-							<button
-								className={pageStyles.nextButton}
-								onClick={handleNextPageChange}
-							>
-								Next Page
-							</button>
-						</a>
-					</div>
-				);
-			} else if (
-				typeof nextPage !== 'undefined' &&
-				typeof previousPage == 'undefined'
-			) {
-				return (
-					<div className={pageStyles.paginationButtons}>
-						<a>
-							<div>
-								Page {currentPage} of {totalPages}
-							</div>
-							<button
-								className={pageStyles.nextButton}
-								onClick={handleNextPageChange}
-							>
-								Next Page
-							</button>
-						</a>
-					</div>
-				);
-			} else if (
-				typeof previousPage !== 'undefined' &&
-				typeof nextPage == 'undefined'
-			) {
-				return (
-					<div className={pageStyles.paginationButtons}>
-						<a>
-							<button
-								className={pageStyles.previousButton}
-								onClick={handlePreviousPageChange}
-							>
-								Previous Page
-							</button>
-						</a>
-						<div>
-							Page {currentPage} of {totalPages}
-						</div>
-					</div>
-				);
-			} else {
-				return (
-					<div className={pageStyles.paginationButtons}>
-						<div>
-							Page {currentPage} of {totalPages}
-						</div>
-					</div>
-				);
-			}
-		} catch (error) {
-			console.error(error);
-		}
 	};
 
 	useEffect(() => {
@@ -281,7 +157,11 @@ const Slug = () => {
 				</h1>
 
 				<ResultPage results={results} />
-				<PaginationButtons />
+				<PaginationButtons
+					data={data}
+					handleNextPageChange={handleNextPageChange}
+					handlePreviousPageChange={handlePreviousPageChange}
+				/>
 			</div>
 		);
 	}
