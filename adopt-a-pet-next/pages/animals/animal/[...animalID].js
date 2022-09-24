@@ -7,6 +7,10 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { petfinderUrls } from '../../../URLs/petfinderurls';
 
+import IndividualAnimalCarousel from '../../../components/carouselComponents/IndividualAnimalCarousel';
+import IndividualAnimalImages from '../../../components/imgComponents/IndividualAnimalImages';
+import AnimalTags from '../../../components/singleAnimalComponents/AnimalTags';
+
 // Router can display route parameter(animal id)
 
 const AnimalDetails = () => {
@@ -15,13 +19,19 @@ const AnimalDetails = () => {
 	const animalID = router.query;
 
 	const [error, setError] = useState(null);
-	const [results, setResults] = useState(null);
+	const [result, setResult] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isValidRequest, setIsValidRequest] = useState(false);
 
 	// Route animalID specified by filename [animalID]
 
 	// return obj, empty during pre-rendering if does not use server side rendering
+
+	const htmlDecode = (content) => {
+		let div = document.createElement('div');
+		div.innerHTML = content;
+		return div.childNodes.length === 0 ? '' : div.childNodes[0].nodeValue;
+	};
 
 	useEffect(() => {
 		const animalId = router.query.animalID;
@@ -30,9 +40,6 @@ const AnimalDetails = () => {
 
 		try {
 			const getPetById = async () => {
-				// const fetchAnimal = async () => {
-
-				// };
 				const animalData = await fetch(
 					`${petfinderUrls.animal}${animalId}`,
 					{
@@ -50,7 +57,7 @@ const AnimalDetails = () => {
 				const animalDataJson = await animalData.json();
 
 				setIsValidRequest(true);
-				setResults(animalDataJson);
+				setResult(animalDataJson.animal);
 
 				setIsLoading(false);
 			};
@@ -60,14 +67,43 @@ const AnimalDetails = () => {
 			console.error(error);
 		}
 	}, [token, router.query]);
-	console.log(results);
+	console.log(result);
 
-	if (!isLoading) {
+	if (!isLoading && isValidRequest) {
 		return (
 			<div>
-				unique animal ID: {results.animal.id}
 				<div>
-					<Link href="/">Go Home</Link>
+					<p>ID: {result.id}</p>
+					<p>Organization: {result.organization_id}</p>
+				</div>
+				<div>
+					<IndividualAnimalCarousel result={result} />
+					{/* <IndividualAnimalImages result={result} /> */}
+
+					<h1>{result.name}</h1>
+					<div
+						dangerouslySetInnerHTML={{
+							__html: htmlDecode(result.description),
+						}}
+					></div>
+					<div>
+						<p>{result.name} is:</p>
+						<ul>
+							{result.tags.map((tag, index) => (
+								<AnimalTags key={index} tag={tag} />
+							))}
+						</ul>
+					</div>
+				</div>
+
+				<div>
+					<h2>Contact Information:</h2>
+					<p>Email: {result.contact.email}</p>
+					<p>Phone: {result.contact.phone}</p>
+				</div>
+				<div>
+					{' '}
+					<a href={result.url}>View {result.name} on Petfinder </a>
 				</div>
 			</div>
 		);

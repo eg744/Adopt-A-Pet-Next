@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 const AnimalImage = (props) => {
 	const { result } = props;
+	console.log('animalimageresult', result);
 
 	// Verify photos exist
 	if (result.photos[0] && result.photos[0].full) {

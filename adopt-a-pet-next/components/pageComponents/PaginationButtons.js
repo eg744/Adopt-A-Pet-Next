@@ -17,15 +17,12 @@ const PaginationButtons = ({
 		const currentPage = data.pagination.current_page;
 
 		let nextPage;
+		let previousPage;
 
 		if (typeof nextPage == 'undefined' && totalPages > 1) {
 			nextPage = data.pagination._links.next.href;
 		}
-		console.log(nextPage);
 
-		// console.log('previous', previousPage);
-
-		let previousPage;
 		if (currentPage > 1) {
 			previousPage = data.pagination._links.previous.href;
 		}

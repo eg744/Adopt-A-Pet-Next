@@ -123,24 +123,28 @@ const Slug = () => {
 	// 	);
 	// };
 
-	// Look at different ways of conditionally rendering. This if/else chain is functional but bad.
+	// Look at different ways of conditionally rendering. This if/else chain is functional but I don't like it.
 	if (!isValidRequest && !isLoading) {
 		return (
 			<div>
-				<h1>Not a valid request. Please search for something else.</h1>
+				<h1 className={pageStyles.searchResultHeader}>
+					Not a valid request. Please search for something else.
+				</h1>
 				<AnimalInputField />
 			</div>
 		);
 	} else if (isLoading) {
 		return (
 			<div>
-				<h1>Loading...</h1>
+				<h1 className={pageStyles.searchResultHeader}>Loading...</h1>
 			</div>
 		);
 	} else if (!isLoading && results.length < 1) {
 		return (
 			<div>
-				<h1>No results found for your search. Please search again.</h1>
+				<h1 className={pageStyles.searchResultHeader}>
+					No results found for your search. Please search again.
+				</h1>
 				<AnimalInputField />
 			</div>
 		);

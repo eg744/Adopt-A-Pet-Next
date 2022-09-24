@@ -13,7 +13,6 @@ const Card = (props) => {
 	// Retrieved data
 	const router = useRouter();
 	const { result } = props;
-	// TODO: link for individual animal in /animal/[animalID] based on result.id
 
 	function htmlDecode(content) {
 		let div = document.createElement('div');
