@@ -2,7 +2,13 @@
     display: flex;
     flex-wrap: wrap;
     padding: 1.5rem;
+    /* justify-content: center; */
+    align-items: center;
     flex-direction: column;
+}
+.animalContainer h1{
+    display: flex;
+    justify-content: center;
 }
 .description{
     padding: 1rem;
@@ -22,6 +28,7 @@
 }
 .externalLink{
     /* text-emphasis:inherit */
+    font-size: 1.25rem;
     font-weight: bold;
 }
 

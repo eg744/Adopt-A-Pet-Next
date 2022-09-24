@@ -10,7 +10,7 @@ const IndividualAnimalCarousel = ({ result }) => {
 
 	useEffect(() => {
 		const getCarousel = () => {
-			// think about pushing array of photos instead of entire animal
+			// think about pushing array of photos instead of entire animal object. Would require restructuring
 			const selectedAnimal = [];
 
 			if (result.photos[0] && result.photos[0].full) {
@@ -18,7 +18,6 @@ const IndividualAnimalCarousel = ({ result }) => {
 					selectedAnimal.push(image);
 				}
 			}
-			console.log(selectedAnimal);
 
 			if (selectedAnimal.length >= 1) {
 				setIsloading(false);
