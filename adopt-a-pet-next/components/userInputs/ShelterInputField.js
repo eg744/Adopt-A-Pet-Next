@@ -18,97 +18,46 @@ const AnimalInputField = () => {
 	const [linkPathName, setLinkPathName] = useState('/animals');
 	const [location, setLocation] = useState('');
 
-	useEffect(() => {
-		if (token === null) return;
-		const fetchOrganizations = async () => {
-			const returnedOrgs = await fetch(`${petfinderUrls.organizations}`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
-			const orgs = [];
-			const returnedOrgsJson = await returnedOrgs.json();
+	// useEffect(() => {
+	// 	if (token === null) return;
+	// 	const fetchOrganizations = async () => {
+	// 		const returnedOrgs = await fetch(`${petfinderUrls.organizations}`, {
+	// 			headers: {
+	// 				Authorization: `Bearer ${token}`,
+	// 			},
+	// 		});
+	// 		const orgs = [];
+	// 		const returnedOrgsJson = await returnedOrgs.json();
 
-			setPetTypesAvailable(animalTypeArray);
-		};
+	// 	};
 
-		fetchOrganizations();
-	}, [token]);
-
-	const handleSubmit = (event) => {
-		// Do not reload page/submit
-		event.preventDefault();
-	};
-
-	const getPetOption = (url) => {
-		if (token === null) return;
-		const fetchAnimals = async () => {
-			const animalBreeds = await fetch(url, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
-			const animalBreedsJson = await animalBreeds.json();
-
-			const breedsArray = [{ label: `Any Breed`, value: 'any' }];
-			animalBreedsJson.breeds.map((breed, index) => {
-				// React-select options for breed types
-				breedsArray.push({
-					label: `${breed.name}`,
-					value: `${breed.name.toLowerCase()}`,
-					key: index,
-				});
-			});
-
-			setAvailableAnimalBreeds(breedsArray);
-		};
-		fetchAnimals();
-	};
-
-	const getPetBreedURL = (event) => {
-		return `${petfinderUrls.types}${event.value.toLowerCase()}/breeds`;
-	};
-
-	// I should try to consolidate into single HandleEvent, I'm ok with separate functions for now.
-	const handleTypeSelectChange = (event) => {
-		setCurrentAnimalType(event.value);
-
-		const breedURL = getPetBreedURL(event);
-		getPetOption(breedURL);
-
-		setIsSelected(true);
-	};
-
-	const handleBreedSelectChange = (event) => {
-		const breed = event.value;
-
-		setCurrentAnimalBreed(breed);
-	};
+	// 	fetchOrganizations();
+	// }, [token]);
 
 	const handleLocationChange = (event) => {
 		const location = event.target.value;
 		setLocation(location);
 	};
 
-	const organizationPageRedirect = (event) => {
-		event.preventDefault();
-		router.push({
-			pathname: `/organizations/[organizationList]`,
+	// const organizationPageRedirect = (event) => {
+	// 	event.preventDefault();
+	// 	router.push({
+	// 		pathname: `/organizations/[organizationList]`,
 
-			query: {
-				location: location,
-			},
-		});
-	};
+	// 		query: {
+	// 			location: location,
+	// 		},
+	// 	});
+	// };
 
 	return (
 		<div>
 			<form
 				className={inputStyles.animalInput}
-				onSubmit={organizationPageRedirect}
+				// onSubmit={organizationPageRedirect}
 			>
 				<p className={inputStyles.inputHeader}>
-					Search for organizations in your area
+					Search for shelters and organizations in your area
 				</p>
 
 				<input
@@ -129,11 +78,7 @@ const AnimalInputField = () => {
 						},
 					}}
 				>
-					<button
-						// onClick={animalPageRedirect}
-						className={inputStyles.inputLocation}
-						type="submit"
-					>
+					<button className={inputStyles.inputLocation} type="submit">
 						Search for shelters
 					</button>
 				</Link>

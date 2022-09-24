@@ -80,8 +80,10 @@ const IndividualAnimalCarousel = ({ result }) => {
 				</div>
 			</div>
 		);
-	} else {
+	} else if (isloading && carouselAnimals.length > 1) {
 		return <div>loading</div>;
+	} else {
+		return <></>;
 	}
 };
 export default IndividualAnimalCarousel;

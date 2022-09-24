@@ -14,8 +14,6 @@ import DisplayTags from '../../../components/singleAnimalComponents/DisplayTags'
 import DisplayAnimalContactInformation from '../../../components/singleAnimalComponents/DisplayAnimalContactInformation';
 import pageStyles from '../../../styles/IndividualAnimalPage.module.css';
 
-// Router can display route parameter(animal id)
-
 const AnimalDetails = () => {
 	const token = useContext(PetFinderAuthContext);
 	const router = useRouter();
@@ -26,10 +24,6 @@ const AnimalDetails = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [isValidRequest, setIsValidRequest] = useState(false);
 
-	// Route animalID specified by filename [animalID]
-
-	// return obj, empty during pre-rendering if does not use server side rendering
-
 	const htmlDecode = (content) => {
 		let div = document.createElement('div');
 		div.innerHTML = content;
@@ -38,7 +32,7 @@ const AnimalDetails = () => {
 
 	useEffect(() => {
 		const animalId = router.query.animalID;
-		console.log(animalId);
+		// console.log(animalId);
 		if (token === null) return;
 
 		try {
@@ -55,7 +49,7 @@ const AnimalDetails = () => {
 					setIsValidRequest(false);
 					return;
 				}
-				console.log(animalData);
+				// console.log(animalData);
 
 				const animalDataJson = await animalData.json();
 
@@ -70,7 +64,7 @@ const AnimalDetails = () => {
 			console.error(error);
 		}
 	}, [token, router.query]);
-	console.log(result);
+	// console.log(result);
 
 	if (!isLoading && isValidRequest) {
 		return (
