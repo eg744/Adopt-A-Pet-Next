@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CarouselStyles from '../../styles/Carousel.module.css';
+// import CarouselStyles from '../../styles/IndividualAnimalPage.module.css';
 import IndividualAnimalImages from '../imgComponents/IndividualAnimalImages';
 
 const IndividualAnimalCarousel = ({ result }) => {
@@ -8,7 +9,6 @@ const IndividualAnimalCarousel = ({ result }) => {
 	const [carouselAnimals, setCarouselAnimals] = useState([]);
 
 	useEffect(() => {
-		console.log('caro', result);
 		const getCarousel = () => {
 			// think about pushing array of photos instead of entire animal
 			const selectedAnimal = [];
@@ -44,7 +44,7 @@ const IndividualAnimalCarousel = ({ result }) => {
 		setCurrentIndex(newIndex);
 	};
 
-	if (!isloading) {
+	if (!isloading && carouselAnimals.length > 1) {
 		return (
 			<div>
 				<div className={CarouselStyles.container}>
@@ -61,7 +61,19 @@ const IndividualAnimalCarousel = ({ result }) => {
 						>
 							⇦
 						</div>
-						{/* Passing/rendering single animal in validated array */}
+
+						<IndividualAnimalImages
+							result={result.photos[currentIndex].full}
+						/>
+					</div>
+				</div>
+			</div>
+		);
+	} else if (!isloading) {
+		return (
+			<div>
+				<div className={CarouselStyles.container}>
+					<div className={CarouselStyles.slider}>
 						<IndividualAnimalImages
 							result={result.photos[currentIndex].full}
 						/>

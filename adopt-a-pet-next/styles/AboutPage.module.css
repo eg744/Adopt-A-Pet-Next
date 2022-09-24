@@ -1,0 +1,10 @@
+.aboutSection{
+    font-size: 1.5rem;
+    background-color:rgb(177, 200, 219);
+}
+.aboutSection p{
+    padding: 1.5rem;
+}
+.aboutSection p :hover{
+    color: #0070f3;
+}

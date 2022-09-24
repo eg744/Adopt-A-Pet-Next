@@ -10,6 +10,7 @@ import { petfinderUrls } from '../../../URLs/petfinderurls';
 import IndividualAnimalCarousel from '../../../components/carouselComponents/IndividualAnimalCarousel';
 import IndividualAnimalImages from '../../../components/imgComponents/IndividualAnimalImages';
 import AnimalTags from '../../../components/singleAnimalComponents/AnimalTags';
+import pageStyles from '../../../styles/IndividualAnimalPage.module.css';
 
 // Router can display route parameter(animal id)
 
@@ -71,23 +72,23 @@ const AnimalDetails = () => {
 
 	if (!isLoading && isValidRequest) {
 		return (
-			<div>
+			<div className={pageStyles.animalContainer}>
 				<div>
 					<p>ID: {result.id}</p>
 					<p>Organization: {result.organization_id}</p>
 				</div>
 				<div>
 					<IndividualAnimalCarousel result={result} />
-					{/* <IndividualAnimalImages result={result} /> */}
 
 					<h1>{result.name}</h1>
 					<div
+						className={pageStyles.description}
 						dangerouslySetInnerHTML={{
 							__html: htmlDecode(result.description),
 						}}
 					></div>
 					<div>
-						<p>{result.name} is:</p>
+						<h3>{result.name} is:</h3>
 						<ul>
 							{result.tags.map((tag, index) => (
 								<AnimalTags key={index} tag={tag} />
@@ -98,10 +99,14 @@ const AnimalDetails = () => {
 
 				<div>
 					<h2>Contact Information:</h2>
-					<p>Email: {result.contact.email}</p>
-					<p>Phone: {result.contact.phone}</p>
+					<p>
+						Email: <div>{result.contact.email}</div>
+					</p>
+					<p>
+						Phone: <div>{result.contact.phone}</div>
+					</p>
 				</div>
-				<div>
+				<div className={pageStyles.externalLink}>
 					{' '}
 					<a href={result.url}>View {result.name} on Petfinder </a>
 				</div>

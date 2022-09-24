@@ -1,8 +1,9 @@
 import React from 'react';
+import AboutPage from '../styles/AboutPage.module.css';
 
 const aboutPage = () => {
 	return (
-		<div>
+		<div className={AboutPage.aboutSection}>
 			<p>
 				<a href="https://github.com/eg744/Adopt-A-Pet-Next">
 					Adopt-A-Pet by Elijah Gillit
