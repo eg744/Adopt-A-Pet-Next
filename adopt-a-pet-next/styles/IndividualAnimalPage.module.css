@@ -1,0 +1,31 @@
+.animalContainer{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.5rem;
+    flex-direction: column;
+}
+.description{
+    padding: 1rem;
+}
+
+.animalContainer p{
+    margin: .5rem;
+    padding: .5rem;
+}
+.animalContainer ul{
+    margin: .25rem;
+    padding: .25rem;
+}
+.animalContainer li{
+
+    list-style:inside;
+}
+.externalLink{
+    /* text-emphasis:inherit */
+    font-weight: bold;
+}
+
+.externalLink :hover{
+    color: #0070f3;
+    border-color: #0070f3;
+}

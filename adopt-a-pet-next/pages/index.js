@@ -61,8 +61,9 @@ export default function Home() {
 			};
 
 			fetchAnimals();
-			console.log('index results', results);
-			console.log('useref', retrievedPets);
+			// Results needed in dependency array?
+			// console.log('index results', results);
+			// console.log('useref', retrievedPets);
 		} catch (error) {
 			//
 			console.error(error);

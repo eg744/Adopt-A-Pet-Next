@@ -12,6 +12,7 @@ body {
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
    background: linear-gradient( rgb(227, 224, 228), rgb(203, 203, 216)) ;
+   overflow-x: hidden;
 }
 
 a {

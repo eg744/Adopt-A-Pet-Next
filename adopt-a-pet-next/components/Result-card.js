@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import cardStyles from '../styles/Card.module.css';
 
-// import htmlDecode from './cardComponents/HtmlDecoder';
+// import htmlDecode from './cardComponents/htmldecoder';
 
 import AnimalImage from './cardComponents/AnimalImage';
 
@@ -13,7 +13,6 @@ const Card = (props) => {
 	// Retrieved data
 	const router = useRouter();
 	const { result } = props;
-	// TODO: link for individual animal in /animal/[animalID] based on result.id
 
 	function htmlDecode(content) {
 		let div = document.createElement('div');

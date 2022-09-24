@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import CarouselStyles from '../../styles/Carousel.module.css';
-import FeaturedPets from '../FeaturedPets';
+// import CarouselStyles from '../../styles/IndividualAnimalPage.module.css';
+import IndividualAnimalImages from '../imgComponents/IndividualAnimalImages';
 
-const Carousel = ({ results }) => {
+const IndividualAnimalCarousel = ({ result }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isloading, setIsloading] = useState(true);
 	const [carouselAnimals, setCarouselAnimals] = useState([]);
 
 	useEffect(() => {
 		const getCarousel = () => {
-			const animals = [];
-			results.map((result) => {
-				if (
-					result.photos[0] &&
-					result.photos[0].full &&
-					result.name &&
-					result.url
-				) {
-					animals.push(result);
+			// think about pushing array of photos instead of entire animal
+			const selectedAnimal = [];
+
+			if (result.photos[0] && result.photos[0].full) {
+				for (const image of result.photos) {
+					selectedAnimal.push(image);
 				}
-			});
-			if (animals.length >= 1) {
+			}
+			console.log(selectedAnimal);
+
+			if (selectedAnimal.length >= 1) {
 				setIsloading(false);
 			}
-			return animals;
+			return selectedAnimal;
 		};
 		const animals = getCarousel();
 		setCarouselAnimals(animals);
 		// console.log('carousel', carouselAnimals);
-	}, [results]);
-
-	// show groups of 4?
+	}, [result]);
 
 	const gotoPrevious = () => {
 		const isFirst = currentIndex === 0;
@@ -46,7 +44,7 @@ const Carousel = ({ results }) => {
 		setCurrentIndex(newIndex);
 	};
 
-	if (!isloading) {
+	if (!isloading && carouselAnimals.length > 1) {
 		return (
 			<div>
 				<div className={CarouselStyles.container}>
@@ -63,8 +61,22 @@ const Carousel = ({ results }) => {
 						>
 							⇦
 						</div>
-						{/* Passing/rendering single animal in validated array */}
-						<FeaturedPets result={carouselAnimals[currentIndex]} />
+
+						<IndividualAnimalImages
+							result={result.photos[currentIndex].full}
+						/>
+					</div>
+				</div>
+			</div>
+		);
+	} else if (!isloading) {
+		return (
+			<div>
+				<div className={CarouselStyles.container}>
+					<div className={CarouselStyles.slider}>
+						<IndividualAnimalImages
+							result={result.photos[currentIndex].full}
+						/>
 					</div>
 				</div>
 			</div>
@@ -73,4 +85,4 @@ const Carousel = ({ results }) => {
 		return <div>loading</div>;
 	}
 };
-export default Carousel;
+export default IndividualAnimalCarousel;

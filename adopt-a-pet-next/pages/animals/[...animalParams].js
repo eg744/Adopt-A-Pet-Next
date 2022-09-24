@@ -5,74 +5,89 @@ import { petfinderUrls } from '../../URLs/petfinderurls';
 import { PetFinderAuthContext } from '../_app';
 import AnimalInputField from '../../components/userInputs/AnimalInputField';
 import ResultPage from '../../components/Result-page';
-import loadingAnimalPage from '../../components/pageComponents/animalPageComponents/loadingAnimalPage';
+import PaginationButtons from '../../components/pageComponents/PaginationButtons';
+import pageStyles from '../../styles/AnimalResultPage.module.css';
+// import loadingAnimalPage from '../../components/pageComponents/animalPageComponents/loadingAnimalPage';
 
 const Slug = () => {
 	const router = useRouter();
 	const token = useContext(PetFinderAuthContext);
 
-	// const animalType = router.query.animalTypes;
-	// const animalBreed = router.query.animalBreed;
-	// const location = router.query.location;
-	const { animalType, animalBreed, location } = router.query;
-
 	const [isLoading, setIsLoading] = useState(true);
+	const [data, setData] = useState(null);
+
 	const [results, setResults] = useState([]);
-	// const [currentQuery, setCurrentQuery] = useState([]);
+
 	const [isValidRequest, setIsValidRequest] = useState(false);
 	const [error, setError] = useState(null);
-	const [page, setPage] = useState(1);
 
-	console.log('slugroute', router);
-	const getValidQueries = () => {
-		const currentRoutes = [];
-
-		for (let key in router.query) {
-			// No empty/undefined params. Can accept many valid query params
-			if (router.query.hasOwnProperty(key)) {
-				if (
-					typeof router.query[key] === 'string' &&
-					router.query[key] !== '' &&
-					router.query[key] !== 'any'
-				) {
-					currentRoutes.push({
-						key: key,
-						value: router.query[key],
-					});
-				}
-			}
-		}
-
-		return currentRoutes;
-	};
+	const [currentValidQuery, setCurrentValidQuery] = useState(null);
 
 	useEffect(() => {
-		const queryUrl = () => {
+		const getValidQueries = () => {
+			const currentRoutes = [];
+
+			for (let key in router.query) {
+				// No empty/undefined params. Can accept many valid query params
+				if (router.query.hasOwnProperty(key)) {
+					if (
+						typeof router.query[key] === 'string' &&
+						router.query[key] !== '' &&
+						router.query[key] !== 'any'
+					) {
+						currentRoutes.push({
+							key: key,
+							value: router.query[key],
+						});
+					}
+				}
+			}
+
+			// combined 2 functions here. both necessary in useeffect without unecessary dependencies.
 			let pfUrl = petfinderUrls.animals;
-			const queries = getValidQueries();
-			queries.map((query) => {
+
+			currentRoutes.map((query) => {
 				pfUrl += `${query.key}` + '=' + `${query.value}` + '&';
 			});
 
-			return pfUrl;
+			setCurrentValidQuery(pfUrl);
 		};
-		const myQuery = queryUrl();
+		getValidQueries();
+	}, [router.query]);
 
+	const handleNextPageChange = () => {
+		const nextPage = data.pagination._links.next.href;
+
+		const newAnimalPage = petfinderUrls.default + nextPage;
+		console.log('nextpage', newAnimalPage);
+		setCurrentValidQuery(newAnimalPage);
+	};
+
+	const handlePreviousPageChange = () => {
+		const previousPage = data.pagination._links.previous.href;
+
+		const newAnimalPage = petfinderUrls.default + previousPage;
+		setCurrentValidQuery(newAnimalPage);
+	};
+
+	useEffect(() => {
 		if (token === null) return;
 		try {
 			const fetchAnimals = async () => {
-				const animalData = await fetch(myQuery, {
+				const animalData = await fetch(currentValidQuery, {
 					headers: {
 						Authorization: `Bearer ${token}`,
 					},
 				});
 				if (animalData.status !== 200) {
 					setIsValidRequest(false);
+					setIsLoading(false);
 					return;
 				}
-				console.log(animalData);
 
 				const animalDataJson = await animalData.json();
+				setData(animalDataJson);
+
 				// console.log(animalDataJson);
 				const filteredAnimals = [];
 				animalDataJson.animals.map((animal) => {
@@ -96,7 +111,7 @@ const Slug = () => {
 			setError(error);
 			console.error(error);
 		}
-	}, [token, router.query, isValidRequest]);
+	}, [token, currentValidQuery]);
 
 	// Might want something like this to clean up jsx
 	// const PageText = (text) => {
@@ -108,24 +123,28 @@ const Slug = () => {
 	// 	);
 	// };
 
-	// Look at different ways of conditionally rendering. This if/else chain is functional but ugly.
-	if (!isValidRequest) {
+	// Look at different ways of conditionally rendering. This if/else chain is functional but I don't like it.
+	if (!isValidRequest && !isLoading) {
 		return (
 			<div>
-				<h1>Not a valid request. Please search for something else</h1>
+				<h1 className={pageStyles.searchResultHeader}>
+					Not a valid request. Please search for something else.
+				</h1>
 				<AnimalInputField />
 			</div>
 		);
 	} else if (isLoading) {
 		return (
 			<div>
-				<h1>Loading...</h1>
+				<h1 className={pageStyles.searchResultHeader}>Loading...</h1>
 			</div>
 		);
 	} else if (!isLoading && results.length < 1) {
 		return (
 			<div>
-				<h1>No results found for your search. Please search again</h1>
+				<h1 className={pageStyles.searchResultHeader}>
+					No results found for your search. Please search again.
+				</h1>
 				<AnimalInputField />
 			</div>
 		);
@@ -134,9 +153,16 @@ const Slug = () => {
 			<div>
 				<AnimalInputField />
 
-				<h1>Animals matching your search</h1>
+				<h1 className={pageStyles.searchResultHeader}>
+					Animals matching your search:
+				</h1>
 
 				<ResultPage results={results} />
+				<PaginationButtons
+					data={data}
+					handleNextPageChange={handleNextPageChange}
+					handlePreviousPageChange={handlePreviousPageChange}
+				/>
 			</div>
 		);
 	}

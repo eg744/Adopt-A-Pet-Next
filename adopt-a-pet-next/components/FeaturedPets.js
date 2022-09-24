@@ -7,19 +7,11 @@ import featuredStyles from '../styles/FeaturedPets.module.css';
 import AnimalImage from './cardComponents/AnimalImage.js';
 
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { petfinderUrls } from '../URLs/petfinderurls';
 
 const FeaturedPets = ({ result }) => {
-	const router = useRouter();
 	console.log('featured result', result);
 
-	const individualAnimalRedirect = () => {
-		router.push({
-			pathName: '/animals/animal/[animalID]',
-			query: { animalID: `${result.id}` },
-		});
-	};
 	return (
 		<div className={featuredStyles.card}>
 			<a href={result.url}>View {result.name} on Petfinder</a>
@@ -41,8 +33,6 @@ const FeaturedPets = ({ result }) => {
 						</p>
 					</a>
 				</Link>
-
-				{/* <p>{result.name}</p> */}
 
 				{/* if i want description <div
 				dangerouslySetInnerHTML={{
