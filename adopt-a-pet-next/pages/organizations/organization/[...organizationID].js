@@ -1,10 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
-import { petfinderUrls } from '../../URLs/petfinderurls';
-import { PetFinderAuthContext } from '../_app';
-import ResultPage from '../../components/Result-page';
+import { petfinderUrls } from '../../../URLs/petfinderurls';
+import { PetFinderAuthContext } from '../../_app';
+import ResultPage from '../../../components/Result-page';
 
-import ShelterInputField from '../../components/userInputs/ShelterInputField';
+import ShelterInputField from '../../../components/userInputs/ShelterInputField';
 
 const OrganizationID = () => {
 	const token = useContext(PetFinderAuthContext);

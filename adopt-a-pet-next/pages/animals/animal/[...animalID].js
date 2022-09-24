@@ -9,10 +9,10 @@ import { petfinderUrls } from '../../../URLs/petfinderurls';
 
 import IndividualAnimalCarousel from '../../../components/carouselComponents/IndividualAnimalCarousel';
 import IndividualAnimalImages from '../../../components/imgComponents/IndividualAnimalImages';
-import AnimalTags from '../../../components/singleAnimalComponents/AnimalTags';
+// import AnimalTags from '../../../components/singleAnimalComponents/AnimalTags';
+import DisplayTags from '../../../components/singleAnimalComponents/DisplayTags';
+import DisplayAnimalContactInformation from '../../../components/singleAnimalComponents/DisplayAnimalContactInformation';
 import pageStyles from '../../../styles/IndividualAnimalPage.module.css';
-
-// Router can display route parameter(animal id)
 
 const AnimalDetails = () => {
 	const token = useContext(PetFinderAuthContext);
@@ -24,10 +24,6 @@ const AnimalDetails = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [isValidRequest, setIsValidRequest] = useState(false);
 
-	// Route animalID specified by filename [animalID]
-
-	// return obj, empty during pre-rendering if does not use server side rendering
-
 	const htmlDecode = (content) => {
 		let div = document.createElement('div');
 		div.innerHTML = content;
@@ -36,7 +32,7 @@ const AnimalDetails = () => {
 
 	useEffect(() => {
 		const animalId = router.query.animalID;
-		console.log(animalId);
+		// console.log(animalId);
 		if (token === null) return;
 
 		try {
@@ -53,7 +49,7 @@ const AnimalDetails = () => {
 					setIsValidRequest(false);
 					return;
 				}
-				console.log(animalData);
+				// console.log(animalData);
 
 				const animalDataJson = await animalData.json();
 
@@ -68,15 +64,11 @@ const AnimalDetails = () => {
 			console.error(error);
 		}
 	}, [token, router.query]);
-	console.log(result);
+	// console.log(result);
 
 	if (!isLoading && isValidRequest) {
 		return (
 			<div className={pageStyles.animalContainer}>
-				<div>
-					<p>ID: {result.id}</p>
-					<p>Organization: {result.organization_id}</p>
-				</div>
 				<div>
 					<IndividualAnimalCarousel result={result} />
 
@@ -88,27 +80,33 @@ const AnimalDetails = () => {
 						}}
 					></div>
 					<div>
-						<h3>{result.name} is:</h3>
+						<DisplayTags result={result} />
+						{/* <h3>{result.name} is:</h3>
 						<ul>
 							{result.tags.map((tag, index) => (
 								<AnimalTags key={index} tag={tag} />
 							))}
-						</ul>
+						</ul> */}
 					</div>
 				</div>
 
 				<div>
-					<h2>Contact Information:</h2>
+					<DisplayAnimalContactInformation result={result} />
+					{/* <h2>Contact Information:</h2>
 					<p>
 						Email: <div>{result.contact.email}</div>
 					</p>
 					<p>
 						Phone: <div>{result.contact.phone}</div>
-					</p>
+					</p> */}
 				</div>
 				<div className={pageStyles.externalLink}>
 					{' '}
 					<a href={result.url}>View {result.name} on Petfinder </a>
+				</div>
+				<div>
+					<p>ID: {result.id}</p>
+					<p>Organization: {result.organization_id}</p>
 				</div>
 			</div>
 		);

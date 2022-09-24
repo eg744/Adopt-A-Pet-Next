@@ -41,7 +41,7 @@ const OrganizationIndex = () => {
 
 	return (
 		<div>
-			<h1>Search for animal shelters in your area</h1>
+			<h1>org list</h1>
 			<ShelterInputField />
 		</div>
 	);

@@ -29,7 +29,7 @@ const Card = (props) => {
 
 	return (
 		<div className={cardStyles.card}>
-			<a href={result.url}>View {result.name} on Petfinder</a>
+			{/* <a href={result.url}>View {result.name} on Petfinder</a> */}
 			<div>
 				<Link
 					href={{

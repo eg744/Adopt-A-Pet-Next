@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { petfinderUrls } from '../URLs/petfinderurls';
 
 const FeaturedPets = ({ result }) => {
-	console.log('featured result', result);
+	// console.log('featured result', result);
 
 	return (
 		<div className={featuredStyles.card}>

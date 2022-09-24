@@ -1,116 +1,90 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Select from 'react-select';
 import { PetFinderAuthContext } from '../../pages/_app';
 import { petfinderUrls } from '../../URLs/petfinderurls';
+import inputStyles from '../../styles/AnimalInput.module.css';
 
-const ShelterInputField = () => {
+const AnimalInputField = () => {
 	const token = useContext(PetFinderAuthContext);
 
-	const [petTypesAvailable, setPetTypesAvailable] = useState([]);
-	const [currentAnimalType, setCurrentAnimalType] = useState('');
-	const [currentAnimalBreed, setCurrentAnimalBreed] = useState('');
-
-	const [availableAnimalBreeds, setAvailableAnimalBreeds] = useState([]);
+	const router = useRouter();
 
 	const [isSelected, setIsSelected] = useState(false);
+	const [organizationsAvailable, setOrganizationsAvailable] = useState([]);
 
-	const [isValidSelection, setIsValidSelection] = useState(false);
-	const [queryUrl, setQueryUrl] = useState('');
-
-	const [zipcode, setZipcode] = useState('');
+	const [requestRedirect, setRequestRedirect] = useState(false);
+	const [linkPathName, setLinkPathName] = useState('/animals');
+	const [location, setLocation] = useState('');
 
 	// useEffect(() => {
 	// 	if (token === null) return;
-	// 	const fetchPetTypeOptions = async () => {
-	// 		const animalTypes = await fetch(`${petfinderUrls.organizations}`, {
+	// 	const fetchOrganizations = async () => {
+	// 		const returnedOrgs = await fetch(`${petfinderUrls.organizations}`, {
 	// 			headers: {
 	// 				Authorization: `Bearer ${token}`,
 	// 			},
 	// 		});
-	// 		const animalTypeArray = [];
-	// 		const animalTypesJson = await animalTypes.json();
-	// 		// React-select options for Animal type
-	// 		animalTypesJson.types.map((type, index) => {
-	// 			animalTypeArray.push({
-	// 				label: type.name,
-	// 				value: type.name.toLowerCase(),
-	// 				key: index,
-	// 			});
-	// 		});
-	// 		setPetTypesAvailable(animalTypeArray);
+	// 		const orgs = [];
+	// 		const returnedOrgsJson = await returnedOrgs.json();
+
 	// 	};
 
-	// 	fetchPetTypeOptions();
+	// 	fetchOrganizations();
 	// }, [token]);
 
-	// Check for any errors, set flag
-	const inputValid = (zip) => {
-		const isValidUSZipcode = new RegExp(/(^\d{5}$)|(^\d{5}-\d{4}$)/);
-		let valid = true;
-
-		if (isValidUSZipcode.test(zip)) {
-			setZipcode(zip);
-		}
-
-		return valid;
+	const handleLocationChange = (event) => {
+		const location = event.target.value;
+		setLocation(location);
 	};
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		console.log('entered', event.target.value);
+	// const organizationPageRedirect = (event) => {
+	// 	event.preventDefault();
+	// 	router.push({
+	// 		pathname: `/organizations/[organizationList]`,
 
-		if (inputValid(event.target.value)) {
-			console.log('submitting', event.target.value);
-		}
-	};
-
-	const handleChange = (event) => {
-		// form's input name, event.target.value = entered value
-
-		console.log(zipcode);
-	};
-
-	const getshelterURL = (event) => {
-		return `${
-			petfinderUrls.organizations
-		}${event.value.toLowerCase()}/breeds`;
-	};
+	// 		query: {
+	// 			location: location,
+	// 		},
+	// 	});
+	// };
 
 	return (
 		<div>
-			<form className="shelter" onSubmit={handleSubmit}>
-				<label htmlFor="zip">Please enter Zip code</label>
+			<form
+				className={inputStyles.animalInput}
+				// onSubmit={organizationPageRedirect}
+			>
+				<p className={inputStyles.inputHeader}>
+					Search for shelters and organizations in your area
+				</p>
+
 				<input
-					className="zip"
-					// value={zipcode}
-					placeholder="XXXXX"
-					type="text"
-					name="zip"
-					id="zip"
-					// onChange={handleChange}
-				/>
-				<input
-					className="search"
-					// value={zipcode}
-					placeholder="search"
+					className={inputStyles.inputLocation}
+					placeholder="Please enter location (city, state, or ZIP)..."
 					type="text"
 					name="search"
 					id="search"
-					// onChange={handleChange}
+					onChange={handleLocationChange}
 				/>
 
 				<Link
 					href={{
-						// Add path, look for org structure
-						pathname: `/organizations/`,
+						pathname: `/organizations/[organizationList]`,
+
+						query: {
+							location: location,
+						},
 					}}
 				>
-					<button type="submit">Search for shelters</button>
+					<button className={inputStyles.inputLocation} type="submit">
+						Search for shelters
+					</button>
 				</Link>
 			</form>
 		</div>
 	);
 };
 
-export default ShelterInputField;
+export default AnimalInputField;
