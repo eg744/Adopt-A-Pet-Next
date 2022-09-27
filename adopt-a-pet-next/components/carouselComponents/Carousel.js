@@ -7,6 +7,8 @@ const Carousel = ({ results }) => {
 	const [isloading, setIsloading] = useState(true);
 	const [carouselAnimals, setCarouselAnimals] = useState([]);
 
+	// thinking of re-doing this carousel component. get array of the valid animals and display them all on the page, the parent div will only be partially visible but moves on click?
+
 	useEffect(() => {
 		const getCarousel = () => {
 			const animals = [];

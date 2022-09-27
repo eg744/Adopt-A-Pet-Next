@@ -49,6 +49,7 @@ const Slug = () => {
 			currentRoutes.map((query) => {
 				pfUrl += `${query.key}` + '=' + `${query.value}` + '&';
 			});
+			// limit={default: 20}
 
 			setCurrentValidQuery(pfUrl);
 		};
