@@ -3,5 +3,6 @@ export const petfinderUrls = {
 	animal: 'https://api.petfinder.com/v2/animals/',
 	animals: 'https://api.petfinder.com/v2/animals?',
 	types: 'https://api.petfinder.com/v2/types/',
-	organizations: 'https://api.petfinder.com/v2/organizations/',
+	organization: 'https://api.petfinder.com/v2/organizations/',
+	organizations: 'https://api.petfinder.com/v2/organizations?',
 };

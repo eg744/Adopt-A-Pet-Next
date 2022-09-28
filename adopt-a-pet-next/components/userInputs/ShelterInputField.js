@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Select from 'react-select';
 import { PetFinderAuthContext } from '../../pages/_app';
 import { petfinderUrls } from '../../URLs/petfinderurls';
@@ -9,14 +8,14 @@ import inputStyles from '../../styles/AnimalInput.module.css';
 const AnimalInputField = () => {
 	const token = useContext(PetFinderAuthContext);
 
-	const router = useRouter();
-
 	const [isSelected, setIsSelected] = useState(false);
 	const [organizationsAvailable, setOrganizationsAvailable] = useState([]);
 
 	const [requestRedirect, setRequestRedirect] = useState(false);
 	const [linkPathName, setLinkPathName] = useState('/animals');
 	const [location, setLocation] = useState('');
+
+	// Mostly just gets location, doesn't need to make calls but I might want it to do more in the future.
 
 	// useEffect(() => {
 	// 	if (token === null) return;

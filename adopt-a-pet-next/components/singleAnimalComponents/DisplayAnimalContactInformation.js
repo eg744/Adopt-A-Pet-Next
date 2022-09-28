@@ -7,12 +7,12 @@ const DisplayAnimalContactInformation = ({ result }) => {
 			// <div className={pageStyles.animalContainer}>
 			<div>
 				<h2>Contact Information:</h2>
-				<p>
+				<div>
 					Email: <div>{result.contact.email}</div>
-				</p>
-				<p>
+				</div>
+				<div>
 					Phone: <div>{result.contact.phone}</div>
-				</p>
+				</div>
 			</div>
 		);
 	} else {

@@ -1,6 +1,7 @@
 .container{
     display: flex;
     /* flex-flow: column; */
+    justify-content: center;
     width: 100%;
     height: 100%;
     margin: 0 auto;
@@ -16,8 +17,8 @@
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
-    left: 32px;
-    font-size: 45px;
+    left: 5px;
+    font-size: 4rem;
         color: rgb(93, 68, 161);
     /* outline: 1px solid #000; */
     z-index: 2;
@@ -29,8 +30,8 @@
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
-    right: 32px;
-    font-size: 45px;
+    right: 5px;
+    font-size: 4rem;
     color: rgb(93, 68, 161);
     z-index: 2;
     cursor: pointer;
