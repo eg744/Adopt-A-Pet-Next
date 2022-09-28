@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { petfinderUrls } from '../../../URLs/petfinderurls';
 
+import AnimalInputField from '../../../components/userInputs/AnimalInputField';
 import IndividualAnimalCarousel from '../../../components/carouselComponents/IndividualAnimalCarousel';
 import IndividualAnimalImages from '../../../components/imgComponents/IndividualAnimalImages';
 // import AnimalTags from '../../../components/singleAnimalComponents/AnimalTags';
@@ -17,7 +18,6 @@ import pageStyles from '../../../styles/IndividualAnimalPage.module.css';
 const AnimalDetails = () => {
 	const token = useContext(PetFinderAuthContext);
 	const router = useRouter();
-	const animalID = router.query;
 
 	const [error, setError] = useState(null);
 	const [result, setResult] = useState(null);
@@ -69,6 +69,7 @@ const AnimalDetails = () => {
 	if (!isLoading && isValidRequest) {
 		return (
 			<div className={pageStyles.animalContainer}>
+				<AnimalInputField />
 				<div>
 					<IndividualAnimalCarousel result={result} />
 
@@ -81,32 +82,30 @@ const AnimalDetails = () => {
 					></div>
 					<div>
 						<DisplayTags result={result} />
-						{/* <h3>{result.name} is:</h3>
-						<ul>
-							{result.tags.map((tag, index) => (
-								<AnimalTags key={index} tag={tag} />
-							))}
-						</ul> */}
 					</div>
 				</div>
 
 				<div>
 					<DisplayAnimalContactInformation result={result} />
-					{/* <h2>Contact Information:</h2>
-					<p>
-						Email: <div>{result.contact.email}</div>
-					</p>
-					<p>
-						Phone: <div>{result.contact.phone}</div>
-					</p> */}
 				</div>
+				<Link
+					href={{
+						pathname: `/organizations/organization/[organizationID]`,
+						query: {
+							organizationID: `${result.organization_id}`,
+						},
+					}}
+				>
+					<a className={pageStyles.internalLink}>
+						Organization or shelter: {result.organization_id}
+					</a>
+				</Link>
 				<div className={pageStyles.externalLink}>
 					{' '}
 					<a href={result.url}>View {result.name} on Petfinder </a>
 				</div>
 				<div>
 					<p>ID: {result.id}</p>
-					<p>Organization: {result.organization_id}</p>
 				</div>
 			</div>
 		);

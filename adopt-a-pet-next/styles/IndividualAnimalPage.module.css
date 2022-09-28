@@ -19,20 +19,38 @@
     padding: .5rem;
 }
 .animalContainer ul{
-    margin: .25rem;
-    padding: .25rem;
+    margin: .45rem;
+    padding: .45rem;
 }
 .animalContainer li{
 
     list-style:inside;
 }
-.externalLink{
-    /* text-emphasis:inherit */
+
+.tagContainer {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.internalLink {
+    margin: 1rem;
     font-size: 1.25rem;
     font-weight: bold;
 }
 
-.externalLink :hover{
+
+.externalLink{
+    /* text-emphasis:inherit */
+    margin: 1rem;
+    margin-bottom: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.externalLink :hover, 
+.internalLink :hover{
     color: #0070f3;
     border-color: #0070f3;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import orgStyles from '../../../styles/OrganizationPage.module.css';
 import OrgAddress from './OrgAddress';
 
@@ -6,9 +7,23 @@ const OrganizationResultCard = ({ result }) => {
 	console.log(result);
 	return (
 		<li className={orgStyles.listItem}>
-			<p className={orgStyles.listItem}>{`${result.name}`}</p>
+			<p className={orgStyles.orgName}>{`${result.name}`}</p>
 			<OrgAddress result={result} />
-			{/* <div>Address: {`${result.address.address1}`}</div> */}
+			<div>{result.phone}</div>
+			{/* <a href={result.website}>{result.website}</a> */}
+
+			<Link
+				href={{
+					pathname: `/organizations/organization/[organizationID]`,
+					query: { organizationID: `${result.id}` },
+				}}
+			>
+				<div className={orgStyles.shelterLink}>
+					<button className={orgStyles.shelterLink}>
+						View more information about this shelter
+					</button>
+				</div>
+			</Link>
 		</li>
 	);
 };
