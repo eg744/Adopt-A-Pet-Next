@@ -11,8 +11,8 @@ import pageStyles from '../../styles/AnimalResultPage.module.css';
 
 const OrganizationIndex = () => {
 	const token = useContext(PetFinderAuthContext);
-
 	const router = useRouter();
+
 	const [isValidRequest, setIsValidRequest] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [results, setResults] = useState([]);
@@ -83,9 +83,6 @@ const OrganizationIndex = () => {
 			console.error(error);
 		}
 	}, [token, currentValidQuery]);
-
-	// let nextPage;
-	// let previousPage;
 
 	const handleNextPageChange = () => {
 		const nextPage = data.pagination._links.next.href;

@@ -19,8 +19,6 @@ const AnimalInputField = () => {
 
 	const [isSelected, setIsSelected] = useState(false);
 
-	const [requestRedirect, setRequestRedirect] = useState(false);
-	const [linkPathName, setLinkPathName] = useState('/animals');
 	const [location, setLocation] = useState('');
 
 	// unsure about useref, potentially store arrays for pet types, breeds
@@ -49,13 +47,6 @@ const AnimalInputField = () => {
 
 		fetchPetTypeOptions();
 	}, [token]);
-
-	const handleSubmit = (event) => {
-		// Do not reload page/submit
-		event.preventDefault();
-		console.log('breed', currentAnimalBreed);
-		console.log('type', currentAnimalType);
-	};
 
 	const getPetOption = (url) => {
 		if (token === null) return;
@@ -145,7 +136,7 @@ const AnimalInputField = () => {
 				</p>
 				<Select
 					className={inputStyles.inputAnimalType}
-					autoFocus
+					// autoFocus (disabled-bad on mobile)
 					Value={`${currentAnimalType}`}
 					options={petTypesAvailable}
 					placeholder="Select animal type..."
