@@ -69,7 +69,6 @@ const OrganizationIndex = () => {
 				const shelterDataJson = await shelterData.json();
 				setData(shelterDataJson);
 
-				console.log('shelterdata', shelterDataJson);
 				// console.log(shelterDataJson.pagination._links.next);
 
 				setResults(shelterDataJson.organizations);
@@ -85,15 +84,17 @@ const OrganizationIndex = () => {
 		}
 	}, [token, currentValidQuery]);
 
-	const handleNextPageChange = () => {
-		const nextPage = results.pagination._links.next.href;
+	// let nextPage;
+	// let previousPage;
 
+	const handleNextPageChange = () => {
+		const nextPage = data.pagination._links.next.href;
 		const newOrganizationPage = petfinderUrls.default + nextPage;
 		setCurrentValidQuery(newOrganizationPage);
 	};
 
 	const handlePreviousPageChange = () => {
-		const previousPage = results.pagination._links.previous.href;
+		const previousPage = data.pagination._links.previous.href;
 
 		const newOrganizationPage = petfinderUrls.default + previousPage;
 		setCurrentValidQuery(newOrganizationPage);

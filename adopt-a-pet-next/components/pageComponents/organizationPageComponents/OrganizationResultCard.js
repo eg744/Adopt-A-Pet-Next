@@ -4,7 +4,7 @@ import orgStyles from '../../../styles/OrganizationPage.module.css';
 import OrgAddress from './OrgAddress';
 
 const OrganizationResultCard = ({ result }) => {
-	console.log(result);
+	// console.log(result);
 	return (
 		<li className={orgStyles.listItem}>
 			<p className={orgStyles.orgName}>{`${result.name}`}</p>
