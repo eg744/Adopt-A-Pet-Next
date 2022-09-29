@@ -25,7 +25,7 @@ const Slug = () => {
 
 	useEffect(() => {
 		const getValidQueries = () => {
-			const currentRoutes = [];
+			const currentAnimalRoute = [];
 
 			for (let key in router.query) {
 				// No empty/undefined params. Can accept many valid query params
@@ -35,7 +35,7 @@ const Slug = () => {
 						router.query[key] !== '' &&
 						router.query[key] !== 'any'
 					) {
-						currentRoutes.push({
+						currentAnimalRoute.push({
 							key: key,
 							value: router.query[key],
 						});
@@ -46,7 +46,7 @@ const Slug = () => {
 			// combined 2 functions here. both necessary in useeffect without unecessary dependencies.
 			let pfUrl = petfinderUrls.animals;
 
-			currentRoutes.map((query) => {
+			currentAnimalRoute.map((query) => {
 				pfUrl += `${query.key}` + '=' + `${query.value}` + '&';
 			});
 			// limit={default: 20}
