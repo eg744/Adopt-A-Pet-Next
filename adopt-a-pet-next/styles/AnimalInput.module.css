@@ -5,11 +5,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     /* align-items: center; */
     /* font-size: 1; */
     /* background: #f2f2f275; */
     background-color: rgb(193, 207, 207);
-    padding: 12px;
+    padding: 15px;
     border-radius: 3px;
     /* outline: 10px solid red; */
     
@@ -27,6 +28,9 @@
     z-index: 99;
     background: #f2f2f275;
     width: inherit;
+}
+.inputLocation{
+    width: 90%;
 }
    
 .inputAnimalType {
