@@ -5,8 +5,6 @@ import IndexHero from '../components/indexComponents/IndexHero';
 import { PetFinderAuthContext } from './_app';
 import React, { useState, useContext, useEffect, useRef } from 'react';
 
-import AnimalInputField from '../components/userInputs/AnimalInputField';
-
 import Carousel from '../components/carouselComponents/Carousel';
 
 import { petfinderUrls } from '../URLs/petfinderurls';
@@ -61,9 +59,6 @@ export default function Home() {
 			};
 
 			fetchAnimals();
-			// Results needed in dependency array?
-			// console.log('index results', results);
-			// console.log('useref', retrievedPets);
 		} catch (error) {
 			//
 			console.error(error);

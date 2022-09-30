@@ -2,82 +2,29 @@
 import Link from 'next/link';
 import ResultPage from '../../components/Result-page';
 import React, { useContext, useEffect, useState } from 'react';
-import { defaultHead } from 'next/head';
-import { PetFinderAuthContext } from '../_app';
+import Head from 'next/head';
 import AnimalInputField from '../../components/userInputs/AnimalInputField';
-import { petfinderUrls } from '../../URLs/petfinderurls';
-import { useRouter } from 'next/router';
+import BGImage from '../../components/imgComponents/BGImage';
+import animalsPageBanner from '../../public/assets/animalsPageBannerFull.jpg';
+import indexStyles from '../../styles/Home.module.css';
 
 const AnimalIndex = () => {
-	// might want to think about this https://stackoverflow.com/questions/64399034/how-can-i-reuse-the-api-data-for-all-the-pages-in-react-js
-
-	// look at this to reuse api call https://stackoverflow.com/questions/70116072/react-js-creating-a-reusable-component-to-get-api-data
-	// https://dev.to/rikurouvila/clean-and-reusable-data-fetching-in-react-components-165
-
-	// const [results, setResults] = useState(null);
-	// const [isloading, setIsloading] = useState(true);
-	// const [animalTypes, setAnimalTypes] = useState([]);
-	// const [currentPage, setCurrentPage] = useState(1);
-
-	// const router = useRouter();
-	// const query = router.query;
-	// const queriedAnimal = {
-	// 	type: query.type,
-	// 	breed: query.breed,
-	// };
-	// console.log('passed url', queriedAnimal);
-
-	// const token = useContext(PetFinderAuthContext);
-
-	// useEffect(() => {
-	// 	if (token === null) return;
-	// 	try {
-	// 		const fetchAnimals = async () => {
-	// 			const animalData = await fetch(
-	// 				``,
-
-	// 				// `https://api.petfinder.com/v2/animals?${petParams}`,
-
-	// 				{
-	// 					headers: {
-	// 						Authorization: `Bearer ${token}`,
-	// 					},
-	// 				}
-	// 			);
-	// 			const animalDataJson = await animalData.json();
-	// 			console.log(animalDataJson);
-	// 			setResults(animalDataJson.animals);
-	// 		};
-
-	// 		fetchAnimals();
-	// 		setIsloading(false);
-	// 	} catch (event) {
-	// 		//
-	// 	} finally {
-	// 	}
-	// }, [token]);
-
-	// if (results === null) return null;
-
 	return (
-		<div>
+		<div className={indexStyles.home_hero}>
+			<Head>
+				<title>Animals Page</title>
+				<meta
+					name="keywords"
+					content="pet adoption, adopt-a-pet, petfinder"
+				/>
+			</Head>
+			<BGImage
+				image={animalsPageBanner}
+				alt={'Kitten and puppy rolling around in grass'}
+			/>
+
 			<AnimalInputField />
-			{/* <ResultPage results={results}></ResultPage>; */}
 		</div>
 	);
 };
 export default AnimalIndex;
-
-// example getstaticprops (i cannot get it to work while i'm using getcontext for token)
-// function Users({ users }) {
-// 	// console.log(animals);
-
-// 	const posts = await response.json();
-// 	console.log('posts', posts);
-// 	return {
-// 		props: {
-// 			users: posts,
-// 		},
-// 	};
-// };
-// export default Users;

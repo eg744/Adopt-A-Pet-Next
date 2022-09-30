@@ -10,7 +10,6 @@ import { petfinderUrls } from '../../../URLs/petfinderurls';
 import AnimalInputField from '../../../components/userInputs/AnimalInputField';
 import IndividualAnimalCarousel from '../../../components/carouselComponents/IndividualAnimalCarousel';
 import IndividualAnimalImages from '../../../components/imgComponents/IndividualAnimalImages';
-// import AnimalTags from '../../../components/singleAnimalComponents/AnimalTags';
 import DisplayTags from '../../../components/singleAnimalComponents/DisplayTags';
 import DisplayAnimalContactInformation from '../../../components/singleAnimalComponents/DisplayAnimalContactInformation';
 import pageStyles from '../../../styles/IndividualAnimalPage.module.css';
