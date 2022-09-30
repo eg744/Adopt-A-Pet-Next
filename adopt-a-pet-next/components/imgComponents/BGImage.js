@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import adoptapetHeroBanner from '../../public/assets/adoptapetHeroBanner.png';
-// import adoptapetHeroBanner from '../../public/assets/adoptapetHeroBannerFull.jpg';
 import Image from 'next/image';
 import homeStyles from '../../styles/Home.module.css';
 
@@ -11,7 +9,7 @@ function getWindowDimensions() {
 	return { width, height };
 }
 
-const BGImage = () => {
+const BGImage = ({ image, alt }) => {
 	const [width, setWidth] = useState();
 	const [height, setHeight] = useState();
 
@@ -38,10 +36,11 @@ const BGImage = () => {
 		return (
 			<Image
 				className={homeStyles.banner_image}
-				src={adoptapetHeroBanner}
+				src={image}
 				priority="true"
 				layout="fill"
 				objectFit="cover"
+				// position="relative"
 				// width="6240"
 				// height="4160"
 				// width="100vw"
@@ -51,7 +50,7 @@ const BGImage = () => {
 				quality={100}
 				// Replace with blurred image while loading
 				// placeholder="blur"
-				alt="Dog and Cat lying next to each other."
+				alt={alt}
 			/>
 		);
 	}

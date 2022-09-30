@@ -135,6 +135,8 @@ const AnimalInputField = () => {
 					What kind of animal are you looking for?
 				</p>
 				<Select
+					id="animal-input-select"
+					instanceId="animal-input-select"
 					className={inputStyles.inputAnimalType}
 					// autoFocus (disabled-bad on mobile)
 					Value={`${currentAnimalType}`}
@@ -146,6 +148,8 @@ const AnimalInputField = () => {
 				{isSelected ? (
 					<>
 						<Select
+							id="animal-input-select"
+							instanceId="animal-input-select"
 							className={inputStyles.inputAnimalBreed}
 							options={availableAnimalBreeds}
 							placeholder={`Please select or search for ${currentAnimalType} breeds`}
