@@ -38,17 +38,6 @@ const AnimalInputField = () => {
 		setLocation(location);
 	};
 
-	// const organizationPageRedirect = (event) => {
-	// 	event.preventDefault();
-	// 	router.push({
-	// 		pathname: `/organizations/[organizationList]`,
-
-	// 		query: {
-	// 			location: location,
-	// 		},
-	// 	});
-	// };
-
 	return (
 		<div>
 			<form
