@@ -39,7 +39,7 @@ const AnimalInputField = () => {
 	};
 
 	return (
-		<div>
+		<div className={inputStyles.shelterContainer}>
 			<form
 				className={inputStyles.animalInput}
 				// onSubmit={organizationPageRedirect}

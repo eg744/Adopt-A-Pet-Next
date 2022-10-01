@@ -68,7 +68,7 @@ const StyledBurgerMenu = styled.div`
 	position: fixed;
 	top: 15px;
 	right: 20px;
-	z-index: 151;
+	z-index: 1001;
 	display: none;
 	cursor: pointer;
 	@media (max-width: 768px) {
