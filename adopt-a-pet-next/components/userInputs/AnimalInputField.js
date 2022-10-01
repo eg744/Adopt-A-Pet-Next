@@ -126,7 +126,7 @@ const AnimalInputField = () => {
 	// }
 
 	return (
-		<div>
+		<div className={inputStyles.selectionContainer}>
 			<form
 				className={inputStyles.animalInput}
 				onSubmit={animalPageRedirect}
