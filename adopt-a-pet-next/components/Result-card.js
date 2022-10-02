@@ -44,7 +44,9 @@ const Card = (props) => {
 							className={cardStyles.image}
 							result={result}
 						/>
-						<p>View {result.name}</p>
+						<p className={cardStyles.animalName}>
+							View {result.name}
+						</p>
 					</a>
 				</Link>
 
