@@ -12,14 +12,18 @@
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
-  /* min-height: 25rem; */
-  height: 30rem;
+  min-height: 32rem;
+  /* height: 30rem; */
   background-color: rgb(193, 207, 207);
   box-shadow: 0 2px 6px #0000001a;
   }
 
   .image{
-    border-radius: 5px;
+    border-radius: 10px;
+  }
+
+  .animalName{
+    font-size: 1px;
   }
   
   
@@ -38,10 +42,9 @@
   
   .card p {
     padding: 1rem;
-    margin: 0;
-    font-size: 1.5rem;
+    margin: 1;
+    font-size: 1.7rem;
     
-    /* border-radius: 1rem; */
     line-height: 1.5;
   }
 

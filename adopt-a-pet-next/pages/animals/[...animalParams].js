@@ -47,7 +47,11 @@ const Slug = () => {
 			let pfUrl = petfinderUrls.animals;
 
 			currentAnimalRoute.map((query) => {
-				pfUrl += `${query.key}` + '=' + `${query.value}` + '&';
+				pfUrl +=
+					`${query.key}` +
+					'=' +
+					validFurryScalesOther(`${query.value}`) +
+					'&';
 			});
 			// limit={default: 20}
 
@@ -56,11 +60,19 @@ const Slug = () => {
 		getValidQueries();
 	}, [router.query]);
 
+	// Regex to make valid request when animal type is 'small & furry', 'scales, fins, & other' to 'small-furry', 'scales-fins-other'
+	function validFurryScalesOther(string) {
+		let newString = string.replace(/\s/g, '');
+		newString = newString.replace(/&/g, '-');
+		newString = newString.replace(/,/g, '-');
+		return newString;
+	}
+
 	const handleNextPageChange = () => {
 		const nextPage = data.pagination._links.next.href;
 
 		const newAnimalPage = petfinderUrls.default + nextPage;
-		console.log('nextpage', newAnimalPage);
+
 		setCurrentValidQuery(newAnimalPage);
 	};
 
@@ -80,6 +92,8 @@ const Slug = () => {
 						Authorization: `Bearer ${token}`,
 					},
 				});
+				console.log('data', animalData);
+
 				if (animalData.status !== 200) {
 					setIsValidRequest(false);
 					setIsLoading(false);
@@ -89,7 +103,6 @@ const Slug = () => {
 				const animalDataJson = await animalData.json();
 				setData(animalDataJson);
 
-				// console.log(animalDataJson);
 				const filteredAnimals = [];
 				animalDataJson.animals.map((animal) => {
 					if (
