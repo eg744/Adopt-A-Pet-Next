@@ -13,7 +13,8 @@
     
 }
 .nextButton{
-    font-size: 1rem;
+    max-width: 100%;
+    font-size: inherit;
     /* display: flex; */
     /* flex-direction: row; */
     
@@ -23,6 +24,7 @@
 }
 
 .previousButton{
-    font-size: 1rem;
+    max-width: 100%;
+    font-size: inherit;
     justify-content: flex-start;
 }

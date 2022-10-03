@@ -43,9 +43,18 @@ const Card = (props) => {
 							className={cardStyles.image}
 							result={result}
 						/>
-						<p className={cardStyles.animalName}>
-							View {result.name}
-						</p>
+						<p
+							className={cardStyles.animalName}
+							dangerouslySetInnerHTML={{
+								__html: htmlDecode(`${result.name}`),
+							}}
+						/>
+						<div
+							className="animalDescription"
+							dangerouslySetInnerHTML={{
+								__html: htmlDecode(`${result.description}`),
+							}}
+						/>
 					</a>
 				</Link>
 			</div>
