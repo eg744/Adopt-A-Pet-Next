@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import HamburgerMenu from './HamburgerMenu';
 
 const Nav = () => {
+	const [showHamburger, setShowHamburger] = useState(false);
 	return (
 		<nav className={navStyles.nav}>
 			<Link href="/">
@@ -22,7 +23,11 @@ const Nav = () => {
 				</a>
 			</Link>
 
-			<HamburgerMenu />
+			<HamburgerMenu
+				onClickOutside={() => {
+					setShowHamburger(false);
+				}}
+			/>
 		</nav>
 	);
 };

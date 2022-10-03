@@ -10,6 +10,7 @@
     width: min(95%);
     margin-inline: auto;
     grid-template-columns: repeat(4, 1fr);
+    font-size: 1.1rem;
 }
 
 @media (min-width: 50em){
@@ -19,7 +20,13 @@
 }
 
 
+
+
 .image{
+    /* padding: 1rem; */
+    font-size: 1.7rem;
+    height: fit-content;
+    min-height: 15rem;
     display: flex;
     align-items: center;
     justify-content: center;

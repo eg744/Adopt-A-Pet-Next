@@ -23,7 +23,7 @@
     background-color: rgba(193, 207, 207, 50%);
     padding: 2rem;
     border-radius: 3px;
-    z-index: 998;
+    z-index: 999;
     /* outline: 10px solid red; */
     
 }
@@ -34,6 +34,7 @@
     width: inherit;
     padding: .1rem;
     margin: .01rem;
+    z-index: 999;
     
     
 }
@@ -48,7 +49,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 999;
+    /* z-index: 997; */
     background: #f2f2f275;
     width: inherit;
 }
