@@ -38,13 +38,16 @@ const Card = (props) => {
 						query: { animalID: `${result.id}` },
 					}}
 				>
-					{/* <a onClick={individualAnimalRedirect}> */}
 					<a>
 						<AnimalImage
 							className={cardStyles.image}
 							result={result}
 						/>
-						<p>View {result.name}</p>
+						<p
+							dangerouslySetInnerHTML={{
+								__html: htmlDecode(`View ${result.name}`),
+							}}
+						></p>
 					</a>
 				</Link>
 

@@ -82,6 +82,7 @@ const AnimalInputField = () => {
 		setCurrentAnimalType(event.value);
 
 		const breedURL = getPetBreedURL(event);
+		console.log(breedURL);
 		getPetOption(breedURL);
 
 		setIsSelected(true);
