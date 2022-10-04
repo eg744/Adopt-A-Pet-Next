@@ -20,29 +20,7 @@ const ShelterInputField = () => {
 
 	const [zipcode, setZipcode] = useState('');
 
-	// useEffect(() => {
-	// 	if (token === null) return;
-	// 	const fetchPetTypeOptions = async () => {
-	// 		const animalTypes = await fetch(`${petfinderUrls.organizations}`, {
-	// 			headers: {
-	// 				Authorization: `Bearer ${token}`,
-	// 			},
-	// 		});
-	// 		const animalTypeArray = [];
-	// 		const animalTypesJson = await animalTypes.json();
-	// 		// React-select options for Animal type
-	// 		animalTypesJson.types.map((type, index) => {
-	// 			animalTypeArray.push({
-	// 				label: type.name,
-	// 				value: type.name.toLowerCase(),
-	// 				key: index,
-	// 			});
-	// 		});
-	// 		setPetTypesAvailable(animalTypeArray);
-	// 	};
-
-	// 	fetchPetTypeOptions();
-	// }, [token]);
+	// == unused test input field, I don't need to validate all this myself for the most part ==
 
 	// Check for any errors, set flag
 	const inputValid = (zip) => {
