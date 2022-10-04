@@ -92,7 +92,6 @@ const Slug = () => {
 						Authorization: `Bearer ${token}`,
 					},
 				});
-				console.log('data', animalData);
 
 				if (animalData.status !== 200) {
 					setIsValidRequest(false);

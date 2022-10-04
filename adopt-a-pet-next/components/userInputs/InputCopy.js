@@ -13,16 +13,7 @@ import { Pet } from '../../helperClasses/petClass';
 
 // https://www.digitalocean.com/community/tutorials/react-react-autocomplete
 
-// This is functional component now
-// class InputField extends Component {
-// constructor(props) {
-// 	super(props);
-// 	this.state = {
-// 		animal: '',
-// 		location: '',
-// 		attributes: '',
-// 	};
-// }
+// == unused test input field, I don't need to validate all this myself for the most part ==
 
 const InputField = ({ petTypeArray }) => {
 	const initialLocationState = { state: '' };
@@ -123,11 +114,6 @@ const InputField = ({ petTypeArray }) => {
 		};
 		fetchAnimals();
 	}
-
-	// Call once on load
-	// useEffect(() => {
-	// 	getPetOption();
-	// });
 
 	function getURL(e) {
 		return `${petfinderUrls.types}${e.value.toLowerCase()}/breeds`;

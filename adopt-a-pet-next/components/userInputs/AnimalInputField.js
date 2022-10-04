@@ -80,17 +80,13 @@ const AnimalInputField = () => {
 	// I should try to consolidate into single HandleEvent, I'm ok with separate functions for now.
 	const handleTypeSelectChange = (event) => {
 		setCurrentAnimalType(event.value);
-
 		const breedURL = getPetBreedURL(event);
-		console.log(breedURL);
 		getPetOption(breedURL);
-
 		setIsSelected(true);
 	};
 
 	const handleBreedSelectChange = (event) => {
 		const breed = event.value;
-
 		setCurrentAnimalBreed(breed);
 	};
 

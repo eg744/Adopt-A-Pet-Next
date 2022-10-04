@@ -19,6 +19,12 @@ const OrganizationID = () => {
 	const [page, setPage] = useState(1);
 	const organizationId = router.query.organizationID;
 
+	const htmlDecode = (content) => {
+		let div = document.createElement('div');
+		div.innerHTML = content;
+		return div.childNodes.length === 0 ? '' : div.childNodes[0].nodeValue;
+	};
+
 	useEffect(() => {
 		if (token === null) return;
 		try {
@@ -51,8 +57,18 @@ const OrganizationID = () => {
 			<section className={pageStyles.animalContainer}>
 				<ShelterInputField />
 				<div>
-					<h1>{result.name}</h1>
-					<p>{result.mission_statement}</p>
+					<h1
+						dangerouslySetInnerHTML={{
+							__html: htmlDecode(result.name),
+						}}
+					/>
+
+					<p
+						dangerouslySetInnerHTML={{
+							__html: htmlDecode(result.mission_statement),
+						}}
+					/>
+
 					<IndividualAnimalCarousel result={result} />
 				</div>
 				<h2>Contact information:</h2>

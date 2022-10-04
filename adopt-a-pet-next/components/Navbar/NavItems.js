@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 import styled from 'styled-components';
+// Styled component, worked better for me with conditional style than the modules.
 
 const StyledUL = styled.ul`
 	padding: 18px;
