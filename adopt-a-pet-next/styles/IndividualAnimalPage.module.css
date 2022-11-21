@@ -1,56 +1,87 @@
-.animalContainer{
-    display: flex;
-    flex-wrap: wrap;
-    padding: 1.5rem;
-    /* justify-content: center; */
-    align-items: center;
-    flex-direction: column;
+.animalContainer {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 1.5rem;
+	/* justify-content: center; */
+	align-items: center;
+	flex-direction: column;
 }
-.animalContainer h1{
-    display: flex;
-    justify-content: center;
+.animalContainer h1 {
+	display: flex;
+	justify-content: center;
 }
-.description{
-    padding: 1rem;
+.animalName {
+	font-size: 4em;
+}
+.description {
+	padding: 1rem;
 }
 
-.animalContainer p{
-    margin: .5rem;
-    padding: .5rem;
+.animalContainer p {
+	margin: 0.5rem;
+	padding: 0.5rem;
 }
-.animalContainer ul{
-    margin: .45rem;
-    padding: .45rem;
+.animalContainer ul {
+	margin: 0.45rem;
+	padding: 0.45rem;
 }
-.animalContainer li{
-
-    list-style:inside;
+.animalContainer li {
+	list-style: inside;
 }
 
 .tagContainer {
-    font-size: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	font-size: 1.2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.internalLink,
+.externalLink {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .internalLink {
-    margin: 1rem;
-    font-size: 1.25rem;
-    font-weight: bold;
+	margin: 1rem;
+	font-size: 1.25rem;
+	font-weight: bold;
 }
 
-
-.externalLink{
-    /* text-emphasis:inherit */
-    margin: 1rem;
-    margin-bottom: 0;
-    font-size: 1.25rem;
-    font-weight: bold;
+.externalLink {
+	margin: 1rem;
+	margin-bottom: 0;
+	font-size: 1.25rem;
+	font-weight: bold;
 }
+.btn {
+	box-sizing: border-box;
 
-.externalLink :hover, 
-.internalLink :hover{
-    color: #0070f3;
-    border-color: #0070f3;
+	display: inline-block;
+	position: relative;
+	text-decoration: none;
+	font-weight: bold;
+	outline: none;
+	border-radius: 3em;
+	border: none;
+	gap: var(--gap);
+	user-select: none;
+	overflow: hidden;
+	cursor: pointer;
+	padding: 0.4em 1.5em;
+	border-bottom: 4px solid rgb(18, 25, 126);
+	background: linear-gradient(45deg, rgb(48, 27, 167), rgb(68, 44, 206));
+
+	color: #fff;
+}
+.btn a:hover {
+	transition: all 30ms ease-in-out;
+}
+.btn:active {
+	scale: 0.99;
+}
+.btn:hover,
+.btn:focus {
+	background: linear-gradient(45deg, rgb(25, 41, 129), rgb(49, 115, 214));
 }

@@ -72,7 +72,7 @@ const AnimalDetails = () => {
 				<div>
 					<IndividualAnimalCarousel result={result} />
 
-					<h1>{result.name}</h1>
+					<h1 className={pageStyles.animalName}>{result.name}</h1>
 					<div
 						className={pageStyles.description}
 						dangerouslySetInnerHTML={{
@@ -95,11 +95,13 @@ const AnimalDetails = () => {
 						},
 					}}
 				>
-					<a className={pageStyles.internalLink}>
+					<a
+						className={`${pageStyles.internalLink} ${pageStyles.btn}`}
+					>
 						Organization or shelter: {result.organization_id}
 					</a>
 				</Link>
-				<div className={pageStyles.externalLink}>
+				<div className={`${pageStyles.externalLink} ${pageStyles.btn}`}>
 					{' '}
 					<a href={result.url}>View {result.name} on Petfinder </a>
 				</div>

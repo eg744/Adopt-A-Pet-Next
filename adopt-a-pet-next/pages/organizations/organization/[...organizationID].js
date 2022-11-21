@@ -82,13 +82,19 @@ const OrganizationID = () => {
 							},
 						}}
 					>
-						<a>View animals at {result.name}</a>
-					</Link>
-					<div className={pageStyles.externalLink}>
-						<a href={result.url}>
-							View this organization on Petfinder
+						<a
+							className={`${pageStyles.internalLink} ${pageStyles.btn}`}
+							href={result.url}
+						>
+							View animals at {result.name}
 						</a>
-					</div>
+					</Link>
+					<a
+						className={`${pageStyles.internalLink} ${pageStyles.btn}`}
+						href={result.url}
+					>
+						View this organization on Petfinder
+					</a>
 				</div>
 			</section>
 		);

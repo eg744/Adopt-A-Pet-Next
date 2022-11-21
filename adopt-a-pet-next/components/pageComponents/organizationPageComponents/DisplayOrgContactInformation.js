@@ -4,7 +4,11 @@ import pageStyles from '../../../styles/IndividualAnimalPage.module.css';
 const DisplayAnimalContactInformation = ({ result }) => {
 	const Phone = ({ result }) => {
 		if (result.phone) {
-			return <div>Phone: {result.phone}</div>;
+			return (
+				<div className={pageStyles.externalLink}>
+					Phone: {result.phone}
+				</div>
+			);
 		}
 	};
 	const Website = ({ result }) => {
@@ -18,7 +22,11 @@ const DisplayAnimalContactInformation = ({ result }) => {
 	};
 	const Email = ({ result }) => {
 		if (result.email) {
-			return <div>Email: {result.email}</div>;
+			return (
+				<div className={pageStyles.externalLink}>
+					Email: {result.email}
+				</div>
+			);
 		}
 	};
 
